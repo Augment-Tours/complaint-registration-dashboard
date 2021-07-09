@@ -32,7 +32,7 @@ import SearchNotFound from '../components/SearchNotFound';
 import { UserListHead, UserListToolbar, UserMoreMenu } from '../components/_dashboard/user';
 //
 import USERLIST from '../_mocks_/user';
-import { getAllMuseums } from './request/museum';
+import { getAllMuseums, createMuseum } from './request/museum';
 // ----------------------------------------------------------------------
 
 const TABLE_HEAD = [
@@ -81,6 +81,10 @@ export default function Museum() {
   const [rowsPerPage, setRowsPerPage] = useState(5);
   const [isOpenFilter, setIsOpenFilter] = useState(false);
   const [museumList, setMuseumList] = useState([]);
+
+  const [museumName, setMuseumName] = useState('');
+  const [description, setDescription] = useState('');
+  const [imageUrl, setImageUrl] = useState('');
 
   useEffect(() => {
     const museumList = getAllMuseums(1).then((res) => {
@@ -271,15 +275,47 @@ export default function Museum() {
               <Icon icon={closeFill} width={20} height={20} />
             </IconButton>
           </Stack>
-          <TextField fullWidth label="Museum" style={{ marginBottom: '15px' }} />
-          <TextField fullWidth label="Description" style={{ marginBottom: '15px' }} />
-          <Button variant="contained" component="label" style={{ marginBottom: '40px' }}>
-            Upload File
-            <input type="file" hidden />
-          </Button>
+          <TextField
+            fullWidth
+            label="Museum"
+            onChange={(e) => {
+              setMuseumName(e.target.value);
+            }}
+            value={museumName}
+            style={{ marginBottom: '15px' }}
+          />
+          <TextField
+            fullWidth
+            label="Description"
+            style={{ marginBottom: '15px' }}
+            onChange={(e) => {
+              setDescription(e.target.value);
+            }}
+            value={description}
+          />
+          <TextField
+            fullWidth
+            label="Image URL"
+            style={{ marginBottom: '30px' }}
+            onChange={(e) => {
+              setImageUrl(e.target.value);
+            }}
+            value={imageUrl}
+          />
 
-          <Button variant="contained" component={RouterLink} to="#" onClick={toggleDrawer}>
-            Save
+          <Button
+            variant="contained"
+            component={RouterLink}
+            to="#"
+            onClick={() => {
+              createMuseum(museumName, description, imageUrl)
+                .then((res) => {
+                  console.log(res);
+                })
+                .catch((e) => console.log(e));
+            }}
+          >
+            Add
           </Button>
         </Drawer>
       </Container>

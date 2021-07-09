@@ -273,10 +273,7 @@ export default function Museum() {
           </Stack>
           <TextField fullWidth label="Museum" style={{ marginBottom: '15px' }} />
           <TextField fullWidth label="Description" style={{ marginBottom: '15px' }} />
-          <Button variant="contained" component="label" style={{ marginBottom: '40px' }}>
-            Upload File
-            <input type="file" hidden />
-          </Button>
+          <TextField fullWidth label="Image URL" style={{ marginBottom: '15px' }} />
 
           <Button variant="contained" component={RouterLink} to="#" onClick={toggleDrawer}>
             Save
