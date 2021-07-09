@@ -5,7 +5,7 @@
   "version": "1.0.0",
   "private": false,
   "scripts": {
-    "start": "react-scripts start",
+    "start": "PORT=3001 react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
@@ -48,6 +48,7 @@
     "@material-ui/utils": "^5.0.0-alpha.36",
     "@testing-library/jest-dom": "^5.14.1",
     "apexcharts": "^3.27.1",
+    "axios": "^0.21.1",
     "change-case": "^4.1.2",
     "date-fns": "^2.22.1",
     "faker": "^5.5.3",
@@ -81,6 +82,6 @@
     "eslint-plugin-prettier": "^3.4.0",
     "eslint-plugin-react": "^7.24.0",
     "eslint-plugin-react-hooks": "^4.2.0",
-    "prettier": "^2.3.1"
+    "prettier": "^2.3.2"
   }
 }

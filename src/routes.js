@@ -6,10 +6,13 @@ import LogoOnlyLayout from './layouts/LogoOnlyLayout';
 import Login from './pages/Login';
 import Register from './pages/Register';
 import DashboardApp from './pages/DashboardApp';
-import Products from './pages/Products';
+// import Products from './pages/Products';
 import Blog from './pages/Blog';
 import User from './pages/User';
 import NotFound from './pages/Page404';
+import Museum from './pages/Museum';
+import ARModel from './pages/Armodel';
+import TargetImage from './pages/TargetImage';
 
 // ----------------------------------------------------------------------
 
@@ -22,8 +25,10 @@ export default function Router() {
         { path: '/', element: <Navigate to="/dashboard/app" replace /> },
         { path: 'app', element: <DashboardApp /> },
         { path: 'user', element: <User /> },
-        { path: 'products', element: <Products /> },
-        { path: 'blog', element: <Blog /> }
+        { path: 'blog', element: <Blog /> },
+        { path: 'museums', element: <Museum /> },
+        { path: 'ar-models', element: <ARModel /> },
+        { path: 'target-images', element: <TargetImage /> }
       ]
     },
     {
