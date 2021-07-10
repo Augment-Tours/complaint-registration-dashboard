@@ -1,7 +1,7 @@
 import axios from 'axios';
 
-const getAllMuseums = async (pageNo) => {
-  const url = 'http://localhost:3000/museums/';
+const getAllTargets = async (pageNo) => {
+  const url = 'http://localhost:3000/targets/museums/86eb131b-72b6-4fe3-88dc-5ad3bd8ae2e3/';
   return axios
     .get(url)
     .then((res) => res.data)
@@ -10,9 +10,10 @@ const getAllMuseums = async (pageNo) => {
     });
 };
 
-const createMuseum = async (name, description, image) => {
-  const url = 'http://localhost:3000/museums/';
-  return axios.post(url, { name, description, image });
+/* eslint-disable camelcase */
+const createTargetImage = async (information, model, x_location, y_location, floor, museums_id) => {
+  const url = 'http://localhost:3000/targets/';
+  return axios.post(url, { information, model, x_location, y_location, floor, museums_id });
 };
 
-export { getAllMuseums, createMuseum };
+export { getAllTargets, createTargetImage };

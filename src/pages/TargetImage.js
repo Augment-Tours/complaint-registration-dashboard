@@ -1,6 +1,6 @@
 import { filter } from 'lodash';
 import { Icon } from '@iconify/react';
-import { sentenceCase } from 'change-case';
+// import { sentenceCase } from 'change-case';
 import { useState, useEffect } from 'react';
 import plusFill from '@iconify/icons-eva/plus-fill';
 import closeFill from '@iconify/icons-eva/close-fill';
@@ -26,19 +26,19 @@ import {
 } from '@material-ui/core';
 // components
 import Page from '../components/Page';
-import Label from '../components/Label';
+// import Label from '../components/Label';
 import Scrollbar from '../components/Scrollbar';
 import SearchNotFound from '../components/SearchNotFound';
 import { UserListHead, UserListToolbar, UserMoreMenu } from '../components/_dashboard/user';
 //
-import USERLIST from '../_mocks_/user';
-import { getAllMuseums } from './request/museum';
+// import USERLIST from '../_mocks_/user';
+import { getAllTargets, createTargetImage } from './request/target';
 // ----------------------------------------------------------------------
 
 const TABLE_HEAD = [
-  { id: 'name', label: 'Museum Name', alignRight: false },
+  { id: 'name', label: 'Target Image Info', alignRight: false },
   { id: 'description', label: 'Description', alignRight: false },
-  { id: 'location', label: 'Location', alignRight: false }
+  { id: 'floor', label: 'Floor', alignRight: false },
 ];
 
 // ----------------------------------------------------------------------
@@ -72,6 +72,7 @@ function applySortFilter(array, comparator, query) {
   return stabilizedThis.map((el) => el[0]);
 }
 
+/* eslint-disable camelcase */
 export default function Museum() {
   const [page, setPage] = useState(0);
   const [order, setOrder] = useState('asc');
@@ -80,14 +81,21 @@ export default function Museum() {
   const [filterName, setFilterName] = useState('');
   const [rowsPerPage, setRowsPerPage] = useState(5);
   const [isOpenFilter, setIsOpenFilter] = useState(false);
-  const [museumList, setMuseumList] = useState([]);
+  const [targetsList, setTargetList] = useState([]);
+
+  const [information, setInformation] = useState('');
+  const [targetImageUrl, setTargetImageUrl] = useState('');
+  const [x_location, setX_location] = useState(0);
+  const [y_location, setY_location] = useState(0);
+  const [floor, setFloor] = useState(0);
+  const [museums_id, setMuseums_id] = useState('');
 
   useEffect(() => {
-    const museumList = getAllMuseums(1).then((res) => {
+    const targetsList = getAllTargets(1).then((res) => {
       console.log(res);
-      setMuseumList(res);
+      setTargetList(res);
     });
-    console.log(museumList);
+    console.log(targetsList);
   }, []);
 
   const handleRequestSort = (event, property) => {
@@ -98,7 +106,7 @@ export default function Museum() {
 
   const handleSelectAllClick = (event) => {
     if (event.target.checked) {
-      const newSelecteds = museumList.map((n) => n.name);
+      const newSelecteds = targetsList.map((n) => n.name);
       setSelected(newSelecteds);
       return;
     }
@@ -136,9 +144,9 @@ export default function Museum() {
     setFilterName(event.target.value);
   };
 
-  const emptyRows = page > 0 ? Math.max(0, (1 + page) * rowsPerPage - museumList.length) : 0;
+  const emptyRows = page > 0 ? Math.max(0, (1 + page) * rowsPerPage - targetsList.length) : 0;
 
-  const filteredUsers = applySortFilter(museumList, getComparator(order, orderBy), filterName);
+  const filteredUsers = applySortFilter(targetsList, getComparator(order, orderBy), filterName);
 
   const isUserNotFound = filteredUsers.length === 0;
 
@@ -151,7 +159,7 @@ export default function Museum() {
       <Container>
         <Stack direction="row" alignItems="center" justifyContent="space-between" mb={5}>
           <Typography variant="h4" gutterBottom>
-            Museum
+            Target Image
           </Typography>
           <Button
             variant="contained"
@@ -178,7 +186,7 @@ export default function Museum() {
                   order={order}
                   orderBy={orderBy}
                   headLabel={TABLE_HEAD}
-                  rowCount={museumList.length}
+                  rowCount={targetsList.length}
                   numSelected={selected.length}
                   onRequestSort={handleRequestSort}
                   onSelectAllClick={handleSelectAllClick}
@@ -187,7 +195,7 @@ export default function Museum() {
                   {filteredUsers
                     .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                     .map((row) => {
-                      const { id, name, description, image } = row;
+                      const { id, name, information, model, floor } = row;
                       const isItemSelected = selected.indexOf(name) !== -1;
 
                       return (
@@ -207,14 +215,14 @@ export default function Museum() {
                           </TableCell>
                           <TableCell component="th" scope="row" padding="none">
                             <Stack direction="row" alignItems="center" spacing={2}>
-                              <Avatar alt={name} src={image} />
+                              <Avatar alt={information} src={model} />
                               <Typography variant="subtitle2" noWrap>
-                                {name}
+                                {information}
                               </Typography>
                             </Stack>
                           </TableCell>
-                          <TableCell align="left">{description}</TableCell>
-                          <TableCell align="left">Test Location</TableCell>
+                          <TableCell align="left">{information}</TableCell>
+                          <TableCell align="left">{floor}</TableCell>
                           <TableCell align="right">
                             <UserMoreMenu />
                           </TableCell>
@@ -243,7 +251,7 @@ export default function Museum() {
           <TablePagination
             rowsPerPageOptions={[5, 10, 25]}
             component="div"
-            count={museumList.length}
+            count={targetsList.length}
             rowsPerPage={rowsPerPage}
             page={page}
             onPageChange={handleChangePage}
@@ -265,18 +273,90 @@ export default function Museum() {
             sx={{ px: 1, py: 2 }}
           >
             <Typography variant="subtitle1" sx={{ ml: 1 }}>
-              Add Museum
+              Add Target Image
             </Typography>
             <IconButton onClick={toggleDrawer}>
               <Icon icon={closeFill} width={20} height={20} />
             </IconButton>
           </Stack>
-          <TextField fullWidth label="Museum" style={{ marginBottom: '15px' }} />
-          <TextField fullWidth label="Description" style={{ marginBottom: '15px' }} />
-          <TextField fullWidth label="Image URL" style={{ marginBottom: '15px' }} />
+          <TextField
+            fullWidth
+            label="Museum Id"
+            onChange={(e) => {
+              setMuseums_id(e.target.value);
+            }}
+            value={museums_id}
+            style={{ marginBottom: '15px' }}
+          />
+          <TextField
+            fullWidth
+            label="Information"
+            onChange={(e) => {
+              setInformation(e.target.value);
+            }}
+            value={museums_id}
+            style={{ marginBottom: '15px' }}
+          />
+          <TextField
+            fullWidth
+            label="Target Image URL"
+            onChange={(e) => {
+              setTargetImageUrl(e.target.value);
+            }}
+            value={museums_id}
+            style={{ marginBottom: '15px' }}
+          />
+          <TextField
+            fullWidth
+            type="number"
+            label="X Location"
+            onChange={(e) => {
+              setX_location(e.target.value);
+            }}
+            value={museums_id}
+            style={{ marginBottom: '15px' }}
+          />
+          <TextField
+            fullWidth
+            type="number"
+            label="Y Location"
+            onChange={(e) => {
+              setY_location(e.target.value);
+            }}
+            value={museums_id}
+            style={{ marginBottom: '15px' }}
+          />
+          <TextField
+            fullWidth
+            label="floor"
+            type="number"
+            onChange={(e) => {
+              setFloor(e.target.value);
+            }}
+            value={museums_id}
+            style={{ marginBottom: '15px' }}
+          />
 
-          <Button variant="contained" component={RouterLink} to="#" onClick={toggleDrawer}>
-            Save
+          <Button
+            variant="contained"
+            component={RouterLink}
+            to="#"
+            onClick={() => {
+              const targetImage = createTargetImage(
+                information,
+                targetImageUrl,
+                x_location,
+                y_location,
+                floor,
+                museums_id
+              )
+                .then((res) => {
+                  console.log(res);
+                })
+                .catch((e) => console.log(e));
+            }}
+          >
+            Add
           </Button>
         </Drawer>
       </Container>
