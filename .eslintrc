@@ -9,6 +9,7 @@
     "prettier",
     "plugin:jsx-a11y/recommended",
     "plugin:react-hooks/recommended"
+    
   ],
   "plugins": [
     "prettier",
@@ -28,6 +29,7 @@
     "import": 0,
     "max-len": 0,
     "no-alert": 0,
+    "camelcase": 0,
     "no-shadow": 0,
     "no-console": 0,
     "comma-dangle": 0,

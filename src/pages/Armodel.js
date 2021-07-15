@@ -32,7 +32,7 @@ import SearchNotFound from '../components/SearchNotFound';
 import { UserListHead, UserListToolbar, UserMoreMenu } from '../components/_dashboard/user';
 //
 // import USERLIST from '../_mocks_/user';
-import { getAllMuseums } from './request/museum';
+import { getAllCities } from '../request/cities';
 // ----------------------------------------------------------------------
 
 const TABLE_HEAD = [
@@ -83,7 +83,7 @@ export default function Museum() {
   const [museumList, setMuseumList] = useState([]);
 
   useEffect(() => {
-    const museumList = getAllMuseums(1).then((res) => {
+    const museumList = getAllCities(1).then((res) => {
       console.log(res);
       setMuseumList(res);
     });

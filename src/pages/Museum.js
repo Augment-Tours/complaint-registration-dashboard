@@ -32,7 +32,7 @@ import SearchNotFound from '../components/SearchNotFound';
 import { UserListHead, UserListToolbar, UserMoreMenu } from '../components/_dashboard/user';
 //
 // import USERLIST from '../_mocks_/user';
-import { getAllMuseums, createMuseum } from './request/museum';
+import { getAllCities, createCity } from '../request/cities';
 // ----------------------------------------------------------------------
 
 const TABLE_HEAD = [
@@ -87,9 +87,10 @@ export default function Museum() {
   const [imageUrl, setImageUrl] = useState('');
 
   useEffect(() => {
-    const museumList = getAllMuseums(1).then((res) => {
-      console.log(res);
-      setMuseumList(res);
+    const museumList = getAllCities(1).then((res) => {
+      if (Array.isArray(res)) {
+        setMuseumList(res);
+      }
     });
     console.log(museumList);
   }, []);
@@ -308,7 +309,7 @@ export default function Museum() {
             component={RouterLink}
             to="#"
             onClick={() => {
-              createMuseum(museumName, description, imageUrl)
+              createCity(museumName, description, imageUrl)
                 .then((res) => {
                   console.log(res);
                 })

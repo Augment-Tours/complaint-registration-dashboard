@@ -26,8 +26,18 @@ const sidebarConfig = [
   //   icon: getIcon(peopleFill)
   // },
   {
-    title: 'museum',
-    path: '/dashboard/museums',
+    title: 'country',
+    path: '/dashboard/country',
+    icon: getIcon(pinFill)
+  },
+  {
+    title: 'city',
+    path: '/dashboard/city',
+    icon: getIcon(pinFill)
+  },
+  {
+    title: 'region',
+    path: '/dashboard/region',
     icon: getIcon(pinFill)
   },
   {

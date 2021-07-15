@@ -10,7 +10,9 @@ import DashboardApp from './pages/DashboardApp';
 import Blog from './pages/Blog';
 import User from './pages/User';
 import NotFound from './pages/Page404';
-import Museum from './pages/Museum';
+import City from './pages/City';
+import Country from './pages/Country';
+import Region from './pages/Region';
 import ARModel from './pages/Armodel';
 import TargetImage from './pages/TargetImage';
 
@@ -26,7 +28,9 @@ export default function Router() {
         { path: 'app', element: <DashboardApp /> },
         { path: 'user', element: <User /> },
         { path: 'blog', element: <Blog /> },
-        { path: 'museums', element: <Museum /> },
+        { path: 'city', element: <City /> },
+        { path: 'region', element: <Region /> },
+        { path: 'country', element: <Country /> },
         { path: 'ar-models', element: <ARModel /> },
         { path: 'target-images', element: <TargetImage /> }
       ]
