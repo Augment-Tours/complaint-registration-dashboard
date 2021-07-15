@@ -14,7 +14,7 @@ import City from './pages/City';
 import Country from './pages/Country';
 import Region from './pages/Region';
 import ARModel from './pages/Armodel';
-import TargetImage from './pages/TargetImage';
+// import TargetImage from './pages/TargetImage';
 
 // ----------------------------------------------------------------------
 
@@ -32,7 +32,7 @@ export default function Router() {
         { path: 'region', element: <Region /> },
         { path: 'country', element: <Country /> },
         { path: 'ar-models', element: <ARModel /> },
-        { path: 'target-images', element: <TargetImage /> }
+        // { path: 'target-images', element: <TargetImage /> }
       ]
     },
     {

@@ -145,7 +145,7 @@ export default function Museum() {
   };
 
   return (
-    <Page title="Region | Shilengae">
+    <Page title="City | Shilengae">
       <Container>
         <Stack direction="row" alignItems="center" justifyContent="space-between" mb={5}>
           <Typography variant="h4" gutterBottom>
