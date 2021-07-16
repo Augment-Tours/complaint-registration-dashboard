@@ -26,16 +26,19 @@ import Label from '../components/Label';
 import Scrollbar from '../components/Scrollbar';
 import SearchNotFound from '../components/SearchNotFound';
 import { UserListHead, UserListToolbar, UserMoreMenu } from '../components/_dashboard/user';
+import UserDrawer from '../components/user/CreateUser';
 
 import { getAllUsers } from '../request/user';
 
 //
-import USERLIST from '../_mocks_/user';
+// import USERLIST from '../_mocks_/user';
 
 // ----------------------------------------------------------------------
 
 const TABLE_HEAD = [
-  { id: 'name', label: 'Name', alignRight: false },
+  { id: 'username', label: 'Username', alignRight: false },
+  { id: 'full_name', label: 'Full Name', alignRight: false },
+  { id: 'email', label: 'Email', alignRight: false },
   { id: 'country', label: 'Country', alignRight: false },
   { id: 'status', label: 'Status', alignRight: false },
   { id: 'action', label: 'Action', alignRight: true }
@@ -83,6 +86,7 @@ export default function User() {
   const [filterName, setFilterName] = useState('');
   const [rowsPerPage, setRowsPerPage] = useState(5);
   const [userList, setUserList] = useState([]);
+  const [isOpenFilter, setIsOpenFilter] = useState(false);
 
   useEffect(() => {
     const userList = getAllUsers().then((res) => {
@@ -140,6 +144,10 @@ export default function User() {
     setFilterName(event.target.value);
   };
 
+  const toggleDrawer = () => {
+    setIsOpenFilter(!isOpenFilter);
+  };
+
   const emptyRows = page > 0 ? Math.max(0, (1 + page) * rowsPerPage - userList.length) : 0;
 
   const filteredUsers = applySortFilter(userList, getComparator(order, orderBy), filterName);
@@ -156,6 +164,7 @@ export default function User() {
           <Button
             variant="contained"
             component={RouterLink}
+            onClick={toggleDrawer}
             to="#"
             startIcon={<Icon icon={plusFill} />}
           >
@@ -193,6 +202,7 @@ export default function User() {
                         last_name,
                         status,
                         country_name,
+                        email,
                         avatarUrl
                       } = row;
                       const isItemSelected = selected.indexOf(username) !== -1;
@@ -220,6 +230,8 @@ export default function User() {
                               </Typography>
                             </Stack>
                           </TableCell>
+                          <TableCell align="left">{`${first_name} ${last_name}`}</TableCell>
+                          <TableCell align="left">{`${email}`}</TableCell>
                           <TableCell align="left">
                             {country_name == null ? 'NA' : country_name}
                           </TableCell>
@@ -267,6 +279,7 @@ export default function User() {
             onRowsPerPageChange={handleChangeRowsPerPage}
           />
         </Card>
+        <UserDrawer isOpenFilter={isOpenFilter} toggleDrawer={toggleDrawer} />
       </Container>
     </Page>
   );

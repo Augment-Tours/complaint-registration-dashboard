@@ -31,7 +31,7 @@ export default function Router() {
         { path: 'city', element: <City /> },
         { path: 'region', element: <Region /> },
         { path: 'country', element: <Country /> },
-        { path: 'ar-models', element: <ARModel /> },
+        { path: 'ar-models', element: <ARModel /> }
         // { path: 'target-images', element: <TargetImage /> }
       ]
     },

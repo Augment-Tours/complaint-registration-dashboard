@@ -11,9 +11,27 @@ const getAllUsers = async () => {
 };
 
 /* eslint-disable camelcase */
-const createUser = async (information, model, x_location, y_location, floor, museums_id) => {
-  const url = 'http://localhost:3000/targets/';
-  return axios.post(url, { information, model, x_location, y_location, floor, museums_id });
+const createUser = async (
+  username,
+  email,
+  password1,
+  password2,
+  first_name,
+  last_name,
+  status,
+  country
+) => {
+  const url = `${process.env.REACT_APP_BACKEND}/api/rest-auth/registration/`;
+  return axios.post(url, {
+    username,
+    email,
+    password1,
+    password2,
+    first_name,
+    last_name,
+    status,
+    country
+  });
 };
 
 export { getAllUsers, createUser };
