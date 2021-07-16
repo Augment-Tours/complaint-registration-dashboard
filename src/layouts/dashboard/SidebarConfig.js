@@ -6,7 +6,7 @@ import peopleFill from '@iconify/icons-eva/people-fill';
 // import lockFill from '@iconify/icons-eva/lock-fill';
 import pinFill from '@iconify/icons-eva/pin-fill';
 import cubeFill from '@iconify/icons-eva/cube-fill';
-import flashFill from '@iconify/icons-eva/flash-fill';
+// import flashFill from '@iconify/icons-eva/flash-fill';
 // import personAddFill from '@iconify/icons-eva/person-add-fill';
 // import alertTriangleFill from '@iconify/icons-eva/alert-triangle-fill';
 
