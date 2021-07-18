@@ -9,5 +9,7 @@ Logo.propTypes = {
 };
 
 export default function Logo({ sx }) {
-  return <Box component="img" src="/static/log1.svg" sx={{ width: 40, height: 40, ...sx }} />;
+  return (
+    <Box component="img" src="/static/shilengae-logo.png" sx={{ width: 40, height: 40, ...sx }} />
+  );
 }

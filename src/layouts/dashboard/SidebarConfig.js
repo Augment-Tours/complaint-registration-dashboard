@@ -5,7 +5,9 @@ import peopleFill from '@iconify/icons-eva/people-fill';
 // import fileTextFill from '@iconify/icons-eva/file-text-fill';
 // import lockFill from '@iconify/icons-eva/lock-fill';
 import pinFill from '@iconify/icons-eva/pin-fill';
-import cubeFill from '@iconify/icons-eva/cube-fill';
+import gridFill from '@iconify/icons-eva/grid-fill';
+import homeFill from '@iconify/icons-eva/home-fill';
+// import cubeFill from '@iconify/icons-eva/cube-fill';
 // import flashFill from '@iconify/icons-eva/flash-fill';
 // import personAddFill from '@iconify/icons-eva/person-add-fill';
 // import alertTriangleFill from '@iconify/icons-eva/alert-triangle-fill';
@@ -26,13 +28,13 @@ const sidebarConfig = [
   //   icon: getIcon(peopleFill)
   // },
   {
-    title: 'country',
-    path: '/dashboard/country',
-    icon: getIcon(pinFill)
+    title: 'home',
+    path: '/dashboard/app',
+    icon: getIcon(homeFill)
   },
   {
-    title: 'city',
-    path: '/dashboard/city',
+    title: 'country',
+    path: '/dashboard/country',
     icon: getIcon(pinFill)
   },
   {
@@ -41,14 +43,19 @@ const sidebarConfig = [
     icon: getIcon(pinFill)
   },
   {
+    title: 'city',
+    path: '/dashboard/city',
+    icon: getIcon(pinFill)
+  },
+  {
     title: 'user',
     path: '/dashboard/user',
     icon: getIcon(peopleFill)
   },
   {
-    title: 'ar-model',
-    path: '/dashboard/ar-models',
-    icon: getIcon(cubeFill)
+    title: 'forms',
+    path: '/dashboard/forms',
+    icon: getIcon(gridFill)
   }
   // {
   //   title: 'blog',

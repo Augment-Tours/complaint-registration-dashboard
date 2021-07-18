@@ -13,7 +13,7 @@ import NotFound from './pages/Page404';
 import City from './pages/City';
 import Country from './pages/Country';
 import Region from './pages/Region';
-import ARModel from './pages/Armodel';
+import Form from './pages/Form';
 // import TargetImage from './pages/TargetImage';
 
 // ----------------------------------------------------------------------
@@ -31,7 +31,7 @@ export default function Router() {
         { path: 'city', element: <City /> },
         { path: 'region', element: <Region /> },
         { path: 'country', element: <Country /> },
-        { path: 'ar-models', element: <ARModel /> }
+        { path: 'forms', element: <Form /> }
         // { path: 'target-images', element: <TargetImage /> }
       ]
     },
