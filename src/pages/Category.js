@@ -25,14 +25,14 @@ import Page from '../components/Page';
 import Scrollbar from '../components/Scrollbar';
 import SearchNotFound from '../components/SearchNotFound';
 import { UserListHead, UserListToolbar, UserMoreMenu } from '../components/_dashboard/user';
-import CityDrawer from '../components/city/CreateCity';
+import CategoryDrawer from '../components/category/CreateCategory';
 //
 // import USERLIST from '../_mocks_/user';
-import { getAllForms } from '../request/form';
+import { getAllCategories } from '../request/category';
 // ----------------------------------------------------------------------
 
 const TABLE_HEAD = [
-  { id: 'name', label: 'Form Name', alignRight: false },
+  { id: 'name', label: 'Category Name', alignRight: false },
   { id: 'form_field_count', label: 'Field Count', alignRight: false }
 ];
 
@@ -75,15 +75,15 @@ export default function Museum() {
   const [filterName, setFilterName] = useState('');
   const [rowsPerPage, setRowsPerPage] = useState(5);
   const [isOpenFilter, setIsOpenFilter] = useState(false);
-  const [formsList, setFormsList] = useState([]);
+  const [categoriesList, setCategoriesList] = useState([]);
 
   useEffect(() => {
-    const formsList = getAllForms().then((res) => {
+    const categoriesList = getAllCategories().then((res) => {
       if (Array.isArray(res)) {
-        setFormsList(res);
+        setCategoriesList(res);
       }
     });
-    console.log(formsList);
+    console.log(categoriesList);
   }, []);
 
   const handleRequestSort = (event, property) => {
@@ -94,7 +94,7 @@ export default function Museum() {
 
   const handleSelectAllClick = (event) => {
     if (event.target.checked) {
-      const newSelecteds = formsList.map((n) => n.name);
+      const newSelecteds = categoriesList.map((n) => n.name);
       setSelected(newSelecteds);
       return;
     }
@@ -132,30 +132,35 @@ export default function Museum() {
     setFilterName(event.target.value);
   };
 
-  const emptyRows = page > 0 ? Math.max(0, (1 + page) * rowsPerPage - formsList.length) : 0;
+  const emptyRows = page > 0 ? Math.max(0, (1 + page) * rowsPerPage - categoriesList.length) : 0;
 
-  const filteredUsers = applySortFilter(formsList, getComparator(order, orderBy), filterName);
+  const filteredCategories = applySortFilter(
+    categoriesList,
+    getComparator(order, orderBy),
+    filterName
+  );
 
-  const isUserNotFound = filteredUsers.length === 0;
+  const isUserNotFound = filteredCategories.length === 0;
 
   const toggleDrawer = () => {
     setIsOpenFilter(!isOpenFilter);
   };
 
   return (
-    <Page title="Form | Shilengae">
+    <Page title="Category | Shilengae">
       <Container>
         <Stack direction="row" alignItems="center" justifyContent="space-between" mb={5}>
           <Typography variant="h4" gutterBottom>
-            Form
+            Category
           </Typography>
           <Button
             variant="contained"
             component={RouterLink}
-            to="create"
+            to=""
             startIcon={<Icon icon={plusFill} />}
+            onClick={toggleDrawer}
           >
-            New Form
+            New Category
           </Button>
         </Stack>
 
@@ -173,13 +178,13 @@ export default function Museum() {
                   order={order}
                   orderBy={orderBy}
                   headLabel={TABLE_HEAD}
-                  rowCount={formsList.length}
+                  rowCount={categoriesList.length}
                   numSelected={selected.length}
                   onRequestSort={handleRequestSort}
                   onSelectAllClick={handleSelectAllClick}
                 />
                 <TableBody>
-                  {filteredUsers
+                  {filteredCategories
                     .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                     .map((row) => {
                       const { id, name, form_fields_count } = row;
@@ -230,14 +235,14 @@ export default function Museum() {
           <TablePagination
             rowsPerPageOptions={[5, 10, 25]}
             component="div"
-            count={formsList.length}
+            count={categoriesList.length}
             rowsPerPage={rowsPerPage}
             page={page}
             onPageChange={handleChangePage}
             onRowsPerPageChange={handleChangeRowsPerPage}
           />
         </Card>
-        <CityDrawer isOpenFilter={isOpenFilter} toggleDrawer={toggleDrawer} />
+        <CategoryDrawer isOpenFilter={isOpenFilter} toggleDrawer={toggleDrawer} />
       </Container>
     </Page>
   );
