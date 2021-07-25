@@ -26,7 +26,10 @@ const FIELD_TYPES_LIST = [
   { id: 'multiline_textbox', name: 'Multi Line TextBox' },
   { id: 'dropdown', name: 'Dropdown' },
   { id: 'radio', name: 'Radio Button' },
-  { id: 'multi-select', name: 'Multi Select' }
+  { id: 'multi-select', name: 'Multi Select' },
+  { id: 'image', name: 'Image' },
+  { id: 'file', name: 'File' },
+  { id: 'date', name: 'Date' }
 ];
 
 export default function Museum() {

@@ -65,7 +65,7 @@ export const PreSave = ({ json, setJson, saveField }) => {
       <TextField label="position" type="number" onChange={(e) => handleChange(e, 'position')} />
       <Button
         variant="contained"
-        to="#"
+        to=""
         // disabled={isCreating}
         // style={{ padding: '10px 20px' }}
         sx={{ px: 0, py: 1, mt: 2 }}

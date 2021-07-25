@@ -104,7 +104,7 @@ const CreateCountry = ({ isOpenFilter, toggleDrawer }) => {
       <Button
         variant="contained"
         component={RouterLink}
-        to="#"
+        to=""
         disabled={isCreating}
         style={{ marginTop: '20px', padding: '10px 0' }}
         onClick={() => {

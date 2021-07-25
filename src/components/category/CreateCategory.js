@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import {
   Stack,
@@ -16,18 +16,41 @@ import closeFill from '@iconify/icons-eva/close-fill';
 import { Icon } from '@iconify/react';
 import { Link as RouterLink } from 'react-router-dom';
 
-import { createCategory } from '../../request/category';
+import { createCategory, getAllCategories } from '../../request/category';
+import { getAllForms } from '../../request/form';
 
 const CreateCategory = ({ isOpenFilter, toggleDrawer }) => {
   const [name, setName] = useState('');
   const [status, setStatus] = useState('ACTIVE');
   const [isCreating, setIsCreating] = useState(false);
+  const [categories, setCategories] = useState([]);
+  const [parentCategory, setCategory] = useState('');
+  const [forms, setForms] = useState([]);
+  const [form, setForm] = useState('');
   const [error, setError] = useState('');
 
   const handleStatusChange = (e) => {
     setStatus(e.target.value);
   };
 
+  const handleParentCategoryChange = (e) => {
+    setCategory(e.target.value);
+  };
+
+  const handleFormChange = (e) => {
+    setForm(e.target.value);
+  };
+
+  useEffect(() => {
+    // fetch categories and set them to categories variable
+    getAllCategories().then((categories) => {
+      setCategories(categories);
+    });
+
+    getAllForms().then((forms) => {
+      setForms(forms);
+    });
+  }, []);
   const createDrawer = (
     <Drawer
       anchor="right"
@@ -59,6 +82,26 @@ const CreateCategory = ({ isOpenFilter, toggleDrawer }) => {
         value={name}
         style={{ marginBottom: '20px' }}
       />
+      <FormControl variant="outlined" style={{ marginBottom: '20px' }}>
+        <InputLabel>Parent Category</InputLabel>
+        <Select onChange={handleParentCategoryChange} label="Parent Category">
+          {categories.map((category) => (
+            <MenuItem key={category.id} value={category.id}>
+              {category.name}
+            </MenuItem>
+          ))}
+        </Select>
+      </FormControl>
+      <FormControl variant="outlined" style={{ marginBottom: '20px' }}>
+        <InputLabel>Form</InputLabel>
+        <Select onChange={handleFormChange} label="Form">
+          {forms.map((form) => (
+            <MenuItem key={form.id} value={form.id}>
+              {form.name}
+            </MenuItem>
+          ))}
+        </Select>
+      </FormControl>
       <FormControl variant="outlined">
         <InputLabel>Status</InputLabel>
         <Select value={status} onChange={handleStatusChange} label="Status">
@@ -70,12 +113,12 @@ const CreateCategory = ({ isOpenFilter, toggleDrawer }) => {
       <Button
         variant="contained"
         component={RouterLink}
-        to="#"
+        to=""
         disabled={isCreating}
         style={{ marginTop: '20px', padding: '10px 0' }}
         onClick={() => {
           setIsCreating(true);
-          createCategory(name, status)
+          createCategory(name, status, parentCategory, form)
             .then(() => {
               setIsCreating(false);
               toggleDrawer();

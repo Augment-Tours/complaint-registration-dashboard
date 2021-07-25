@@ -2,16 +2,9 @@
 import React, { useState } from 'react';
 import { TextField, Stack, Button, Typography } from '@material-ui/core';
 
-const FormTextField = ({ onFieldSaved }) => {
+const FormTextField = ({ field, onFieldSaved }) => {
   const [saved, setSaved] = useState(false);
-  const [json, setJson] = useState({
-    name: 'Field Name',
-    type: 'textbox',
-    hint: 'Field Hint',
-    label: 'Field Label',
-    position: '1',
-    data: '{}'
-  });
+  const [json, setJson] = useState(field);
 
   const saveField = (saved) => {
     setSaved(saved);
@@ -23,7 +16,7 @@ const FormTextField = ({ onFieldSaved }) => {
   if (saved) {
     return <PostSave json={json} />;
   }
-  return <PreSave json={json} setJson={setJson} saveField={saveField} />;
+  return <PreSave json={json} setJson={setJson} field={field} saveField={saveField} />;
 };
 
 // eslint-disable-next-line react/prop-types
@@ -50,7 +43,7 @@ export const PreSave = ({ json, setJson, saveField }) => {
         <TextField
           fullWidth
           sx={{ mr: 2 }}
-          label="TextField name"
+          label={`${json.type} field name`}
           value={json.name}
           onChange={(e) => handleChange(e, 'name')}
         />
@@ -65,7 +58,7 @@ export const PreSave = ({ json, setJson, saveField }) => {
       <TextField label="position" type="number" onChange={(e) => handleChange(e, 'position')} />
       <Button
         variant="contained"
-        to="#"
+        to=""
         // disabled={isCreating}
         // style={{ padding: '10px 20px' }}
         sx={{ px: 0, py: 1, mt: 2 }}

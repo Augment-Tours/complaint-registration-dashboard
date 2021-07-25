@@ -106,7 +106,7 @@ export const PreSave = ({ json, setJson, saveField }) => {
       </Button>
       <Button
         variant="contained"
-        to="#"
+        to=""
         // disabled={isCreating}
         // style={{ padding: '10px 20px' }}
         sx={{ px: 0, py: 1, mt: 2 }}
