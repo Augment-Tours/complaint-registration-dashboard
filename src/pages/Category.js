@@ -33,7 +33,8 @@ import { getAllCategories } from '../request/category';
 
 const TABLE_HEAD = [
   { id: 'name', label: 'Category Name', alignRight: false },
-  { id: 'form_field_count', label: 'Field Count', alignRight: false }
+  { id: 'parent_category_name', label: 'Parent Category', alignRight: false },
+  { id: 'form_name', label: 'Form', alignRight: false } 
 ];
 
 // ----------------------------------------------------------------------
@@ -187,7 +188,7 @@ export default function Museum() {
                   {filteredCategories
                     .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                     .map((row) => {
-                      const { id, name, form_fields_count } = row;
+                      const { id, name, parent_category_name, form_name } = row;
                       const isItemSelected = selected.indexOf(name) !== -1;
 
                       return (
@@ -206,7 +207,8 @@ export default function Museum() {
                             />
                           </TableCell>
                           <TableCell align="left">{name}</TableCell>
-                          <TableCell align="left">{form_fields_count}</TableCell>
+                          <TableCell align="left">{parent_category_name}</TableCell>
+                          <TableCell align="left">{form_name}</TableCell>
                           <TableCell align="right">
                             <UserMoreMenu />
                           </TableCell>
