@@ -1,7 +1,7 @@
 import axios from 'axios';
 
-const getAllForms = async () => {
-  const url = `${process.env.REACT_APP_BACKEND}/forms/all/`;
+const getAllCategories = async () => {
+  const url = `${process.env.REACT_APP_BACKEND}/category/all/`;
   return axios
     .get(url)
     .then((res) => res.data.results)
@@ -10,8 +10,8 @@ const getAllForms = async () => {
     });
 };
 
-const createForm = async (form) => {
-  const url = `${process.env.REACT_APP_BACKEND}/forms/create/`;
+const createCategory = async (form) => {
+  const url = `${process.env.REACT_APP_BACKEND}/category/create/`;
   return axios
     .post(url, form)
     .then((res) => res.data)
@@ -20,4 +20,4 @@ const createForm = async (form) => {
     });
 };
 
-export { getAllForms, createForm };
+export { getAllCategories, createCategory };

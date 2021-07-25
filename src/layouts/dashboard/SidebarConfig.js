@@ -56,6 +56,11 @@ const sidebarConfig = [
     title: 'forms',
     path: '/dashboard/forms',
     icon: getIcon(gridFill)
+  },
+  {
+    title: 'categories',
+    path: '/dashboard/category',
+    icon: getIcon(gridFill)
   }
   // {
   //   title: 'blog',

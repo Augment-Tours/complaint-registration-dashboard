@@ -14,7 +14,8 @@ import City from './pages/City';
 import Country from './pages/Country';
 import Region from './pages/Region';
 import Form from './pages/Form';
-// import TargetImage from './pages/TargetImage';
+import CreateForm from './pages/CreateForm';
+import Category from './pages/Category';
 
 // ----------------------------------------------------------------------
 
@@ -31,8 +32,9 @@ export default function Router() {
         { path: 'city', element: <City /> },
         { path: 'region', element: <Region /> },
         { path: 'country', element: <Country /> },
-        { path: 'forms', element: <Form /> }
-        // { path: 'target-images', element: <TargetImage /> }
+        { path: 'forms', element: <Form /> },
+        { path: 'forms/create', element: <CreateForm /> },
+        { path: 'category', element: <Category /> }
       ]
     },
     {
