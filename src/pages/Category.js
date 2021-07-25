@@ -34,7 +34,7 @@ import { getAllCategories } from '../request/category';
 const TABLE_HEAD = [
   { id: 'name', label: 'Category Name', alignRight: false },
   { id: 'parent_category_name', label: 'Parent Category', alignRight: false },
-  { id: 'form_name', label: 'Form', alignRight: false } 
+  { id: 'form_name', label: 'Form', alignRight: false }
 ];
 
 // ----------------------------------------------------------------------
