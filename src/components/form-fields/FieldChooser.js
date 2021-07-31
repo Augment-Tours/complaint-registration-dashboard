@@ -2,6 +2,8 @@ import React from 'react';
 
 import TextBox from './TextBox';
 import Options from './Options';
+import Range from './Range';
+import DateRange from './DateRange';
 
 const FieldChooser = ({ field, onFieldSaved }) => {
   let chosenInput;
@@ -15,6 +17,10 @@ const FieldChooser = ({ field, onFieldSaved }) => {
     chosenInput = <TextBox field={field} onFieldSaved={onFieldSaved} />;
   } else if (field.type === 'dropdown' || field.type === 'radio' || field.type === 'multi-select') {
     chosenInput = <Options field={field} onFieldSaved={onFieldSaved} />;
+  } else if (field.type === 'range') {
+    chosenInput = <Range field={field} onFieldSaved={onFieldSaved} />;
+  } else if (field.type === 'date-range') {
+    chosenInput = <DateRange field={field} onFieldSaved={onFieldSaved} />;
   }
   return chosenInput;
 };

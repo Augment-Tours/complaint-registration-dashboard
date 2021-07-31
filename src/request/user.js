@@ -19,7 +19,8 @@ const createUser = async (
   first_name,
   last_name,
   status,
-  country
+  country,
+  type
 ) => {
   const url = `${process.env.REACT_APP_BACKEND}/api/rest-auth/registration/`;
   return axios.post(url, {
@@ -30,7 +31,8 @@ const createUser = async (
     first_name,
     last_name,
     status,
-    country
+    country,
+    type
   });
 };
 

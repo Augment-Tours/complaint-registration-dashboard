@@ -27,6 +27,7 @@ const CreateUser = ({ isOpenFilter, toggleDrawer }) => {
   const [password2, setPassword2] = useState('');
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
+  const [userType, setUserType] = useState('GUEST');
   const [isCreating, setIsCreating] = useState(false);
   const [country, setCountry] = useState('');
   const [countries, setCountries] = useState([]);
@@ -133,11 +134,21 @@ const CreateUser = ({ isOpenFilter, toggleDrawer }) => {
         </Select>
       </FormControl>
 
-      <FormControl variant="outlined">
+      <FormControl variant="outlined" sx={{ mb: 2 }}>
         <InputLabel>Status</InputLabel>
         <Select value={status} onChange={handleStatusChange} label="Status">
           <MenuItem value="ACTIVE">Active</MenuItem>
           <MenuItem value="INACTIVE">Inactive</MenuItem>
+        </Select>
+      </FormControl>
+      <FormControl variant="outlined">
+        <InputLabel>User Type</InputLabel>
+        <Select value={userType} onChange={(e) => setUserType(e.target.value)} label="User Type">
+          <MenuItem value="SUPERADMIN">Super Admin</MenuItem>
+          <MenuItem value="ADMIN">Admin</MenuItem>
+          <MenuItem value="MODERATOR">Moderator</MenuItem>
+          <MenuItem value="GUEST">Guest</MenuItem>
+          <MenuItem value="USER">User</MenuItem>
         </Select>
       </FormControl>
       <p style={{ color: 'red' }}>{error}</p>
@@ -149,7 +160,17 @@ const CreateUser = ({ isOpenFilter, toggleDrawer }) => {
         style={{ marginTop: '20px', padding: '10px 0' }}
         onClick={() => {
           setIsCreating(true);
-          createUser(username, email, password1, password2, firstName, lastName, status, country)
+          createUser(
+            username,
+            email,
+            password1,
+            password2,
+            firstName,
+            lastName,
+            status,
+            country,
+            userType
+          )
             .then(() => {
               setIsCreating(false);
               toggleDrawer();

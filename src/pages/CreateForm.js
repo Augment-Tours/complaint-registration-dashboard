@@ -29,7 +29,9 @@ const FIELD_TYPES_LIST = [
   { id: 'multi-select', name: 'Multi Select' },
   { id: 'image', name: 'Image' },
   { id: 'file', name: 'File' },
-  { id: 'date', name: 'Date' }
+  { id: 'date', name: 'Date' },
+  { id: 'range', name: 'Range' },
+  { id: 'date-range', name: 'Date Range' }
 ];
 
 export default function Museum() {

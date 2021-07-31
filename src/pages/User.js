@@ -39,6 +39,7 @@ const TABLE_HEAD = [
   { id: 'username', label: 'Username', alignRight: false },
   { id: 'full_name', label: 'Full Name', alignRight: false },
   { id: 'email', label: 'Email', alignRight: false },
+  { id: 'type', label: 'User Type', alignRight: false },
   { id: 'country', label: 'Country', alignRight: false },
   { id: 'status', label: 'Status', alignRight: false },
   { id: 'action', label: 'Action', alignRight: true }
@@ -203,7 +204,8 @@ export default function User() {
                         status,
                         country_name,
                         email,
-                        avatarUrl
+                        avatarUrl,
+                        type
                       } = row;
                       const isItemSelected = selected.indexOf(username) !== -1;
 
@@ -232,6 +234,7 @@ export default function User() {
                           </TableCell>
                           <TableCell align="left">{`${first_name} ${last_name}`}</TableCell>
                           <TableCell align="left">{`${email}`}</TableCell>
+                          <TableCell align="left">{`${type}`}</TableCell>
                           <TableCell align="left">
                             {country_name == null ? 'NA' : country_name}
                           </TableCell>
