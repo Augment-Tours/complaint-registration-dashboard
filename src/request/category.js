@@ -1,9 +1,9 @@
-import axios from 'axios';
+import rf from './requestFactory';
 
 const getAllCategories = async () => {
   const url = `${process.env.REACT_APP_BACKEND}/forms/category/all/`;
-  return axios
-    .get(url)
+  return rf
+    .getRequest(url)
     .then((res) => res.data.results)
     .catch((err) => {
       console.log(err);
@@ -12,8 +12,8 @@ const getAllCategories = async () => {
 
 const createCategory = async (name, status, parent, form_id) => {
   const url = `${process.env.REACT_APP_BACKEND}/forms/category/create/`;
-  return axios
-    .post(url, { name, status, parent, form_id })
+  return rf
+    .postRequest(url, { name, status, parent, form_id })
     .then((res) => res.data)
     .catch((err) => {
       console.log(err);
