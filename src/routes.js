@@ -26,15 +26,15 @@ export default function Router() {
       element: <DashboardLayout />,
       children: [
         { path: '/', element: <Navigate to="/dashboard/app" replace /> },
-        { path: 'app', element: <DashboardApp /> },
-        { path: 'user', element: <User /> },
-        { path: 'blog', element: <Blog /> },
-        { path: 'city', element: <City /> },
-        { path: 'region', element: <Region /> },
-        { path: 'country', element: <Country /> },
-        { path: 'forms', element: <Form /> },
-        { path: 'forms/create', element: <CreateForm /> },
-        { path: 'category', element: <Category /> }
+        { path: 'app', element: <PrivateRoute component={DashboardApp} /> },
+        { path: 'user', element: <PrivateRoute component={User} /> },
+        { path: 'blog', element: <PrivateRoute component={Blog} /> },
+        { path: 'city', element: <PrivateRoute component={City} /> },
+        { path: 'region', element: <PrivateRoute component={Region} /> },
+        { path: 'country', element: <PrivateRoute component={Country} /> },
+        { path: 'forms', element: <PrivateRoute component={Form} /> },
+        { path: 'forms/create', element: <PrivateRoute component={CreateForm} /> },
+        { path: 'category', element: <PrivateRoute component={Category} /> }
       ]
     },
     {
@@ -51,4 +51,12 @@ export default function Router() {
 
     { path: '*', element: <Navigate to="/404" replace /> }
   ]);
+}
+
+// eslint-disable-next-line react/prop-types
+function PrivateRoute({ component: Component, ...rest }) {
+  if (!localStorage.getItem('access-token')) {
+    return <Navigate to="/login" />;
+  }
+  return <Component {...rest} />;
 }

@@ -23,6 +23,12 @@ const GlobalStyles = withStyles((theme) => ({
       width: '100%',
       height: '100%'
     },
+    p: {
+      fontFamily: 'Public Sans,sans-serif'
+    },
+    '.errorMessage': {
+      color: '#ee0000'
+    },
     input: {
       '&[type=number]': {
         MozAppearance: 'textfield',

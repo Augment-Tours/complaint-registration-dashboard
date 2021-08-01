@@ -7,7 +7,7 @@ import { Box, Stack, AppBar, Toolbar, IconButton } from '@material-ui/core';
 // components
 import { MHidden } from '../../components/@material-extend';
 //
-import Searchbar from './Searchbar';
+// import Searchbar from './Searchbar';
 import AccountPopover from './AccountPopover';
 // import LanguagePopover from './LanguagePopover';
 // import NotificationsPopover from './NotificationsPopover';
@@ -39,10 +39,11 @@ const ToolbarStyle = styled(Toolbar)(({ theme }) => ({
 // ----------------------------------------------------------------------
 
 DashboardNavbar.propTypes = {
-  onOpenSidebar: PropTypes.func
+  onOpenSidebar: PropTypes.func,
+  account: PropTypes.object
 };
 
-export default function DashboardNavbar({ onOpenSidebar }) {
+export default function DashboardNavbar({ onOpenSidebar, account }) {
   return (
     <RootStyle>
       <ToolbarStyle>
@@ -52,13 +53,13 @@ export default function DashboardNavbar({ onOpenSidebar }) {
           </IconButton>
         </MHidden>
 
-        <Searchbar />
+        {/* <Searchbar /> */}
         <Box sx={{ flexGrow: 1 }} />
 
         <Stack direction="row" spacing={{ xs: 0.5, sm: 1.5 }}>
           {/* <LanguagePopover />
           <NotificationsPopover /> */}
-          <AccountPopover />
+          <AccountPopover account={account} />
         </Stack>
       </ToolbarStyle>
     </RootStyle>

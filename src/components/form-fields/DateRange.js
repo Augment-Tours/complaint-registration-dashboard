@@ -37,7 +37,7 @@ export const PreSave = ({ json, setJson, saveField }) => {
     const newRange = { startDate: minVal, endDate: maxVal };
     handleChange(JSON.stringify(newRange), 'data');
     setRangeData(newRange);
-    console.log(newRange);
+    // console.log(newRange);
   };
   // console.log(value);
   return (
@@ -110,24 +110,21 @@ export const PreSave = ({ json, setJson, saveField }) => {
   );
 };
 
-const PostSave = ({ json }) => {
-  console.log(json);
-  return (
-    <Stack direction="row" alignItems="center" sx={{ px: 0, mt: 2 }}>
-      <Typography variant="p" gutterBottom sx={{ mr: 3 }}>
-        {json.name}
-      </Typography>
-      <Typography variant="p" gutterBottom sx={{ mr: 3 }}>
-        {json.hint}
-      </Typography>
-      <Typography variant="p" gutterBottom sx={{ mr: 3 }}>
-        {json.label}
-      </Typography>
-      <Typography variant="p" gutterBottom sx={{ mr: 3 }}>
-        {json.position}
-      </Typography>
-    </Stack>
-  );
-};
+const PostSave = ({ json }) => (
+  <Stack direction="row" alignItems="center" sx={{ px: 0, mt: 2 }}>
+    <Typography variant="p" gutterBottom sx={{ mr: 3 }}>
+      {json.name}
+    </Typography>
+    <Typography variant="p" gutterBottom sx={{ mr: 3 }}>
+      {json.hint}
+    </Typography>
+    <Typography variant="p" gutterBottom sx={{ mr: 3 }}>
+      {json.label}
+    </Typography>
+    <Typography variant="p" gutterBottom sx={{ mr: 3 }}>
+      {json.position}
+    </Typography>
+  </Stack>
+);
 
 export default RangeField;

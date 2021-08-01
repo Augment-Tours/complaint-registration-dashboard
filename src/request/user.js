@@ -1,9 +1,9 @@
-import axios from 'axios';
+import rf from './requestFactory';
 
 const getAllUsers = async () => {
   const url = `${process.env.REACT_APP_BACKEND}/users/all/`;
-  return axios
-    .get(url)
+  return rf
+    .getRequest(url)
     .then((res) => res.data.results)
     .catch((err) => {
       console.log(err);
@@ -23,7 +23,7 @@ const createUser = async (
   type
 ) => {
   const url = `${process.env.REACT_APP_BACKEND}/api/rest-auth/registration/`;
-  return axios.post(url, {
+  return rf.postRequest(url, {
     username,
     email,
     password1,
