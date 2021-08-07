@@ -12,12 +12,7 @@ const getAllCategories = async () => {
 
 const createCategory = async (name, status, parent, form_id) => {
   const url = `${process.env.REACT_APP_BACKEND}/forms/category/create/`;
-  return rf
-    .postRequest(url, { name, status, parent, form_id })
-    .then((res) => res.data)
-    .catch((err) => {
-      console.log(err);
-    });
+  return rf.postRequest(url, { name, status, parent, form_id }).then((res) => res.data);
 };
 
 export { getAllCategories, createCategory };

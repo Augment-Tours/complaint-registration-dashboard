@@ -24,7 +24,7 @@ const CreateCategory = ({ isOpenFilter, toggleDrawer }) => {
   const [status, setStatus] = useState('ACTIVE');
   const [isCreating, setIsCreating] = useState(false);
   const [categories, setCategories] = useState([]);
-  const [parentCategory, setCategory] = useState('');
+  const [parentCategory, setCategory] = useState(null);
   const [forms, setForms] = useState([]);
   const [form, setForm] = useState('');
   const [error, setError] = useState('');
@@ -102,7 +102,7 @@ const CreateCategory = ({ isOpenFilter, toggleDrawer }) => {
           ))}
         </Select>
       </FormControl>
-      <FormControl variant="outlined">
+      <FormControl variant="outlined" sx={{ mb: 2 }}>
         <InputLabel>Status</InputLabel>
         <Select value={status} onChange={handleStatusChange} label="Status">
           <MenuItem value="ACTIVE">Active</MenuItem>
@@ -124,7 +124,9 @@ const CreateCategory = ({ isOpenFilter, toggleDrawer }) => {
               toggleDrawer();
             })
             .catch((e) => {
-              setError(e.toString());
+              Object.entries(e.response.data).forEach((e) => setError(`* ${e[1]}`));
+
+              setError(`* ${e.response.data.name[0]}`);
               setIsCreating(false);
             });
         }}

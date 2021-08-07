@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import {
   Stack,
@@ -20,16 +20,36 @@ import { createCountry } from '../../request/country';
 
 const CreateCountry = ({ isOpenFilter, toggleDrawer }) => {
   const [name, setName] = useState('');
+  const [currencyCode, setCurrencyCode] = useState('');
   const [currency, setCurrency] = useState('');
   const [symbol, setSymbol] = useState('');
   const [timezone, setTimezone] = useState('');
   const [status, setStatus] = useState('ACTIVE');
   const [isCreating, setIsCreating] = useState(false);
   const [error, setError] = useState('');
+  const [countriesList, setCountriesList] = useState([]);
+  const [chosenCountry, setChosenCountry] = useState(-1);
 
   const handleStatusChange = (e) => {
     setStatus(e.target.value);
   };
+
+  const handleCountryChange = (e) => {
+    const country = countriesList[e.target.value];
+    console.log(country);
+    setChosenCountry(e.target.value);
+    setName(country.name);
+    setSymbol(country.alpha3Code);
+    setCurrencyCode(country.currencies[0].code);
+    setCurrency(country.currencies[0].name);
+    setTimezone(country.timezones[0]);
+  };
+
+  useEffect(() => {
+    // eslint-disable-next-line global-require
+    const countriesData = require('./countries.json');
+    setCountriesList(countriesData);
+  }, []);
 
   const createDrawer = (
     <Drawer
@@ -53,32 +73,45 @@ const CreateCountry = ({ isOpenFilter, toggleDrawer }) => {
           <Icon icon={closeFill} width={20} height={20} />
         </IconButton>
       </Stack>
+      <FormControl variant="outlined" sx={{ mb: 2 }}>
+        <InputLabel>Country</InputLabel>
+        <Select value={chosenCountry} onChange={handleCountryChange} label="Country">
+          {countriesList.map((res, index) => (
+            <MenuItem value={index} key={index}>
+              {res.name}
+            </MenuItem>
+          ))}
+        </Select>
+      </FormControl>
       <TextField
         fullWidth
-        label="Country"
+        disabled
+        label="Country Symbol"
+        sx={{ mb: 2 }}
         onChange={(e) => {
-          setName(e.target.value);
+          setSymbol(e.target.value);
         }}
-        value={name}
-        style={{ marginBottom: '15px' }}
+        value={symbol}
       />
       <TextField
         fullWidth
+        disabled
+        label="Currency Code"
+        style={{ marginBottom: '15px' }}
+        onChange={(e) => {
+          setCurrencyCode(e.target.value);
+        }}
+        value={currencyCode}
+      />
+      <TextField
+        fullWidth
+        disabled
         label="Currency"
         style={{ marginBottom: '15px' }}
         onChange={(e) => {
           setCurrency(e.target.value);
         }}
         value={currency}
-      />
-      <TextField
-        fullWidth
-        label="Symbol"
-        style={{ marginBottom: '30px' }}
-        onChange={(e) => {
-          setSymbol(e.target.value);
-        }}
-        value={symbol}
       />
       <TextField
         fullWidth
@@ -89,7 +122,7 @@ const CreateCountry = ({ isOpenFilter, toggleDrawer }) => {
         }}
         value={timezone}
       />
-      <FormControl variant="outlined">
+      <FormControl variant="outlined" sx={{ mb: 2 }}>
         <InputLabel>Status</InputLabel>
         <Select value={status} onChange={handleStatusChange} label="Status">
           <MenuItem value="ACTIVE">Active</MenuItem>
@@ -105,13 +138,13 @@ const CreateCountry = ({ isOpenFilter, toggleDrawer }) => {
         style={{ marginTop: '20px', padding: '10px 0' }}
         onClick={() => {
           setIsCreating(true);
-          createCountry(name, currency, symbol, timezone, status)
+          createCountry(name, currencyCode, symbol, timezone, status)
             .then(() => {
               setIsCreating(false);
               toggleDrawer();
             })
             .catch((e) => {
-              setError(e.toString());
+              Object.entries(e.response.data).forEach((e) => setError(`* ${e[1]}`));
               setIsCreating(false);
             });
         }}
