@@ -79,15 +79,18 @@ export default function Museum() {
   const [filterName, setFilterName] = useState('');
   const [rowsPerPage, setRowsPerPage] = useState(5);
   const [isOpenFilter, setIsOpenFilter] = useState(false);
-  const [museumList, setMuseumList] = useState([]);
+  const [countryList, setCountryList] = useState([]);
 
-  useEffect(() => {
-    const museumList = getAllCountries().then((res) => {
+  const fetchCountries = () => {
+    getAllCountries().then((res) => {
       if (Array.isArray(res)) {
-        setMuseumList(res);
+        setCountryList(res);
       }
     });
-    console.log(museumList);
+  };
+
+  useEffect(() => {
+    fetchCountries();
   }, []);
 
   const handleRequestSort = (event, property) => {
@@ -98,7 +101,7 @@ export default function Museum() {
 
   const handleSelectAllClick = (event) => {
     if (event.target.checked) {
-      const newSelecteds = museumList.map((n) => n.name);
+      const newSelecteds = countryList.map((n) => n.name);
       setSelected(newSelecteds);
       return;
     }
@@ -136,9 +139,9 @@ export default function Museum() {
     setFilterName(event.target.value);
   };
 
-  const emptyRows = page > 0 ? Math.max(0, (1 + page) * rowsPerPage - museumList.length) : 0;
+  const emptyRows = page > 0 ? Math.max(0, (1 + page) * rowsPerPage - countryList.length) : 0;
 
-  const filteredUsers = applySortFilter(museumList, getComparator(order, orderBy), filterName);
+  const filteredUsers = applySortFilter(countryList, getComparator(order, orderBy), filterName);
 
   const isUserNotFound = filteredUsers.length === 0;
 
@@ -178,7 +181,7 @@ export default function Museum() {
                   order={order}
                   orderBy={orderBy}
                   headLabel={TABLE_HEAD}
-                  rowCount={museumList.length}
+                  rowCount={countryList.length}
                   numSelected={selected.length}
                   onRequestSort={handleRequestSort}
                   onSelectAllClick={handleSelectAllClick}
@@ -241,14 +244,18 @@ export default function Museum() {
           <TablePagination
             rowsPerPageOptions={[5, 10, 25]}
             component="div"
-            count={museumList.length}
+            count={countryList.length}
             rowsPerPage={rowsPerPage}
             page={page}
             onPageChange={handleChangePage}
             onRowsPerPageChange={handleChangeRowsPerPage}
           />
         </Card>
-        <CreateCountryDrawer isOpenFilter={isOpenFilter} toggleDrawer={toggleDrawer} />
+        <CreateCountryDrawer
+          isOpenFilter={isOpenFilter}
+          fetchCountries={fetchCountries}
+          toggleDrawer={toggleDrawer}
+        />
       </Container>
     </Page>
   );

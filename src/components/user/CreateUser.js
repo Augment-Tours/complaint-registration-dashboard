@@ -19,7 +19,7 @@ import { Link as RouterLink } from 'react-router-dom';
 import { getAllCountries } from '../../request/country';
 import { createUser } from '../../request/user';
 
-const CreateUser = ({ isOpenFilter, toggleDrawer }) => {
+const CreateUser = ({ isOpenFilter, toggleDrawer, fetchUsers }) => {
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [status, setStatus] = useState('ACTIVE');
@@ -173,6 +173,7 @@ const CreateUser = ({ isOpenFilter, toggleDrawer }) => {
           )
             .then(() => {
               setIsCreating(false);
+              fetchUsers();
               toggleDrawer();
             })
             .catch((e) => {

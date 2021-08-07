@@ -79,13 +79,16 @@ export default function Museum() {
   const [isOpenFilter, setIsOpenFilter] = useState(false);
   const [citiesList, setCitiesList] = useState([]);
 
-  useEffect(() => {
-    const citiesList = getAllCities().then((res) => {
+  const fetchCities = () => {
+    getAllCities().then((res) => {
       if (Array.isArray(res)) {
         setCitiesList(res);
       }
     });
-    console.log(citiesList);
+  };
+
+  useEffect(() => {
+    fetchCities();
   }, []);
 
   const handleRequestSort = (event, property) => {
@@ -242,7 +245,11 @@ export default function Museum() {
             onRowsPerPageChange={handleChangeRowsPerPage}
           />
         </Card>
-        <CityDrawer isOpenFilter={isOpenFilter} toggleDrawer={toggleDrawer} />
+        <CityDrawer
+          isOpenFilter={isOpenFilter}
+          toggleDrawer={toggleDrawer}
+          fetchCities={fetchCities}
+        />
       </Container>
     </Page>
   );

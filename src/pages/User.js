@@ -89,14 +89,17 @@ export default function User() {
   const [userList, setUserList] = useState([]);
   const [isOpenFilter, setIsOpenFilter] = useState(false);
 
-  useEffect(() => {
-    const userList = getAllUsers().then((res) => {
+  const fetchUsers = () => {
+    getAllUsers().then((res) => {
       console.log(res);
       if (Array.isArray(res)) {
         setUserList(res);
       }
     });
-    console.log(userList);
+  };
+
+  useEffect(() => {
+    fetchUsers();
   }, []);
 
   const handleRequestSort = (event, property) => {
@@ -282,7 +285,11 @@ export default function User() {
             onRowsPerPageChange={handleChangeRowsPerPage}
           />
         </Card>
-        <UserDrawer isOpenFilter={isOpenFilter} toggleDrawer={toggleDrawer} />
+        <UserDrawer
+          isOpenFilter={isOpenFilter}
+          toggleDrawer={toggleDrawer}
+          fetchUsers={fetchUsers}
+        />
       </Container>
     </Page>
   );

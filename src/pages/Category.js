@@ -34,7 +34,8 @@ import { getAllCategories } from '../request/category';
 const TABLE_HEAD = [
   { id: 'name', label: 'Category Name', alignRight: false },
   { id: 'parent_category_name', label: 'Parent Category', alignRight: false },
-  { id: 'form_name', label: 'Form', alignRight: false }
+  { id: 'form_name', label: 'Form', alignRight: false },
+  { id: 'created_at', label: 'Date', alignRight: false }
 ];
 
 // ----------------------------------------------------------------------
@@ -188,7 +189,7 @@ export default function Museum() {
                   {filteredCategories
                     .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                     .map((row) => {
-                      const { id, name, parent_category_name, form_name } = row;
+                      const { id, name, parent_category_name, form_name, created_at } = row;
                       const isItemSelected = selected.indexOf(name) !== -1;
 
                       return (
@@ -209,6 +210,9 @@ export default function Museum() {
                           <TableCell align="left">{name}</TableCell>
                           <TableCell align="left">{parent_category_name}</TableCell>
                           <TableCell align="left">{form_name}</TableCell>
+                          <TableCell align="left">
+                            {new Date(`${created_at}`).toDateString()}
+                          </TableCell>
                           <TableCell align="right">
                             <UserMoreMenu />
                           </TableCell>

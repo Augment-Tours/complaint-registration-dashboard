@@ -35,7 +35,8 @@ const TABLE_HEAD = [
   { id: 'name', label: 'Region Name', alignRight: false },
   { id: 'symbol', label: 'Symbol', alignRight: false },
   { id: 'country', label: 'Country', alignRight: false },
-  { id: 'status', label: 'Status', alignedRight: false }
+  { id: 'status', label: 'Status', alignedRight: false },
+  { id: 'created_at', label: 'Date', alignedRight: false }
 ];
 
 // ----------------------------------------------------------------------
@@ -79,13 +80,16 @@ export default function Museum() {
   const [isOpenFilter, setIsOpenFilter] = useState(false);
   const [regionList, setRegionList] = useState([]);
 
-  useEffect(() => {
-    const regionList = getAllRegions(createRegion).then((res) => {
+  const fetchRegions = () => {
+    getAllRegions(createRegion).then((res) => {
       if (Array.isArray(res)) {
         setRegionList(res);
       }
     });
-    console.log(regionList);
+  };
+
+  useEffect(() => {
+    fetchRegions();
   }, []);
 
   const handleRequestSort = (event, property) => {
@@ -185,7 +189,7 @@ export default function Museum() {
                   {filteredUsers
                     .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                     .map((row) => {
-                      const { id, name, symbol, country_name, status } = row;
+                      const { id, name, symbol, country_name, status, created_at } = row;
                       const isItemSelected = selected.indexOf(name) !== -1;
 
                       return (
@@ -207,6 +211,9 @@ export default function Museum() {
                           <TableCell align="left">{symbol}</TableCell>
                           <TableCell align="left">{country_name}</TableCell>
                           <TableCell align="left">{status}</TableCell>
+                          <TableCell align="left">
+                            {new Date(`${created_at}`).toDateString()}
+                          </TableCell>
                           <TableCell align="right">
                             <UserMoreMenu />
                           </TableCell>
@@ -242,7 +249,11 @@ export default function Museum() {
             onRowsPerPageChange={handleChangeRowsPerPage}
           />
         </Card>
-        <RegionDrawer isOpenFilter={isOpenFilter} toggleDrawer={toggleDrawer} />
+        <RegionDrawer
+          isOpenFilter={isOpenFilter}
+          toggleDrawer={toggleDrawer}
+          fetchRegions={fetchRegions}
+        />
       </Container>
     </Page>
   );

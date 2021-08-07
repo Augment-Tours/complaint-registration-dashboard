@@ -18,7 +18,7 @@ import { Link as RouterLink } from 'react-router-dom';
 
 import { createCountry } from '../../request/country';
 
-const CreateCountry = ({ isOpenFilter, toggleDrawer }) => {
+const CreateCountry = ({ isOpenFilter, toggleDrawer, fetchCountries }) => {
   const [name, setName] = useState('');
   const [currencyCode, setCurrencyCode] = useState('');
   const [currency, setCurrency] = useState('');
@@ -140,6 +140,7 @@ const CreateCountry = ({ isOpenFilter, toggleDrawer }) => {
           setIsCreating(true);
           createCountry(name, currencyCode, symbol, timezone, status)
             .then(() => {
+              fetchCountries();
               setIsCreating(false);
               toggleDrawer();
             })

@@ -19,7 +19,7 @@ import { Link as RouterLink } from 'react-router-dom';
 import { getAllCountries } from '../../request/country';
 import { createRegion } from '../../request/region';
 
-const CreateRegion = ({ isOpenFilter, toggleDrawer }) => {
+const CreateRegion = ({ isOpenFilter, toggleDrawer, fetchRegions }) => {
   const [name, setName] = useState('');
   const [symbol, setSymbol] = useState('');
   const [status, setStatus] = useState('ACTIVE');
@@ -112,10 +112,11 @@ const CreateRegion = ({ isOpenFilter, toggleDrawer }) => {
           createRegion(name, symbol, country, status)
             .then(() => {
               setIsCreating(false);
+              fetchRegions();
               toggleDrawer();
             })
             .catch((e) => {
-              setError(e.toString());
+              Object.entries(e.response.data).forEach((e) => setError(`* ${e[1]}`));
               setIsCreating(false);
             });
         }}

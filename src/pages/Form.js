@@ -25,7 +25,6 @@ import Page from '../components/Page';
 import Scrollbar from '../components/Scrollbar';
 import SearchNotFound from '../components/SearchNotFound';
 import { UserListHead, UserListToolbar, UserMoreMenu } from '../components/_dashboard/user';
-import CityDrawer from '../components/city/CreateCity';
 //
 // import USERLIST from '../_mocks_/user';
 import { getAllForms } from '../request/form';
@@ -33,7 +32,8 @@ import { getAllForms } from '../request/form';
 
 const TABLE_HEAD = [
   { id: 'name', label: 'Form Name', alignRight: false },
-  { id: 'form_field_count', label: 'Field Count', alignRight: false }
+  { id: 'form_field_count', label: 'Field Count', alignRight: false },
+  { id: 'created_at', label: 'Date', alignRight: false }
 ];
 
 // ----------------------------------------------------------------------
@@ -74,16 +74,18 @@ export default function Museum() {
   const [orderBy, setOrderBy] = useState('name');
   const [filterName, setFilterName] = useState('');
   const [rowsPerPage, setRowsPerPage] = useState(5);
-  const [isOpenFilter, setIsOpenFilter] = useState(false);
   const [formsList, setFormsList] = useState([]);
 
-  useEffect(() => {
-    const formsList = getAllForms().then((res) => {
+  const fetchForms = () => {
+    getAllForms().then((res) => {
       if (Array.isArray(res)) {
         setFormsList(res);
       }
     });
-    console.log(formsList);
+  };
+
+  useEffect(() => {
+    fetchForms();
   }, []);
 
   const handleRequestSort = (event, property) => {
@@ -138,10 +140,6 @@ export default function Museum() {
 
   const isUserNotFound = filteredUsers.length === 0;
 
-  const toggleDrawer = () => {
-    setIsOpenFilter(!isOpenFilter);
-  };
-
   return (
     <Page title="Form | Shilengae">
       <Container>
@@ -182,7 +180,7 @@ export default function Museum() {
                   {filteredUsers
                     .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                     .map((row) => {
-                      const { id, name, form_fields_count } = row;
+                      const { id, name, form_fields_count, created_at } = row;
                       const isItemSelected = selected.indexOf(name) !== -1;
 
                       return (
@@ -202,6 +200,9 @@ export default function Museum() {
                           </TableCell>
                           <TableCell align="left">{name}</TableCell>
                           <TableCell align="left">{form_fields_count}</TableCell>
+                          <TableCell align="left">
+                            {new Date(`${created_at}`).toDateString()}
+                          </TableCell>
                           <TableCell align="right">
                             <UserMoreMenu />
                           </TableCell>
@@ -237,7 +238,6 @@ export default function Museum() {
             onRowsPerPageChange={handleChangeRowsPerPage}
           />
         </Card>
-        <CityDrawer isOpenFilter={isOpenFilter} toggleDrawer={toggleDrawer} />
       </Container>
     </Page>
   );
