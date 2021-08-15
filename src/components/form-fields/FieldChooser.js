@@ -5,18 +5,18 @@ import TextBox from './TextBox';
 import Options from './Options';
 import Range from './Range';
 import DateRange from './DateRange';
+import ImageField from './Image';
+import DateField from './Date';
 
 const FieldChooser = ({ index, field, onFieldSaved, onCancel }) => {
   let chosenInput = null;
-  if (
-    field.type === 'textbox' ||
-    field.type === 'file' ||
-    field.type === 'image' ||
-    field.type === 'date' ||
-    field.type === 'multiline_textbox'
-  ) {
+  if (field.type === 'textbox' || field.type === 'multiline_textbox') {
     chosenInput = (
       <TextBox index={index} field={field} onFieldSaved={onFieldSaved} onCancel={onCancel} />
+    );
+  } else if (field.type === 'date') {
+    chosenInput = (
+      <DateField index={index} field={field} onFieldSaved={onFieldSaved} onCancel={onCancel} />
     );
   } else if (field.type === 'dropdown' || field.type === 'radio' || field.type === 'multi-select') {
     chosenInput = (
@@ -25,6 +25,10 @@ const FieldChooser = ({ index, field, onFieldSaved, onCancel }) => {
   } else if (field.type === 'range') {
     chosenInput = (
       <Range index={index} field={field} onFieldSaved={onFieldSaved} onCancel={onCancel} />
+    );
+  } else if (field.type === 'image' || field.type === 'file') {
+    chosenInput = (
+      <ImageField index={index} field={field} onFieldSaved={onFieldSaved} onCancel={onCancel} />
     );
   } else if (field.type === 'date-range') {
     chosenInput = (
