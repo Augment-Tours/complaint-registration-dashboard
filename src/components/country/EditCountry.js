@@ -98,7 +98,7 @@ const EditCountry = ({ isOpenFilter, toggleDrawer, fetchCountries, countryId }) 
         </IconButton>
       </Stack>
       <TextField
-        fullWidth
+        fullwidth
         disabled
         label="Country Id"
         sx={{ mb: 2 }}
@@ -118,7 +118,7 @@ const EditCountry = ({ isOpenFilter, toggleDrawer, fetchCountries, countryId }) 
         </Select>
       </FormControl>
       <TextField
-        fullWidth
+        fullwidth
         disabled
         label="Country Symbol"
         sx={{ mb: 2 }}
@@ -128,7 +128,7 @@ const EditCountry = ({ isOpenFilter, toggleDrawer, fetchCountries, countryId }) 
         value={symbol}
       />
       <TextField
-        fullWidth
+        fullwidth
         disabled
         label="Currency Code"
         style={{ marginBottom: '15px' }}
@@ -138,7 +138,7 @@ const EditCountry = ({ isOpenFilter, toggleDrawer, fetchCountries, countryId }) 
         value={currencyCode}
       />
       <TextField
-        fullWidth
+        fullwidth
         disabled
         label="Currency"
         style={{ marginBottom: '15px' }}
@@ -148,7 +148,7 @@ const EditCountry = ({ isOpenFilter, toggleDrawer, fetchCountries, countryId }) 
         value={currency}
       />
       <TextField
-        fullWidth
+        fullwidth
         label="Timezone, Eg: EAT, GMT"
         style={{ marginBottom: '30px' }}
         onChange={(e) => {

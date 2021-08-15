@@ -70,9 +70,9 @@ const EditRegion = ({ isOpenFilter, toggleDrawer, fetchRegions, regionId }) => {
           <Icon icon={closeFill} width={20} height={20} />
         </IconButton>
       </Stack>
-      <TextField fullWidth label="Region Id" value={regionId} disabled sx={{ mb: 2 }} />
+      <TextField fullwidth label="Region Id" value={regionId} disabled sx={{ mb: 2 }} />
       <TextField
-        fullWidth
+        fullwidth
         label="Region Name"
         onChange={(e) => {
           setName(e.target.value);
@@ -81,7 +81,7 @@ const EditRegion = ({ isOpenFilter, toggleDrawer, fetchRegions, regionId }) => {
         style={{ marginBottom: '20px' }}
       />
       <TextField
-        fullWidth
+        fullwidth
         label="Symbol"
         style={{ marginBottom: '20px' }}
         onChange={(e) => {

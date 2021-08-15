@@ -72,7 +72,7 @@ const EditCity = ({ isOpenFilter, toggleDrawer, fetchCities, cityId }) => {
         </IconButton>
       </Stack>
       <TextField
-        fullWidth
+        fullwidth
         label="City Id"
         disabled
         onChange={(e) => {
@@ -82,7 +82,7 @@ const EditCity = ({ isOpenFilter, toggleDrawer, fetchCities, cityId }) => {
         style={{ marginBottom: '20px' }}
       />
       <TextField
-        fullWidth
+        fullwidth
         label="City Name"
         onChange={(e) => {
           setName(e.target.value);
@@ -91,7 +91,7 @@ const EditCity = ({ isOpenFilter, toggleDrawer, fetchCities, cityId }) => {
         style={{ marginBottom: '20px' }}
       />
       <TextField
-        fullWidth
+        fullwidth
         label="Symbol"
         style={{ marginBottom: '20px' }}
         onChange={(e) => {

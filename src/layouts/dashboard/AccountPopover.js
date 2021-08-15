@@ -113,7 +113,7 @@ export default function AccountPopover({ account }) {
 
         <Box sx={{ p: 2, pt: 1.5 }}>
           <Button
-            fullWidth
+            fullwidth
             color="inherit"
             variant="outlined"
             onClick={() => {

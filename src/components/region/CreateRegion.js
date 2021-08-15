@@ -65,7 +65,7 @@ const CreateRegion = ({ isOpenFilter, toggleDrawer, fetchRegions }) => {
         </IconButton>
       </Stack>
       <TextField
-        fullWidth
+        fullwidth
         label="Region Name"
         onChange={(e) => {
           setName(e.target.value);
@@ -74,7 +74,7 @@ const CreateRegion = ({ isOpenFilter, toggleDrawer, fetchRegions }) => {
         style={{ marginBottom: '20px' }}
       />
       <TextField
-        fullWidth
+        fullwidth
         label="Symbol"
         style={{ marginBottom: '20px' }}
         onChange={(e) => {

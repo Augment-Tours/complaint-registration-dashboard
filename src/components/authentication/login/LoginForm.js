@@ -64,7 +64,7 @@ export default function LoginForm() {
       <Form autoComplete="off" noValidate onSubmit={handleSubmit}>
         <Stack spacing={3}>
           <TextField
-            fullWidth
+            fullwidth
             autoComplete="username"
             label="Username"
             {...getFieldProps('username')}
@@ -73,7 +73,7 @@ export default function LoginForm() {
           />
 
           <TextField
-            fullWidth
+            fullwidth
             autoComplete="current-password"
             type={showPassword ? 'text' : 'password'}
             label="Password"
@@ -105,7 +105,7 @@ export default function LoginForm() {
         </Stack>
 
         <LoadingButton
-          fullWidth
+          fullwidth
           size="large"
           type="submit"
           variant="contained"

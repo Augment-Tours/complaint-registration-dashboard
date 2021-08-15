@@ -56,11 +56,11 @@ export const applyDrag = (arr, dragResult) => {
   return result;
 };
 
-export default function Museum() {
+export default function CreateForm() {
   const [formName, setFormName] = useState('');
   const [fieldType, setFieldType] = useState('');
   const [fieldList, setFieldList] = useState([]);
-
+  const [test, setTest] = useState(0);
   // const [items, setItems] = useState([
   //   { id: '1', text: 'Item 1' },
   //   { id: '2', text: 'Item 2' },
@@ -71,7 +71,7 @@ export default function Museum() {
   const onDrop = (dropResult) => {
     // setItems(applyDrag(items, dropResult));
     // console.log(dropResult);
-    setFieldList(applyDrag(fieldList, dropResult));
+    setFieldList(applyDrag([...fieldList], dropResult));
     // setFieldList({ applyDrag(fieldList, dropResult)});
   };
 
@@ -80,21 +80,30 @@ export default function Museum() {
   };
 
   const onFieldSaved = (fieldData) => {
-    const newFieldList = fieldList;
+    const newFieldList = [...fieldList];
     newFieldList.pop();
     newFieldList.push(fieldData);
     setFieldList(newFieldList);
     console.table(fieldList);
+    // setFieldList([]);
   };
 
   const onCancelClicked = (index) => {
-    const newFieldList = fieldList;
-    newFieldList.splice(index);
-    // console.log('->', newFieldList);
+    console.log(`deleting - ${index}`);
+    const newFieldList = [...fieldList];
+    newFieldList.splice(index, 1);
+    // console.log(fieldList);
+    console.log(newFieldList);
+    // // console.log('->', newFieldList);
+
+    // console.log(newFieldList);
+
     setFieldList(newFieldList);
+    // console.log(fieldList);
+    // setFieldList([]);
   };
 
-  // console.log('-->', fieldList);
+  console.log('-->', fieldList);
 
   return (
     <Page title="Create Form | Shilengae">
@@ -149,7 +158,7 @@ export default function Museum() {
               variant="contained"
               component={RouterLink}
               to="#"
-              fullWidth={false}
+              fullwidth={false}
               // disabled={isCreating}
               style={{ padding: '10px 20px' }}
               onClick={() => {

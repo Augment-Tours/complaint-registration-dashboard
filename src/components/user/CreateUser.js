@@ -70,7 +70,7 @@ const CreateUser = ({ isOpenFilter, toggleDrawer, fetchUsers }) => {
         </IconButton>
       </Stack>
       <TextField
-        fullWidth
+        fullwidth
         label="Username"
         onChange={(e) => {
           setUsername(e.target.value);
@@ -79,7 +79,7 @@ const CreateUser = ({ isOpenFilter, toggleDrawer, fetchUsers }) => {
         style={{ marginBottom: '20px' }}
       />
       <TextField
-        fullWidth
+        fullwidth
         label="Email"
         style={{ marginBottom: '20px' }}
         onChange={(e) => {
@@ -88,7 +88,7 @@ const CreateUser = ({ isOpenFilter, toggleDrawer, fetchUsers }) => {
         value={email}
       />
       <TextField
-        fullWidth
+        fullwidth
         label="First Name"
         style={{ marginBottom: '20px' }}
         onChange={(e) => {
@@ -97,7 +97,7 @@ const CreateUser = ({ isOpenFilter, toggleDrawer, fetchUsers }) => {
         value={firstName}
       />
       <TextField
-        fullWidth
+        fullwidth
         label="Last Name"
         style={{ marginBottom: '20px' }}
         onChange={(e) => {
@@ -106,7 +106,7 @@ const CreateUser = ({ isOpenFilter, toggleDrawer, fetchUsers }) => {
         value={lastName}
       />
       <TextField
-        fullWidth
+        fullwidth
         label="Password"
         style={{ marginBottom: '20px' }}
         onChange={(e) => {
@@ -115,7 +115,7 @@ const CreateUser = ({ isOpenFilter, toggleDrawer, fetchUsers }) => {
         value={password1}
       />
       <TextField
-        fullWidth
+        fullwidth
         label="Confirm Password"
         style={{ marginBottom: '20px' }}
         onChange={(e) => {

@@ -1,4 +1,5 @@
 import React from 'react';
+import { Button } from '@material-ui/core';
 // import { Container, Draggable } from 'react-smooth-dnd';
 
 import TextBox from './TextBox';
@@ -26,6 +27,15 @@ const FieldChooser = ({ index, field, onFieldSaved, onCancel }) => {
   } else if (field.type === 'date-range') {
     chosenInput = <DateRange field={field} onFieldSaved={onFieldSaved} />;
   }
+  // chosenInput = (
+  //   <Button
+  //     onClick={() => {
+  //       onFieldSaved(2);
+  //     }}
+  //   >
+  //     Test
+  //   </Button>
+  // );
   return chosenInput;
 };
 

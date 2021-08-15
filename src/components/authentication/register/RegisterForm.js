@@ -46,7 +46,7 @@ export default function RegisterForm() {
         <Stack spacing={3}>
           <Stack direction={{ xs: 'column', sm: 'row' }} spacing={2}>
             <TextField
-              fullWidth
+              fullwidth
               label="First name"
               {...getFieldProps('firstName')}
               error={Boolean(touched.firstName && errors.firstName)}
@@ -54,7 +54,7 @@ export default function RegisterForm() {
             />
 
             <TextField
-              fullWidth
+              fullwidth
               label="Last name"
               {...getFieldProps('lastName')}
               error={Boolean(touched.lastName && errors.lastName)}
@@ -63,7 +63,7 @@ export default function RegisterForm() {
           </Stack>
 
           <TextField
-            fullWidth
+            fullwidth
             autoComplete="username"
             type="email"
             label="Email address"
@@ -73,7 +73,7 @@ export default function RegisterForm() {
           />
 
           <TextField
-            fullWidth
+            fullwidth
             autoComplete="current-password"
             type={showPassword ? 'text' : 'password'}
             label="Password"
@@ -92,7 +92,7 @@ export default function RegisterForm() {
           />
 
           <LoadingButton
-            fullWidth
+            fullwidth
             size="large"
             type="submit"
             variant="contained"

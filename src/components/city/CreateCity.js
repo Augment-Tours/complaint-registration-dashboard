@@ -65,7 +65,7 @@ const CreateCountry = ({ isOpenFilter, toggleDrawer, fetchCities }) => {
         </IconButton>
       </Stack>
       <TextField
-        fullWidth
+        fullwidth
         label="City Name"
         onChange={(e) => {
           setName(e.target.value);
@@ -74,7 +74,7 @@ const CreateCountry = ({ isOpenFilter, toggleDrawer, fetchCities }) => {
         style={{ marginBottom: '20px' }}
       />
       <TextField
-        fullWidth
+        fullwidth
         label="Symbol"
         style={{ marginBottom: '20px' }}
         onChange={(e) => {

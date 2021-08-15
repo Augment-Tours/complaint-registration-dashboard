@@ -18,18 +18,21 @@ const FormTextField = ({ field, onFieldSaved, onCancel, index }) => {
   };
 
   if (json.saved) {
-    return <PostSave json={json} onCancel={onCancel} index={index} />;
+    return <PostSave json={json} onCancel={onCancel} index={index} field={field} />;
   }
-  return <PreSave json={json} setJson={setJson} field={field} saveField={saveField} />;
+  return (
+    <PreSave json={json} setJson={setJson} index={index} field={field} saveField={saveField} />
+  );
 };
 
 // eslint-disable-next-line react/prop-types
 // eslint-disable-next-line no-unused-vars
-export const PreSave = ({ json, setJson, saveField }) => {
+export const PreSave = ({ json, setJson, saveField, index }) => {
   const handleChange = (value, field) => {
     const newJson = { ...json };
     newJson[field] = value;
     setJson(newJson);
+    saveField(true);
   };
 
   return (
@@ -39,17 +42,17 @@ export const PreSave = ({ json, setJson, saveField }) => {
       style={{ border: '1px solid lightgrey', borderRadius: '10px' }}
     >
       <Stack
-        fullWidth
+        fullwidth
         direction="row"
         alignItems="center"
         justifyContent="space-between"
         sx={{ mb: 2 }}
       >
         <TextField
-          fullWidth
+          fullwidth
           sx={{ mr: 2 }}
           label={`${json.type} field name`}
-          // value={json.name}
+          value={json.name}
           onChange={(e) => handleChange(e.target.value, 'name')}
         />
         <TextField
@@ -67,6 +70,7 @@ export const PreSave = ({ json, setJson, saveField }) => {
       <TextField
         label="position"
         type="number"
+        value={json.position}
         onChange={(e) => handleChange(e.target.value, 'position')}
       />
       <Button
@@ -87,19 +91,19 @@ export const PreSave = ({ json, setJson, saveField }) => {
   );
 };
 
-const PostSave = ({ json, index, onCancel }) => (
+const PostSave = ({ index, onCancel, field }) => (
   <Stack direction="row" alignItems="center" sx={{ px: 0, mt: 2 }}>
     <Typography variant="p" gutterBottom sx={{ mr: 3 }}>
-      {json.name}
+      {field.name}
     </Typography>
     <Typography variant="p" gutterBottom sx={{ mr: 3 }}>
-      {json.hint}
+      {field.hint}
     </Typography>
     <Typography variant="p" gutterBottom sx={{ mr: 3 }}>
-      {json.label}
+      {field.label}
     </Typography>
     <Typography variant="p" gutterBottom sx={{ mr: 3 }}>
-      {json.position}
+      {field.position}
     </Typography>
     <Button
       onClick={() => {

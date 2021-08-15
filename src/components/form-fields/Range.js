@@ -42,14 +42,14 @@ export const PreSave = ({ json, setJson, saveField }) => {
       style={{ border: '1px solid lightgrey', borderRadius: '10px' }}
     >
       <Stack
-        fullWidth
+        fullwidth
         direction="row"
         alignItems="center"
         justifyContent="space-between"
         sx={{ mb: 2 }}
       >
         <TextField
-          fullWidth
+          fullwidth
           sx={{ mr: 2 }}
           label="Range Field name"
           value={json.name}

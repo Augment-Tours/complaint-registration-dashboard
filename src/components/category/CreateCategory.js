@@ -74,7 +74,7 @@ const CreateCategory = ({ isOpenFilter, toggleDrawer }) => {
         </IconButton>
       </Stack>
       <TextField
-        fullWidth
+        fullwidth
         label="Category Name"
         onChange={(e) => {
           setName(e.target.value);
