@@ -23,6 +23,7 @@ import FieldChooser from '../components/form-fields/FieldChooser';
 //
 // import USERLIST from '../_mocks_/user';
 import { createForm } from '../request/form';
+import PreviewFormModal from '../components/form-fields/previewFormModal';
 
 const FIELD_TYPES_LIST = [
   { id: 'textbox', name: 'Text Field' },
@@ -61,6 +62,7 @@ export default function CreateForm() {
   const [fieldType, setFieldType] = useState('');
   const [fieldList, setFieldList] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [isPreviewOpen, setIsPreviewOpen] = useState(false);
   const [error, setError] = useState('');
   const navigate = useNavigate();
 
@@ -85,6 +87,10 @@ export default function CreateForm() {
     const newFieldList = [...fieldList];
     newFieldList.splice(index, 1);
     setFieldList(newFieldList);
+  };
+
+  const togglePreviewModal = () => {
+    setIsPreviewOpen(!isPreviewOpen);
   };
 
   return (
@@ -187,7 +193,21 @@ export default function CreateForm() {
         >
           Create Form
         </Button>
-        <Button sx={{ ml: 2, py: 1, px: 3 }}>Preview Form</Button>
+        <Button
+          sx={{ ml: 2, py: 1, px: 3 }}
+          onClick={() => {
+            togglePreviewModal();
+          }}
+        >
+          Preview Form
+        </Button>
+        {isPreviewOpen && (
+          <PreviewFormModal
+            fieldList={fieldList}
+            isPreviewOpen={isPreviewOpen}
+            toggleDialog={togglePreviewModal}
+          />
+        )}
       </Container>
     </Page>
   );
