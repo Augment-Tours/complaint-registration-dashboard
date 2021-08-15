@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { TextField, Stack, Button, Typography } from '@material-ui/core';
 import DragHandleIcon from '@material-ui/icons/DragHandle';
 
@@ -10,29 +10,25 @@ const FormTextField = ({ field, onFieldSaved, onCancel, index }) => {
   const [saved, setSaved] = useState(false);
   const [json, setJson] = useState(field);
 
-  const saveField = (saved) => {
-    setSaved(saved);
-    if (saved) {
+  useEffect(() => {
+    if (json.saved) {
       onFieldSaved(json);
     }
-  };
+  }, [json]);
 
   if (json.saved) {
     return <PostSave json={json} onCancel={onCancel} index={index} field={field} />;
   }
-  return (
-    <PreSave json={json} setJson={setJson} index={index} field={field} saveField={saveField} />
-  );
+  return <PreSave json={json} setJson={setJson} index={index} />;
 };
 
 // eslint-disable-next-line react/prop-types
 // eslint-disable-next-line no-unused-vars
-export const PreSave = ({ json, setJson, saveField, index }) => {
+export const PreSave = ({ json, setJson, index }) => {
   const handleChange = (value, field) => {
     const newJson = { ...json };
     newJson[field] = value;
     setJson(newJson);
-    saveField(true);
   };
 
   return (
@@ -103,7 +99,7 @@ const PostSave = ({ index, onCancel, field }) => (
       {field.label}
     </Typography>
     <Typography variant="p" gutterBottom sx={{ mr: 3 }}>
-      {field.position}
+      {index + 1}
     </Typography>
     <Button
       onClick={() => {

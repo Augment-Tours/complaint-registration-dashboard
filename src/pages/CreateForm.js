@@ -60,19 +60,10 @@ export default function CreateForm() {
   const [formName, setFormName] = useState('');
   const [fieldType, setFieldType] = useState('');
   const [fieldList, setFieldList] = useState([]);
-  const [test, setTest] = useState(0);
-  // const [items, setItems] = useState([
-  //   { id: '1', text: 'Item 1' },
-  //   { id: '2', text: 'Item 2' },
-  //   { id: '3', text: 'Item 3' },
-  //   { id: '4', text: 'Item 4' }
-  // ]);
 
   const onDrop = (dropResult) => {
-    // setItems(applyDrag(items, dropResult));
-    // console.log(dropResult);
+    console.log(fieldList);
     setFieldList(applyDrag([...fieldList], dropResult));
-    // setFieldList({ applyDrag(fieldList, dropResult)});
   };
 
   const handleFieldChange = (e) => {
@@ -80,30 +71,19 @@ export default function CreateForm() {
   };
 
   const onFieldSaved = (fieldData) => {
+    console.log(fieldData);
     const newFieldList = [...fieldList];
     newFieldList.pop();
     newFieldList.push(fieldData);
     setFieldList(newFieldList);
     console.table(fieldList);
-    // setFieldList([]);
   };
 
   const onCancelClicked = (index) => {
-    console.log(`deleting - ${index}`);
     const newFieldList = [...fieldList];
     newFieldList.splice(index, 1);
-    // console.log(fieldList);
-    console.log(newFieldList);
-    // // console.log('->', newFieldList);
-
-    // console.log(newFieldList);
-
     setFieldList(newFieldList);
-    // console.log(fieldList);
-    // setFieldList([]);
   };
-
-  console.log('-->', fieldList);
 
   return (
     <Page title="Create Form | Shilengae">
@@ -184,7 +164,6 @@ export default function CreateForm() {
           variant="contained"
           component={RouterLink}
           to="#"
-          // disabled={isCreating}
           style={{ padding: '10px 20px' }}
           onClick={() => {
             createForm({ name: formName, form_fields: fieldList })

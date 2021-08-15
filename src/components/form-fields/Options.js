@@ -1,26 +1,27 @@
 /* eslint-disable react/prop-types */
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { TextField, Stack, Button, Typography } from '@material-ui/core';
+import DragHandleIcon from '@material-ui/icons/DragHandle';
 
-const OptionsField = ({ field, onFieldSaved }) => {
+const OptionsField = ({ field, onFieldSaved, onCancel, index }) => {
+  // eslint-disable-next-line no-unused-vars
   const [saved, setSaved] = useState(false);
   const [json, setJson] = useState(field);
 
-  const saveField = (saved) => {
-    setSaved(saved);
-    if (saved) {
+  useEffect(() => {
+    if (json.saved) {
       onFieldSaved(json);
     }
-  };
+  }, [json]);
 
-  if (saved) {
-    return <PostSave json={json} />;
+  if (json.saved) {
+    return <PostSave json={json} onCancel={onCancel} index={index} field={field} />;
   }
-  return <PreSave json={json} setJson={setJson} saveField={saveField} />;
+  return <PreSave json={json} setJson={setJson} index={index} />;
 };
 
 // eslint-disable-next-line react/prop-types
-export const PreSave = ({ json, setJson, saveField }) => {
+export const PreSave = ({ json, setJson }) => {
   const [options, setOptions] = useState([]);
 
   const handleChange = (value, field) => {
@@ -46,7 +47,6 @@ export const PreSave = ({ json, setJson, saveField }) => {
     const newJson = { ...json };
     newJson.data = optionsString;
     setJson(newJson);
-    console.log(newJson);
   };
 
   return (
@@ -84,6 +84,7 @@ export const PreSave = ({ json, setJson, saveField }) => {
       <TextField
         label="position"
         type="number"
+        value={json.position}
         onChange={(e) => handleChange(e.target.value, 'position')}
       />
       {options.map((option, index) => (
@@ -112,7 +113,8 @@ export const PreSave = ({ json, setJson, saveField }) => {
         sx={{ px: 0, py: 1, mt: 2 }}
         width="50%"
         onClick={() => {
-          saveField(true);
+          // saveField(true);
+          handleChange(true, 'saved');
         }}
       >
         Save
@@ -121,24 +123,29 @@ export const PreSave = ({ json, setJson, saveField }) => {
   );
 };
 
-const PostSave = ({ json }) => {
-  console.log(json);
-  return (
-    <Stack direction="row" alignItems="center" sx={{ px: 0, mt: 2 }}>
-      <Typography variant="p" gutterBottom sx={{ mr: 3 }}>
-        {json.name}
-      </Typography>
-      <Typography variant="p" gutterBottom sx={{ mr: 3 }}>
-        {json.hint}
-      </Typography>
-      <Typography variant="p" gutterBottom sx={{ mr: 3 }}>
-        {json.label}
-      </Typography>
-      <Typography variant="p" gutterBottom sx={{ mr: 3 }}>
-        {json.position}
-      </Typography>
-    </Stack>
-  );
-};
+const PostSave = ({ index, onCancel, field }) => (
+  <Stack direction="row" alignItems="center" sx={{ px: 0, mt: 2 }}>
+    <Typography variant="p" gutterBottom sx={{ mr: 3 }}>
+      {field.name}
+    </Typography>
+    <Typography variant="p" gutterBottom sx={{ mr: 3 }}>
+      {field.hint}
+    </Typography>
+    <Typography variant="p" gutterBottom sx={{ mr: 3 }}>
+      {field.label}
+    </Typography>
+    <Typography variant="p" gutterBottom sx={{ mr: 3 }}>
+      {index + 1}
+    </Typography>
+    <Button
+      onClick={() => {
+        onCancel(index);
+      }}
+    >
+      Cancel
+    </Button>
+    <DragHandleIcon className="drag-handle" />
+  </Stack>
+);
 
 export default OptionsField;

@@ -1,6 +1,4 @@
 import React from 'react';
-import { Button } from '@material-ui/core';
-// import { Container, Draggable } from 'react-smooth-dnd';
 
 import TextBox from './TextBox';
 import Options from './Options';
@@ -9,7 +7,6 @@ import DateRange from './DateRange';
 
 const FieldChooser = ({ index, field, onFieldSaved, onCancel }) => {
   let chosenInput = null;
-  console.log(index);
   if (
     field.type === 'textbox' ||
     field.type === 'file' ||
@@ -21,21 +18,18 @@ const FieldChooser = ({ index, field, onFieldSaved, onCancel }) => {
       <TextBox index={index} field={field} onFieldSaved={onFieldSaved} onCancel={onCancel} />
     );
   } else if (field.type === 'dropdown' || field.type === 'radio' || field.type === 'multi-select') {
-    chosenInput = <Options field={field} onFieldSaved={onFieldSaved} />;
+    chosenInput = (
+      <Options index={index} field={field} onFieldSaved={onFieldSaved} onCancel={onCancel} />
+    );
   } else if (field.type === 'range') {
-    chosenInput = <Range field={field} onFieldSaved={onFieldSaved} />;
+    chosenInput = (
+      <Range index={index} field={field} onFieldSaved={onFieldSaved} onCancel={onCancel} />
+    );
   } else if (field.type === 'date-range') {
-    chosenInput = <DateRange field={field} onFieldSaved={onFieldSaved} />;
+    chosenInput = (
+      <DateRange index={index} field={field} onFieldSaved={onFieldSaved} onCancel={onCancel} />
+    );
   }
-  // chosenInput = (
-  //   <Button
-  //     onClick={() => {
-  //       onFieldSaved(2);
-  //     }}
-  //   >
-  //     Test
-  //   </Button>
-  // );
   return chosenInput;
 };
 
