@@ -25,6 +25,7 @@ import Page from '../components/Page';
 import Scrollbar from '../components/Scrollbar';
 import SearchNotFound from '../components/SearchNotFound';
 import { UserListHead, UserListToolbar, UserMoreMenu } from '../components/_dashboard/user';
+import { FormPreview } from '../components/form-fields/previewFormModal';
 //
 // import USERLIST from '../_mocks_/user';
 import { getAllForms } from '../request/form';
@@ -75,6 +76,9 @@ export default function Museum() {
   const [filterName, setFilterName] = useState('');
   const [rowsPerPage, setRowsPerPage] = useState(5);
   const [formsList, setFormsList] = useState([]);
+
+  const [previewId, setPreviewId] = useState(null);
+  const [previewOpen, setPreviewOpen] = useState(false);
 
   const fetchForms = () => {
     getAllForms().then((res) => {
@@ -132,6 +136,11 @@ export default function Museum() {
 
   const handleFilterByName = (event) => {
     setFilterName(event.target.value);
+  };
+
+  const togglePreviewDialog = (id) => {
+    setPreviewId(id);
+    setPreviewOpen(!previewOpen);
   };
 
   const emptyRows = page > 0 ? Math.max(0, (1 + page) * rowsPerPage - formsList.length) : 0;
@@ -203,6 +212,15 @@ export default function Museum() {
                           <TableCell align="left">
                             {new Date(`${created_at}`).toDateString()}
                           </TableCell>
+                          <TableCell align="left">
+                            <Button
+                              onClick={() => {
+                                togglePreviewDialog(id);
+                              }}
+                            >
+                              Preview
+                            </Button>
+                          </TableCell>
                           <TableCell align="right">
                             <UserMoreMenu />
                           </TableCell>
@@ -238,6 +256,13 @@ export default function Museum() {
             onRowsPerPageChange={handleChangeRowsPerPage}
           />
         </Card>
+        {previewOpen && (
+          <FormPreview
+            formId={previewId}
+            toggleDialog={togglePreviewDialog}
+            isPreviewOpen={previewOpen}
+          />
+        )}
       </Container>
     </Page>
   );

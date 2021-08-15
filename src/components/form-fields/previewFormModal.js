@@ -1,9 +1,32 @@
-import React from 'react';
+/* eslint-disable react/prop-types */
+import React, { useEffect, useState } from 'react';
 import { Dialog, DialogTitle, DialogContent, DialogActions, Button } from '@material-ui/core';
 
 import { PreviewFieldChooser } from './FieldChooser';
+import { getAllFieldsByForm } from '../../request/formFields';
 
-const previewFormModal = ({ fieldList, isPreviewOpen, toggleDialog }) => {
+const FormPreview = ({ formId, isPreviewOpen, toggleDialog }) => {
+  const [fieldList, setFieldList] = useState([]);
+
+  useEffect(() => {
+    if (formId !== null) {
+      getAllFieldsByForm(formId).then((res) => {
+        setFieldList(res);
+      });
+    }
+  }, [formId]);
+
+  return (
+    <PreviewFormModal
+      formId={formId}
+      fieldList={fieldList}
+      isPreviewOpen={isPreviewOpen}
+      toggleDialog={toggleDialog}
+    />
+  );
+};
+
+const PreviewFormModal = ({ formId, fieldList, isPreviewOpen, toggleDialog }) => {
   console.log(fieldList);
   return (
     <Dialog
@@ -20,7 +43,12 @@ const previewFormModal = ({ fieldList, isPreviewOpen, toggleDialog }) => {
         })}
       </DialogContent>
       <DialogActions>
-        <Button onClick={toggleDialog} sx={{ my: 0, px: 5, py: 1 }} color="primary" autoFocus>
+        <Button
+          onClick={() => toggleDialog(formId)}
+          sx={{ my: 0, px: 5, py: 1 }}
+          color="primary"
+          autoFocus
+        >
           Agree
         </Button>
       </DialogActions>
@@ -28,4 +56,6 @@ const previewFormModal = ({ fieldList, isPreviewOpen, toggleDialog }) => {
   );
 };
 
-export default previewFormModal;
+export { FormPreview };
+
+export default PreviewFormModal;
