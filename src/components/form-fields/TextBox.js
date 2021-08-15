@@ -1,8 +1,11 @@
 /* eslint-disable react/prop-types */
 import React, { useState } from 'react';
-import { TextField, Stack, Button, Typography } from '@material-ui/core';
+import { TextField, Stack, Button, Typography, Icon, IconButton, Tooltip } from '@material-ui/core';
+import DragHandleIcon from '@material-ui/icons/DragHandle';
 
-const FormTextField = ({ field, onFieldSaved }) => {
+import trash2Fill from '@iconify/icons-eva/trash-2-fill';
+
+const FormTextField = ({ field, onFieldSaved, onCancel, index }) => {
   const [saved, setSaved] = useState(false);
   const [json, setJson] = useState(field);
 
@@ -13,17 +16,17 @@ const FormTextField = ({ field, onFieldSaved }) => {
     }
   };
 
-  if (saved) {
-    return <PostSave json={json} />;
+  if (field.saved) {
+    return <PostSave json={json} onCancel={onCancel} index={index} />;
   }
   return <PreSave json={json} setJson={setJson} field={field} saveField={saveField} />;
 };
 
 // eslint-disable-next-line react/prop-types
 export const PreSave = ({ json, setJson, saveField }) => {
-  const handleChange = (event, field) => {
+  const handleChange = (value, field) => {
     const newJson = { ...json };
-    newJson[field] = event.target.value;
+    newJson[field] = value;
     setJson(newJson);
   };
 
@@ -44,18 +47,26 @@ export const PreSave = ({ json, setJson, saveField }) => {
           fullWidth
           sx={{ mr: 2 }}
           label={`${json.type} field name`}
-          value={json.name}
-          onChange={(e) => handleChange(e, 'name')}
+          // value={json.name}
+          onChange={(e) => handleChange(e.target.value, 'name')}
         />
-        <TextField label="Label" value={json.label} onChange={(e) => handleChange(e, 'label')} />
+        <TextField
+          label="Label"
+          value={json.label}
+          onChange={(e) => handleChange(e.target.value, 'label')}
+        />
       </Stack>
       <TextField
         sx={{ mb: 2 }}
         value={json.hint}
         label="Hint / Placeholder"
-        onChange={(e) => handleChange(e, 'hint')}
+        onChange={(e) => handleChange(e.target.value, 'hint')}
       />
-      <TextField label="position" type="number" onChange={(e) => handleChange(e, 'position')} />
+      <TextField
+        label="position"
+        type="number"
+        onChange={(e) => handleChange(e.target.value, 'position')}
+      />
       <Button
         variant="contained"
         to=""
@@ -64,7 +75,8 @@ export const PreSave = ({ json, setJson, saveField }) => {
         sx={{ px: 0, py: 1, mt: 2 }}
         width="50%"
         onClick={() => {
-          saveField(true);
+          // saveField(true);
+          handleChange(true, 'saved');
         }}
       >
         Save
@@ -73,7 +85,7 @@ export const PreSave = ({ json, setJson, saveField }) => {
   );
 };
 
-const PostSave = ({ json }) => (
+const PostSave = ({ json, index, onCancel }) => (
   <Stack direction="row" alignItems="center" sx={{ px: 0, mt: 2 }}>
     <Typography variant="p" gutterBottom sx={{ mr: 3 }}>
       {json.name}
@@ -87,6 +99,14 @@ const PostSave = ({ json }) => (
     <Typography variant="p" gutterBottom sx={{ mr: 3 }}>
       {json.position}
     </Typography>
+    <Button
+      onClick={() => {
+        onCancel(index);
+      }}
+    >
+      Cancel
+    </Button>
+    <DragHandleIcon className="drag-handle" />
   </Stack>
 );
 

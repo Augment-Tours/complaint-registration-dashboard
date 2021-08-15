@@ -9,7 +9,7 @@ import { Menu, MenuItem, IconButton, ListItemIcon, ListItemText } from '@materia
 
 // ----------------------------------------------------------------------
 
-export default function UserMoreMenu() {
+export default function UserMoreMenu({ toggleEditDrawer }) {
   const ref = useRef(null);
   const [isOpen, setIsOpen] = useState(false);
 
@@ -40,7 +40,14 @@ export default function UserMoreMenu() {
           <ListItemIcon>
             <Icon icon={editFill} width={24} height={24} />
           </ListItemIcon>
-          <ListItemText primary="Edit" primaryTypographyProps={{ variant: 'body2' }} />
+          <ListItemText
+            primary="Edit"
+            primaryTypographyProps={{ variant: 'body2' }}
+            onClick={() => {
+              toggleEditDrawer();
+              setIsOpen(false);
+            }}
+          />
         </MenuItem>
       </Menu>
     </>

@@ -25,7 +25,8 @@ import Page from '../components/Page';
 import Scrollbar from '../components/Scrollbar';
 import SearchNotFound from '../components/SearchNotFound';
 import { UserListHead, UserListToolbar, UserMoreMenu } from '../components/_dashboard/user';
-import RegionDrawer from '../components/region/CreateRegion';
+import CreateRegionDrawer from '../components/region/CreateRegion';
+import EditRegionDrawer from '../components/region/EditRegion';
 //
 // import USERLIST from '../_mocks_/user';
 import { getAllRegions, createRegion } from '../request/region';
@@ -78,6 +79,8 @@ export default function Museum() {
   const [filterName, setFilterName] = useState('');
   const [rowsPerPage, setRowsPerPage] = useState(5);
   const [isOpenFilter, setIsOpenFilter] = useState(false);
+  const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+  const [editId, setEditId] = useState(null);
   const [regionList, setRegionList] = useState([]);
 
   const fetchRegions = () => {
@@ -148,6 +151,11 @@ export default function Museum() {
     setIsOpenFilter(!isOpenFilter);
   };
 
+  const toggleEditDrawer = (id) => {
+    setEditId(id);
+    setIsEditModalOpen(!isEditModalOpen);
+  };
+
   return (
     <Page title="Region | Shilengae">
       <Container>
@@ -215,7 +223,11 @@ export default function Museum() {
                             {new Date(`${created_at}`).toDateString()}
                           </TableCell>
                           <TableCell align="right">
-                            <UserMoreMenu />
+                            <UserMoreMenu
+                              toggleEditDrawer={() => {
+                                toggleEditDrawer(id);
+                              }}
+                            />
                           </TableCell>
                         </TableRow>
                       );
@@ -249,11 +261,19 @@ export default function Museum() {
             onRowsPerPageChange={handleChangeRowsPerPage}
           />
         </Card>
-        <RegionDrawer
+        <CreateRegionDrawer
           isOpenFilter={isOpenFilter}
           toggleDrawer={toggleDrawer}
           fetchRegions={fetchRegions}
         />
+        {isEditModalOpen && (
+          <EditRegionDrawer
+            regionId={editId}
+            isOpenFilter={isEditModalOpen}
+            toggleDrawer={toggleEditDrawer}
+            fetchRegions={fetchRegions}
+          />
+        )}
       </Container>
     </Page>
   );

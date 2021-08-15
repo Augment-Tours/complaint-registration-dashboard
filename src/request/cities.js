@@ -15,4 +15,8 @@ const createCity = async (name, symbol, region_id, status) => {
   return rf.postRequest(url, { name, symbol, region_id, status });
 };
 
+// const cityDetail = async (city_id) => {
+//   const url = `${process.env.REACT_APP_BACKEND}/locations/city/edit/`;
+// }
+
 export { getAllCities, createCity };

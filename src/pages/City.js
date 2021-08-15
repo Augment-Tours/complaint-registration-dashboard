@@ -35,7 +35,8 @@ const TABLE_HEAD = [
   { id: 'name', label: 'Region Name', alignRight: false },
   { id: 'symbol', label: 'Symbol', alignRight: false },
   { id: 'region', label: 'Region', alignRight: false },
-  { id: 'status', label: 'Status', alignedRight: false }
+  { id: 'status', label: 'Status', alignedRight: false },
+  { id: 'created_at', label: 'Date', alignedRight: false }
 ];
 
 // ----------------------------------------------------------------------
@@ -188,7 +189,7 @@ export default function Museum() {
                   {filteredUsers
                     .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                     .map((row) => {
-                      const { id, name, symbol, region_name, status } = row;
+                      const { id, name, symbol, region_name, status, created_at } = row;
                       const isItemSelected = selected.indexOf(name) !== -1;
 
                       return (
@@ -210,6 +211,9 @@ export default function Museum() {
                           <TableCell align="left">{symbol}</TableCell>
                           <TableCell align="left">{region_name}</TableCell>
                           <TableCell align="left">{status}</TableCell>
+                          <TableCell align="left">
+                            {new Date(`${created_at}`).toDateString()}
+                          </TableCell>
                           <TableCell align="right">
                             <UserMoreMenu />
                           </TableCell>
