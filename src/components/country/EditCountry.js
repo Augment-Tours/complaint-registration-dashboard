@@ -16,7 +16,7 @@ import closeFill from '@iconify/icons-eva/close-fill';
 import { Icon } from '@iconify/react';
 import { Link as RouterLink } from 'react-router-dom';
 
-import { createCountry, editCountry, getCountryDetail } from '../../request/country';
+import { editCountry, getCountryDetail } from '../../request/country';
 
 const EditCountry = ({ isOpenFilter, toggleDrawer, fetchCountries, countryId }) => {
   const [name, setName] = useState('');
