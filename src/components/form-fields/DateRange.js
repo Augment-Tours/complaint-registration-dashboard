@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
 import React, { useEffect, useState } from 'react';
-import { TextField, Stack, Button, Typography } from '@material-ui/core';
+import { TextField, Stack, Button, Typography, Checkbox } from '@material-ui/core';
 import AdapterDateFns from '@material-ui/lab/AdapterDateFns';
 import LocalizationProvider from '@material-ui/lab/LocalizationProvider';
 import DateRangePicker from '@material-ui/lab/DateRangePicker';
@@ -82,12 +82,22 @@ export const PreSave = ({ json, setJson }) => {
           }}
           renderInput={(startProps, endProps) => (
             <fragment>
-              <TextField sx={{ my: 2 }} {...startProps} />
+              <TextField sx={{ my: 2, mr: 5 }} {...startProps} />
               <TextField sx={{ my: 2 }} {...endProps} />
             </fragment>
           )}
         />
       </LocalizationProvider>
+      <Stack direction="row" alignItems="center">
+        <Checkbox
+          checked={json.is_required}
+          onChange={() => {
+            handleChange(!json.is_required, 'is_required');
+          }}
+          inputProps={{ 'aria-label': 'primary checkbox' }}
+        />
+        <Typography>Is Required?</Typography>
+      </Stack>
       <Button
         variant="contained"
         to=""

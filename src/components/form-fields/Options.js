@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
 import React, { useEffect, useState } from 'react';
-import { TextField, Stack, Button, Typography } from '@material-ui/core';
+import { TextField, Stack, Button, Typography, Checkbox } from '@material-ui/core';
 import DragHandleIcon from '@material-ui/icons/DragHandle';
 
 const OptionsField = ({ field, onFieldSaved, onCancel, index }) => {
@@ -93,13 +93,22 @@ export const PreSave = ({ json, setJson }) => {
       ))}
 
       <Button
-        variant="contained"
         color="primary"
         sx={{ px: 0, py: 1, mt: 2 }}
         onClick={() => addOption(`option-${options.length + 1}`)}
       >
         Add Option
       </Button>
+      <Stack direction="row" alignItems="center">
+        <Checkbox
+          checked={json.is_required}
+          onChange={() => {
+            handleChange(!json.is_required, 'is_required');
+          }}
+          inputProps={{ 'aria-label': 'primary checkbox' }}
+        />
+        <Typography>Is Required?</Typography>
+      </Stack>
       <Button
         variant="contained"
         to=""

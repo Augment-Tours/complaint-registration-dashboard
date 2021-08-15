@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
 import React, { useEffect, useState } from 'react';
-import { TextField, Stack, Button, Typography } from '@material-ui/core';
+import { TextField, Stack, Button, Typography, Checkbox } from '@material-ui/core';
 import DragHandleIcon from '@material-ui/icons/DragHandle';
 
 // import trash2Fill from '@iconify/icons-eva/trash-2-fill';
@@ -64,6 +64,16 @@ export const PreSave = ({ json, setJson, index }) => {
         label="Hint / Placeholder"
         onChange={(e) => handleChange(e.target.value, 'hint')}
       />
+      <Stack direction="row" alignItems="center">
+        <Checkbox
+          checked={json.is_required}
+          onChange={() => {
+            handleChange(!json.is_required, 'is_required');
+          }}
+          inputProps={{ 'aria-label': 'primary checkbox' }}
+        />
+        <Typography>Is Required?</Typography>
+      </Stack>
       <Button
         variant="contained"
         to=""

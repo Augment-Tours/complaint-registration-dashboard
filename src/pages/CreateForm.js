@@ -158,7 +158,8 @@ export default function CreateForm() {
                   label: 'Field Label',
                   position: fieldList.length + 1,
                   data: '{}',
-                  saved: false
+                  saved: false,
+                  is_required: false
                 });
                 setFieldList(newFieldList);
               }}
