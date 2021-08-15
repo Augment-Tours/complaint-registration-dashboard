@@ -1,6 +1,6 @@
 // import { sentenceCase } from 'change-case';
 import { useState } from 'react';
-import { Link as RouterLink } from 'react-router-dom';
+import { Link as RouterLink, useNavigate } from 'react-router-dom';
 // material
 import {
   Stack,
@@ -60,6 +60,9 @@ export default function CreateForm() {
   const [formName, setFormName] = useState('');
   const [fieldType, setFieldType] = useState('');
   const [fieldList, setFieldList] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState('');
+  const navigate = useNavigate();
 
   const onDrop = (dropResult) => {
     console.log(fieldList);
@@ -76,7 +79,6 @@ export default function CreateForm() {
     newFieldList.pop();
     newFieldList.push(fieldData);
     setFieldList(newFieldList);
-    console.table(fieldList);
   };
 
   const onCancelClicked = (index) => {
@@ -97,8 +99,8 @@ export default function CreateForm() {
           direction="column"
           alignItems="left"
           justifyContent="space-between"
-          mb={5}
           style={{ width: '50%' }}
+          my={1}
         >
           <TextField
             label="Form Name"
@@ -123,7 +125,7 @@ export default function CreateForm() {
             ))}
           </DraggableContainer>
 
-          <Stack direction="row" justifyContent="space-between" style={{ marginTop: '20px' }}>
+          <Stack direction="row" justifyContent="space-between" my={2}>
             <FormControl variant="outlined" style={{ width: '60%' }}>
               <InputLabel>Field Type</InputLabel>
               <Select onChange={handleFieldChange} label="Field Type">
@@ -159,24 +161,33 @@ export default function CreateForm() {
             </Button>
           </Stack>
         </Stack>
-
+        <Typography my={2} style={{ color: 'red' }}>
+          {error}
+        </Typography>
         <Button
           variant="contained"
           component={RouterLink}
           to="#"
+          disabled={isLoading}
           style={{ padding: '10px 20px' }}
           onClick={() => {
+            setIsLoading(true);
             createForm({ name: formName, form_fields: fieldList })
               .then((res) => {
                 console.log('create form success', res.data);
+                navigate('/dashboard/forms');
+                setIsLoading(false);
               })
               .catch((err) => {
-                console.error('create form error', err);
+                console.log(err);
+                Object.entries(err.response.data).forEach((e) => setError(`* ${e[1]}`));
+                setIsLoading(false);
               });
           }}
         >
           Create Form
         </Button>
+        <Button sx={{ ml: 2, py: 1, px: 3 }}>Preview Form</Button>
       </Container>
     </Page>
   );

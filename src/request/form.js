@@ -12,12 +12,7 @@ const getAllForms = async () => {
 
 const createForm = async (form) => {
   const url = `${process.env.REACT_APP_BACKEND}/forms/create/`;
-  return rf
-    .postRequest(url, form)
-    .then((res) => res.data)
-    .catch((err) => {
-      console.log(err);
-    });
+  return rf.postRequest(url, form).then((res) => res.data);
 };
 
 export { getAllForms, createForm };

@@ -7,13 +7,13 @@ import DateRangePicker from '@material-ui/lab/DateRangePicker';
 import DragHandleIcon from '@material-ui/icons/DragHandle';
 
 const RangeField = ({ field, onFieldSaved, onCancel, index }) => {
-  const [saved, setSaved] = useState(false);
   const [json, setJson] = useState(field);
 
   useEffect(() => {
     if (json.saved) {
       onFieldSaved(json);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [json]);
 
   if (json.saved) {
@@ -23,7 +23,7 @@ const RangeField = ({ field, onFieldSaved, onCancel, index }) => {
 };
 
 // eslint-disable-next-line react/prop-types
-export const PreSave = ({ json, setJson, saveField, index }) => {
+export const PreSave = ({ json, setJson }) => {
   const [rangeData, setRangeData] = useState({ startDate: null, endDate: null });
   // const [value, setValue] = useState([null, null]);
 
@@ -72,11 +72,6 @@ export const PreSave = ({ json, setJson, saveField, index }) => {
         label="Hint / Placeholder"
         onChange={(e) => handleChange(e.target.value, 'hint')}
       />
-      <TextField
-        label="position"
-        type="number"
-        onChange={(e) => handleChange(e.target.value, 'position')}
-      />
       <LocalizationProvider dateAdapter={AdapterDateFns}>
         <DateRangePicker
           startText="Start Date"
@@ -120,9 +115,6 @@ const PostSave = ({ index, onCancel, field }) => (
     </Typography>
     <Typography variant="p" gutterBottom sx={{ mr: 3 }}>
       {field.label}
-    </Typography>
-    <Typography variant="p" gutterBottom sx={{ mr: 3 }}>
-      {index}
     </Typography>
     <Button
       onClick={() => {

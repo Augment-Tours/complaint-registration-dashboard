@@ -12,6 +12,7 @@ const OptionsField = ({ field, onFieldSaved, onCancel, index }) => {
     if (json.saved) {
       onFieldSaved(json);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [json]);
 
   if (json.saved) {
@@ -81,12 +82,6 @@ export const PreSave = ({ json, setJson }) => {
         label="Hint / Placeholder"
         onChange={(e) => handleChange(e.target.value, 'hint')}
       />
-      <TextField
-        label="position"
-        type="number"
-        value={json.position}
-        onChange={(e) => handleChange(e.target.value, 'position')}
-      />
       {options.map((option, index) => (
         <TextField
           key={index}
@@ -133,9 +128,6 @@ const PostSave = ({ index, onCancel, field }) => (
     </Typography>
     <Typography variant="p" gutterBottom sx={{ mr: 3 }}>
       {field.label}
-    </Typography>
-    <Typography variant="p" gutterBottom sx={{ mr: 3 }}>
-      {index + 1}
     </Typography>
     <Button
       onClick={() => {

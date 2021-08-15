@@ -4,13 +4,13 @@ import { TextField, Stack, Button, Typography } from '@material-ui/core';
 import DragHandleIcon from '@material-ui/icons/DragHandle';
 
 const RangeField = ({ field, onFieldSaved, onCancel, index }) => {
-  const [saved, setSaved] = useState(false);
   const [json, setJson] = useState({ ...field, data: `{"min": "0", "max": "100"}` });
 
   useEffect(() => {
     if (json.saved) {
       onFieldSaved(json);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [json]);
 
   if (json.saved) {
@@ -68,12 +68,6 @@ export const PreSave = ({ json, setJson }) => {
         onChange={(e) => handleChange(e.target.value, 'hint')}
       />
       <TextField
-        label="position"
-        type="number"
-        value={json.position}
-        onChange={(e) => handleChange(e.target.value, 'position')}
-      />
-      <TextField
         sx={{ my: 2 }}
         label="Minimum Value"
         value={rangeData.min}
@@ -118,9 +112,6 @@ const PostSave = ({ index, onCancel, field }) => (
     </Typography>
     <Typography variant="p" gutterBottom sx={{ mr: 3 }}>
       {field.label}
-    </Typography>
-    <Typography variant="p" gutterBottom sx={{ mr: 3 }}>
-      {index}
     </Typography>
     <Button
       onClick={() => {
