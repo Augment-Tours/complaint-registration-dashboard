@@ -26,6 +26,7 @@ import Scrollbar from '../components/Scrollbar';
 import SearchNotFound from '../components/SearchNotFound';
 import { UserListHead, UserListToolbar, UserMoreMenu } from '../components/_dashboard/user';
 import CategoryDrawer from '../components/category/CreateCategory';
+import EditCategoryDrawer from '../components/category/EditCategory';
 //
 // import USERLIST from '../_mocks_/user';
 import { getAllCategories } from '../request/category';
@@ -78,6 +79,8 @@ export default function Museum() {
   const [rowsPerPage, setRowsPerPage] = useState(5);
   const [isOpenFilter, setIsOpenFilter] = useState(false);
   const [categoriesList, setCategoriesList] = useState([]);
+  const [editId, setEditId] = useState([]);
+  const [isEditModalOpen, setIsEditModalOpen] = useState(false);
 
   useEffect(() => {
     const categoriesList = getAllCategories().then((res) => {
@@ -148,6 +151,11 @@ export default function Museum() {
     setIsOpenFilter(!isOpenFilter);
   };
 
+  const toggleEditDrawer = (id) => {
+    setEditId(id);
+    setIsEditModalOpen(!isEditModalOpen);
+  };
+
   return (
     <Page title="Category | Shilengae">
       <Container>
@@ -214,7 +222,11 @@ export default function Museum() {
                             {new Date(`${created_at}`).toDateString()}
                           </TableCell>
                           <TableCell align="right">
-                            <UserMoreMenu />
+                            <UserMoreMenu
+                              toggleEditDrawer={() => {
+                                toggleEditDrawer(id);
+                              }}
+                            />
                           </TableCell>
                         </TableRow>
                       );
@@ -249,6 +261,13 @@ export default function Museum() {
           />
         </Card>
         <CategoryDrawer isOpenFilter={isOpenFilter} toggleDrawer={toggleDrawer} />
+        {isEditModalOpen && (
+          <EditCategoryDrawer
+            categoryId={editId}
+            isOpenFilter={isEditModalOpen}
+            toggleDrawer={toggleEditDrawer}
+          />
+        )}
       </Container>
     </Page>
   );
