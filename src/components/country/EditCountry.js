@@ -150,6 +150,7 @@ const EditCountry = ({ isOpenFilter, toggleDrawer, fetchCountries, countryId }) 
       <TextField
         fullwidth
         label="Timezone, Eg: EAT, GMT"
+        disabled
         style={{ marginBottom: '30px' }}
         onChange={(e) => {
           setTimezone(e.target.value);

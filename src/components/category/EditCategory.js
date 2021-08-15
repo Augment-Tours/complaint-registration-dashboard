@@ -75,7 +75,7 @@ const EditCategoryDrawer = ({ isOpenFilter, toggleDrawer, fetchCategories, categ
         sx={{ px: 1, py: 2 }}
       >
         <Typography variant="subtitle1" sx={{ ml: 1 }}>
-          Add Category
+          Edit Category
         </Typography>
         <IconButton onClick={toggleDrawer}>
           <Icon icon={closeFill} width={20} height={20} />
@@ -143,7 +143,7 @@ const EditCategoryDrawer = ({ isOpenFilter, toggleDrawer, fetchCategories, categ
             });
         }}
       >
-        {!isCreating ? 'Add' : 'Creating City...'}
+        {!isCreating ? 'Edit' : 'Updating City...'}
       </Button>
     </Drawer>
   );

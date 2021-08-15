@@ -49,7 +49,7 @@ const PreviewFormModal = ({ formId, fieldList, isPreviewOpen, toggleDialog }) =>
           color="primary"
           autoFocus
         >
-          Agree
+          Done
         </Button>
       </DialogActions>
     </Dialog>
