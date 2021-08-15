@@ -15,4 +15,14 @@ const createCountry = async (name, currency, symbol, timezone, status) => {
   return rf.postRequest(url, { name, currency, symbol, timezone, status });
 };
 
-export { getAllCountries, createCountry };
+const editCountry = async (country_id, name, currency, symbol, timezone, status) => {
+  const url = `${process.env.REACT_APP_BACKEND}/locations/country/edit/`;
+  return rf.postRequest(url, { country_id, name, currency, symbol, timezone, status });
+};
+
+const getCountryDetail = async (country_id) => {
+  const url = `${process.env.REACT_APP_BACKEND}/locations/country/detail/${country_id}`;
+  return rf.getRequest(url);
+};
+
+export { getAllCountries, createCountry, editCountry, getCountryDetail };

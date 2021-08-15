@@ -1,11 +1,12 @@
 /* eslint-disable react/prop-types */
 import React, { useState } from 'react';
-import { TextField, Stack, Button, Typography, Icon, IconButton, Tooltip } from '@material-ui/core';
+import { TextField, Stack, Button, Typography } from '@material-ui/core';
 import DragHandleIcon from '@material-ui/icons/DragHandle';
 
-import trash2Fill from '@iconify/icons-eva/trash-2-fill';
+// import trash2Fill from '@iconify/icons-eva/trash-2-fill';
 
 const FormTextField = ({ field, onFieldSaved, onCancel, index }) => {
+  // eslint-disable-next-line no-unused-vars
   const [saved, setSaved] = useState(false);
   const [json, setJson] = useState(field);
 
@@ -16,13 +17,14 @@ const FormTextField = ({ field, onFieldSaved, onCancel, index }) => {
     }
   };
 
-  if (field.saved) {
+  if (json.saved) {
     return <PostSave json={json} onCancel={onCancel} index={index} />;
   }
   return <PreSave json={json} setJson={setJson} field={field} saveField={saveField} />;
 };
 
 // eslint-disable-next-line react/prop-types
+// eslint-disable-next-line no-unused-vars
 export const PreSave = ({ json, setJson, saveField }) => {
   const handleChange = (value, field) => {
     const newJson = { ...json };

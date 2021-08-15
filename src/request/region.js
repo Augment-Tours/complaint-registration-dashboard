@@ -12,7 +12,7 @@ const getAllRegions = async () => {
 
 const getRegionDetail = async (region_id) => {
   const url = `${process.env.REACT_APP_BACKEND}/locations/region/detail/${region_id}`;
-  return rf.getRequest(url, { id: region_id });
+  return rf.getRequest(url);
 };
 
 const createRegion = async (name, symbol, country_id, status) => {

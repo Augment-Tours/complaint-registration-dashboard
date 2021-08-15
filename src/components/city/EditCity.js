@@ -17,9 +17,9 @@ import { Icon } from '@iconify/react';
 import { Link as RouterLink } from 'react-router-dom';
 
 import { getAllRegions } from '../../request/region';
-import { createCity } from '../../request/cities';
+import { editCity, getCityDetail } from '../../request/cities';
 
-const CreateCity = ({ isOpenFilter, toggleDrawer, fetchCities, cityId }) => {
+const EditCity = ({ isOpenFilter, toggleDrawer, fetchCities, cityId }) => {
   const [name, setName] = useState('');
   const [symbol, setSymbol] = useState('');
   const [status, setStatus] = useState('ACTIVE');
@@ -40,7 +40,14 @@ const CreateCity = ({ isOpenFilter, toggleDrawer, fetchCities, cityId }) => {
     getAllRegions().then((res) => {
       setRegions(res);
     });
-  }, []);
+    getCityDetail(cityId).then((res) => {
+      console.log(res);
+      setName(res.data.name);
+      setSymbol(res.data.symbol);
+      setStatus(res.data.status);
+      setRegion(res.data.region);
+    });
+  }, [cityId]);
 
   const createDrawer = (
     <Drawer
@@ -58,12 +65,22 @@ const CreateCity = ({ isOpenFilter, toggleDrawer, fetchCities, cityId }) => {
         sx={{ px: 1, py: 2 }}
       >
         <Typography variant="subtitle1" sx={{ ml: 1 }}>
-          Add City
+          Edit City
         </Typography>
         <IconButton onClick={toggleDrawer}>
           <Icon icon={closeFill} width={20} height={20} />
         </IconButton>
       </Stack>
+      <TextField
+        fullWidth
+        label="City Id"
+        disabled
+        onChange={(e) => {
+          setName(e.target.value);
+        }}
+        value={cityId}
+        style={{ marginBottom: '20px' }}
+      />
       <TextField
         fullWidth
         label="City Name"
@@ -84,7 +101,7 @@ const CreateCity = ({ isOpenFilter, toggleDrawer, fetchCities, cityId }) => {
       />
       <FormControl variant="outlined" style={{ marginBottom: '20px' }}>
         <InputLabel>Region</InputLabel>
-        <Select onChange={handleRegionChange} label="Region">
+        <Select onChange={handleRegionChange} label="Region" value={region}>
           {regions.map((region) => (
             <MenuItem key={region.id} value={region.id}>
               {region.name}
@@ -109,11 +126,11 @@ const CreateCity = ({ isOpenFilter, toggleDrawer, fetchCities, cityId }) => {
         style={{ marginTop: '20px', padding: '10px 0' }}
         onClick={() => {
           setIsCreating(true);
-          createCity(name, symbol, region, status)
+          editCity(cityId, name, symbol, region, status)
             .then(() => {
               fetchCities();
               setIsCreating(false);
-              toggleDrawer();
+              toggleDrawer(cityId);
             })
             .catch((e) => {
               Object.entries(e.response.data).forEach((e) => setError(`* ${e[1]}`));
@@ -121,7 +138,7 @@ const CreateCity = ({ isOpenFilter, toggleDrawer, fetchCities, cityId }) => {
             });
         }}
       >
-        {!isCreating ? 'Add' : 'Creating City...'}
+        {!isCreating ? 'Edit' : 'Editing City...'}
       </Button>
     </Drawer>
   );
@@ -129,4 +146,4 @@ const CreateCity = ({ isOpenFilter, toggleDrawer, fetchCities, cityId }) => {
   return createDrawer;
 };
 
-export default CreateCity;
+export default EditCity;

@@ -15,8 +15,14 @@ const createCity = async (name, symbol, region_id, status) => {
   return rf.postRequest(url, { name, symbol, region_id, status });
 };
 
-// const cityDetail = async (city_id) => {
-//   const url = `${process.env.REACT_APP_BACKEND}/locations/city/edit/`;
-// }
+const getCityDetail = async (city_id) => {
+  const url = `${process.env.REACT_APP_BACKEND}/locations/city/detail/${city_id}`;
+  return rf.getRequest(url);
+};
 
-export { getAllCities, createCity };
+const editCity = async (city_id, name, symbol, region_id, status) => {
+  const url = `${process.env.REACT_APP_BACKEND}/locations/city/edit/`;
+  return rf.postRequest(url, { city_id, name, symbol, region_id, status });
+};
+
+export { getAllCities, createCity, getCityDetail, editCity };

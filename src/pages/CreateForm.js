@@ -13,8 +13,8 @@ import {
   Select,
   MenuItem
 } from '@material-ui/core';
-import { DragHandleOutlined } from '@material-ui/icons';
-import arrayMove from 'array-move';
+// import { DragHandleOutlined } from '@material-ui/icons';
+// import arrayMove from 'array-move';
 import { Container as DraggableContainer, Draggable } from 'react-smooth-dnd';
 // components
 import Page from '../components/Page';
@@ -61,12 +61,12 @@ export default function Museum() {
   const [fieldType, setFieldType] = useState('');
   const [fieldList, setFieldList] = useState([]);
 
-  const [items, setItems] = useState([
-    { id: '1', text: 'Item 1' },
-    { id: '2', text: 'Item 2' },
-    { id: '3', text: 'Item 3' },
-    { id: '4', text: 'Item 4' }
-  ]);
+  // const [items, setItems] = useState([
+  //   { id: '1', text: 'Item 1' },
+  //   { id: '2', text: 'Item 2' },
+  //   { id: '3', text: 'Item 3' },
+  //   { id: '4', text: 'Item 4' }
+  // ]);
 
   const onDrop = (dropResult) => {
     // setItems(applyDrag(items, dropResult));

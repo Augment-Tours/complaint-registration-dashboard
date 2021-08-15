@@ -9,6 +9,7 @@ import { Menu, MenuItem, IconButton, ListItemIcon, ListItemText } from '@materia
 
 // ----------------------------------------------------------------------
 
+// eslint-disable-next-line react/prop-types
 export default function UserMoreMenu({ toggleEditDrawer }) {
   const ref = useRef(null);
   const [isOpen, setIsOpen] = useState(false);

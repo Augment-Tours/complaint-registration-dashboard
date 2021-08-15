@@ -17,7 +17,7 @@ import { Icon } from '@iconify/react';
 import { Link as RouterLink } from 'react-router-dom';
 
 import { getAllCountries } from '../../request/country';
-import { createRegion, editRegion, getRegionDetail } from '../../request/region';
+import { editRegion, getRegionDetail } from '../../request/region';
 
 const EditRegion = ({ isOpenFilter, toggleDrawer, fetchRegions, regionId }) => {
   const [name, setName] = useState('');

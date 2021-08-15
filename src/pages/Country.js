@@ -26,6 +26,7 @@ import Scrollbar from '../components/Scrollbar';
 import SearchNotFound from '../components/SearchNotFound';
 import { UserListHead, UserListToolbar, UserMoreMenu } from '../components/_dashboard/user';
 import CreateCountryDrawer from '../components/country/CreateCountry';
+import EditCountryDrawer from '../components/country/EditCountry';
 //
 // import USERLIST from '../_mocks_/user';
 import { getAllCountries } from '../request/country';
@@ -79,6 +80,8 @@ export default function Museum() {
   const [filterName, setFilterName] = useState('');
   const [rowsPerPage, setRowsPerPage] = useState(5);
   const [isOpenFilter, setIsOpenFilter] = useState(false);
+  const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+  const [editId, setEditId] = useState(null);
   const [countryList, setCountryList] = useState([]);
 
   const fetchCountries = () => {
@@ -149,6 +152,11 @@ export default function Museum() {
     setIsOpenFilter(!isOpenFilter);
   };
 
+  const toggleEditDrawer = (id) => {
+    setEditId(id);
+    setIsEditModalOpen(!isEditModalOpen);
+  };
+
   return (
     <Page title="Country | Shilengae">
       <Container>
@@ -217,7 +225,11 @@ export default function Museum() {
                             {new Date(`${created_at}`).toDateString()}
                           </TableCell>
                           <TableCell align="right">
-                            <UserMoreMenu />
+                            <UserMoreMenu
+                              toggleEditDrawer={() => {
+                                toggleEditDrawer(id);
+                              }}
+                            />
                           </TableCell>
                         </TableRow>
                       );
@@ -256,6 +268,14 @@ export default function Museum() {
           fetchCountries={fetchCountries}
           toggleDrawer={toggleDrawer}
         />
+        {isEditModalOpen && (
+          <EditCountryDrawer
+            countryId={editId}
+            isOpenFilter={isEditModalOpen}
+            toggleDrawer={toggleEditDrawer}
+            fetchCountries={fetchCountries}
+          />
+        )}
       </Container>
     </Page>
   );
