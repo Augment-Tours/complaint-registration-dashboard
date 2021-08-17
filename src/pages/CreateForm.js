@@ -35,7 +35,9 @@ const FIELD_TYPES_LIST = [
   { id: 'file', name: 'File' },
   { id: 'date', name: 'Date' },
   { id: 'range', name: 'Range' },
-  { id: 'date-range', name: 'Date Range' }
+  { id: 'date-range', name: 'Date Range' },
+  { id: 'city', name: 'City' },
+  { id: 'region', name: 'Region' }
 ];
 
 export const applyDrag = (arr, dragResult) => {

@@ -6,10 +6,16 @@ import Range, { PreviewRangeField } from './Range';
 import DateRange from './DateRange';
 import ImageField, { PreviewImageField } from './Image';
 import DateField, { PreviewDateField } from './Date';
+import { PreviewCityField, PreviewRegionField } from './Location';
 
 const FieldChooser = ({ index, field, onFieldSaved, onCancel }) => {
   let chosenInput = null;
-  if (field.type === 'textbox' || field.type === 'multiline_textbox') {
+  if (
+    field.type === 'textbox' ||
+    field.type === 'multiline_textbox' ||
+    field.type === 'region' ||
+    field.type === 'city'
+  ) {
     chosenInput = (
       <TextBox index={index} field={field} onFieldSaved={onFieldSaved} onCancel={onCancel} />
     );
@@ -52,6 +58,10 @@ const PreviewFieldChooser = (field) => {
     chosenInput = <PreviewRangeField field={field} />;
   } else if (field.type === 'date') {
     chosenInput = <PreviewDateField field={field} />;
+  } else if (field.type === 'city') {
+    chosenInput = <PreviewCityField field={field} />;
+  } else if (field.type === 'region') {
+    chosenInput = <PreviewRegionField field={field} />;
   }
   return chosenInput;
 };

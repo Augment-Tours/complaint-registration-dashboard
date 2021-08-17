@@ -165,7 +165,7 @@ const PreviewDateField = ({ field }) => {
         fullWidth
         label="Birthday"
         type="date"
-        defaultValue="2017-05-24"
+        // defaultValue="2017-05-24"
         // className={classes.textField}
         InputLabelProps={{
           shrink: true
