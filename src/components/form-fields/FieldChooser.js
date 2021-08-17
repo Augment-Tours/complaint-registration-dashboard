@@ -1,12 +1,11 @@
 import React from 'react';
-import { TextField, Typography } from '@material-ui/core';
 
-import TextBox from './TextBox';
-import Options from './Options';
-import Range from './Range';
+import TextBox, { PreviewTextField, PreviewMultiLineTextField } from './TextBox';
+import Options, { PreviewDropDownField } from './Options';
+import Range, { PreviewRangeField } from './Range';
 import DateRange from './DateRange';
-import ImageField from './Image';
-import DateField from './Date';
+import ImageField, { PreviewImageField } from './Image';
+import DateField, { PreviewDateField } from './Date';
 
 const FieldChooser = ({ index, field, onFieldSaved, onCancel }) => {
   let chosenInput = null;
@@ -40,22 +39,23 @@ const FieldChooser = ({ index, field, onFieldSaved, onCancel }) => {
 
 const PreviewFieldChooser = (field) => {
   let chosenInput = null;
-  console.log(field.field.type);
-  if (field.field.type === 'textbox') {
-    chosenInput = (
-      <>
-        <Typography>{field.field.name}</Typography>
-        <TextField
-          fullWidth
-          // label={field.field.label}
-          placeholder={field.field.hint}
-          sx={{ my: 1 }}
-        />
-      </>
-    );
+  field = field.field;
+  if (field.type === 'textbox') {
+    chosenInput = <PreviewTextField field={field} />;
+  } else if (field.type === 'multiline_textbox') {
+    chosenInput = <PreviewMultiLineTextField field={field} />;
+  } else if (field.type === 'dropdown') {
+    chosenInput = <PreviewDropDownField field={field} />;
+  } else if (field.type === 'image') {
+    chosenInput = <PreviewImageField field={field} />;
+  } else if (field.type === 'range') {
+    chosenInput = <PreviewRangeField field={field} />;
+  } else if (field.type === 'date') {
+    chosenInput = <PreviewDateField field={field} />;
   }
   return chosenInput;
 };
+
 export { PreviewFieldChooser };
 
 export default FieldChooser;

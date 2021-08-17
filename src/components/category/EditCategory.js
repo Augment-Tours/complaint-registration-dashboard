@@ -19,7 +19,7 @@ import { Link as RouterLink } from 'react-router-dom';
 import { createCategory, getAllCategories, getCategoryDetail } from '../../request/category';
 import { getAllForms } from '../../request/form';
 
-const EditCategoryDrawer = ({ isOpenFilter, toggleDrawer, fetchCategories, categoryId }) => {
+const EditCategoryDrawer = ({ isOpenFilter, toggleDrawer, categoryId }) => {
   const [name, setName] = useState('');
   const [status, setStatus] = useState('ACTIVE');
   const [isCreating, setIsCreating] = useState(false);

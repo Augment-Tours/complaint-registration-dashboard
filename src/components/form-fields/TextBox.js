@@ -114,4 +114,31 @@ const PostSave = ({ index, onCancel, field }) => (
   </Stack>
 );
 
+const PreviewTextField = ({ field }) => {
+  const { hint, label, is_required } = field;
+  let finalLabel = label;
+  if (is_required) {
+    finalLabel = `* ${label}`;
+  }
+  return (
+    <>
+      <TextField fullWidth sx={{ my: 1 }} label={finalLabel} placeholder={hint} />
+    </>
+  );
+};
+
+const PreviewMultiLineTextField = ({ field }) => {
+  const { name, hint, label, is_required } = field;
+  return (
+    <>
+      <Typography>
+        {is_required && '*'} {label}
+      </Typography>
+      <TextField multiline fullWidth sx={{ my: 1 }} rows={3} value={name} placeholder={hint} />
+    </>
+  );
+};
+
+export { PreviewTextField, PreviewMultiLineTextField };
+
 export default FormTextField;

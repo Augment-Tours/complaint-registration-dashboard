@@ -150,4 +150,18 @@ const PostSave = ({ index, onCancel, field }) => (
   </Stack>
 );
 
+const PreviewImageField = ({ field }) => {
+  const { label } = field;
+  return (
+    <>
+      <Button sx={{ my: 1 }} variant="contained" component="label">
+        {label}
+        <input type="file" hidden />
+      </Button>
+    </>
+  );
+};
+
+export { PreviewImageField };
+
 export default ImageField;

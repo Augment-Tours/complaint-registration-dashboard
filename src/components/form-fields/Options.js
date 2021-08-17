@@ -1,6 +1,16 @@
 /* eslint-disable react/prop-types */
 import React, { useEffect, useState } from 'react';
-import { TextField, Stack, Button, Typography, Checkbox } from '@material-ui/core';
+import {
+  TextField,
+  Stack,
+  Button,
+  Typography,
+  Checkbox,
+  FormControl,
+  InputLabel,
+  MenuItem,
+  Select
+} from '@material-ui/core';
 import DragHandleIcon from '@material-ui/icons/DragHandle';
 
 const OptionsField = ({ field, onFieldSaved, onCancel, index }) => {
@@ -39,14 +49,13 @@ export const PreSave = ({ json, setJson }) => {
     options[index] = option;
     setOptions(options);
 
-    const optionsString = options.reduce((acc, option, index) => {
-      if (index === 0) {
-        return `{option-${index + 1}: ${option}}`;
-      }
-      return `${acc.substring(0, acc.length - 1)},option-${index + 1}: ${option}}`;
-    }, '{}');
-    const newJson = { ...json };
-    newJson.data = optionsString;
+    const optionsObject = options.reduce((acc, option, index) => {
+      const key = `option-${index + 1}`;
+      const object = { ...acc };
+      object[key] = option;
+      return object;
+    }, {});
+    const newJson = { ...json, data: JSON.stringify(optionsObject) };
     setJson(newJson);
   };
 
@@ -148,5 +157,27 @@ const PostSave = ({ index, onCancel, field }) => (
     <DragHandleIcon className="drag-handle" />
   </Stack>
 );
+
+const PreviewDropDownField = ({ field }) => {
+  const { label, is_required, data } = field;
+  const options = Object.entries(JSON.parse(data)).map((option, index) => (
+    <MenuItem key={index} value={option[0]}>
+      {option[1]}
+    </MenuItem>
+  ));
+
+  return (
+    <>
+      <FormControl fullWidth variant="outlined" sx={{ my: 1 }}>
+        <InputLabel>
+          {is_required && '*'} {`${label}`}
+        </InputLabel>
+        <Select label={` -${label}`}>{options}</Select>
+      </FormControl>
+    </>
+  );
+};
+
+export { PreviewDropDownField };
 
 export default OptionsField;

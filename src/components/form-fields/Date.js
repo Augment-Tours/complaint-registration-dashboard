@@ -1,6 +1,11 @@
 /* eslint-disable react/prop-types */
 import React, { useEffect, useState } from 'react';
 import { TextField, Stack, Button, Typography, Checkbox } from '@material-ui/core';
+// import {
+//   MuiPickersUtilsProvider,
+//   KeyboardTimePicker,
+//   KeyboardDatePicker
+// } from '@material-ui/pickers';
 import DragHandleIcon from '@material-ui/icons/DragHandle';
 
 // import trash2Fill from '@iconify/icons-eva/trash-2-fill';
@@ -145,5 +150,31 @@ const PostSave = ({ index, onCancel, field }) => (
     <DragHandleIcon className="drag-handle" />
   </Stack>
 );
+
+const PreviewDateField = ({ field }) => {
+  const { label, is_required, data } = field;
+  const jsonData = JSON.parse(data);
+
+  return (
+    <>
+      <Typography gutterBottom>
+        {is_required && '*'} {label}
+      </Typography>
+      <TextField
+        id="date"
+        fullWidth
+        label="Birthday"
+        type="date"
+        defaultValue="2017-05-24"
+        // className={classes.textField}
+        InputLabelProps={{
+          shrink: true
+        }}
+      />
+    </>
+  );
+};
+
+export { PreviewDateField };
 
 export default DateField;

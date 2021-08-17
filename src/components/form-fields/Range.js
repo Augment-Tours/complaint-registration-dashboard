@@ -1,7 +1,8 @@
 /* eslint-disable react/prop-types */
 import React, { useEffect, useState } from 'react';
-import { TextField, Stack, Button, Typography, Checkbox } from '@material-ui/core';
+import { TextField, Stack, Button, Typography, Checkbox, Slider } from '@material-ui/core';
 import DragHandleIcon from '@material-ui/icons/DragHandle';
+import { parseInt } from 'lodash';
 
 const RangeField = ({ field, onFieldSaved, onCancel, index }) => {
   const [json, setJson] = useState({ ...field, data: `{"min": "0", "max": "100"}` });
@@ -83,7 +84,7 @@ export const PreSave = ({ json, setJson }) => {
         sx={{ my: 2 }}
         label="Unit"
         value={rangeData.unit}
-        onChange={(e) => setRange(rangeData.min, rangeData.min, e.target.value)}
+        onChange={(e) => setRange(rangeData.min, rangeData.max, e.target.value)}
       />
       <Stack direction="row" alignItems="center">
         <Checkbox
@@ -133,5 +134,39 @@ const PostSave = ({ index, onCancel, field }) => (
     <DragHandleIcon className="drag-handle" />
   </Stack>
 );
+
+const PreviewRangeField = ({ field }) => {
+  const { label, is_required, data } = field;
+  const jsonData = JSON.parse(data);
+  const marks = [
+    {
+      value: jsonData.min,
+      label: `${jsonData.min} ${jsonData.unit}`
+    },
+    {
+      value: jsonData.max,
+      label: `${jsonData.max} ${jsonData.unit}`
+    }
+  ];
+  console.log(jsonData);
+  return (
+    <>
+      <Typography gutterBottom>
+        {is_required && '*'} {label}
+      </Typography>
+      <Slider
+        defaultValue={20}
+        aria-labelledby="discrete-slider-custom"
+        valueLabelDisplay="auto"
+        marks={marks}
+        min={parseInt(jsonData.min)}
+        max={parseInt(jsonData.max)}
+        sx={{ mt: 2 }}
+      />
+    </>
+  );
+};
+
+export { PreviewRangeField };
 
 export default RangeField;
