@@ -10,4 +10,14 @@ const getAllFieldsByForm = async (formId) => {
     });
 };
 
-export { getAllFieldsByForm };
+const getAllFieldsByCategory = async (categoryId) => {
+  const url = `${process.env.REACT_APP_BACKEND}/forms/category/fields/${categoryId}/`;
+  return rf
+    .getRequest(url)
+    .then((res) => res.data.results)
+    .catch((err) => {
+      console.log(err);
+    });
+};
+
+export { getAllFieldsByForm, getAllFieldsByCategory };

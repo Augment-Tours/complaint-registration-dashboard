@@ -152,8 +152,8 @@ const PostSave = ({ index, onCancel, field }) => (
 );
 
 const PreviewDateField = ({ field }) => {
-  const { label, is_required, data } = field;
-  const jsonData = JSON.parse(data);
+  const { label, is_required } = field;
+  // const jsonData = JSON.parse(data);
 
   return (
     <>

@@ -30,6 +30,7 @@ import EditCategoryDrawer from '../components/category/EditCategory';
 //
 // import USERLIST from '../_mocks_/user';
 import { getAllCategories } from '../request/category';
+import { CategoryPreview } from '../components/form-fields/PreviewCategoryModal';
 // ----------------------------------------------------------------------
 
 const TABLE_HEAD = [
@@ -81,6 +82,9 @@ export default function Museum() {
   const [categoriesList, setCategoriesList] = useState([]);
   const [editId, setEditId] = useState([]);
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+
+  const [previewId, setPreviewId] = useState(null);
+  const [previewOpen, setPreviewOpen] = useState(false);
 
   useEffect(() => {
     const categoriesList = getAllCategories().then((res) => {
@@ -156,6 +160,11 @@ export default function Museum() {
     setIsEditModalOpen(!isEditModalOpen);
   };
 
+  const togglePreviewDialog = (id) => {
+    setPreviewId(id);
+    setPreviewOpen(!previewOpen);
+  };
+
   return (
     <Page title="Category | Shilengae">
       <Container>
@@ -221,6 +230,15 @@ export default function Museum() {
                           <TableCell align="left">
                             {new Date(`${created_at}`).toDateString()}
                           </TableCell>
+                          <TableCell align="left">
+                            <Button
+                              onClick={() => {
+                                togglePreviewDialog(id);
+                              }}
+                            >
+                              Preview
+                            </Button>
+                          </TableCell>
                           <TableCell align="right">
                             <UserMoreMenu
                               toggleEditDrawer={() => {
@@ -266,6 +284,13 @@ export default function Museum() {
             categoryId={editId}
             isOpenFilter={isEditModalOpen}
             toggleDrawer={toggleEditDrawer}
+          />
+        )}
+        {previewOpen && (
+          <CategoryPreview
+            categoryId={previewId}
+            toggleDialog={togglePreviewDialog}
+            isPreviewOpen={previewOpen}
           />
         )}
       </Container>

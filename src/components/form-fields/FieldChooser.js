@@ -7,6 +7,7 @@ import DateRange from './DateRange';
 import ImageField, { PreviewImageField } from './Image';
 import DateField, { PreviewDateField } from './Date';
 import { PreviewCityField, PreviewRegionField } from './Location';
+import { PreviewPriceField } from './Price';
 
 const FieldChooser = ({ index, field, onFieldSaved, onCancel }) => {
   let chosenInput = null;
@@ -14,7 +15,8 @@ const FieldChooser = ({ index, field, onFieldSaved, onCancel }) => {
     field.type === 'textbox' ||
     field.type === 'multiline_textbox' ||
     field.type === 'region' ||
-    field.type === 'city'
+    field.type === 'city' ||
+    field.type === 'price'
   ) {
     chosenInput = (
       <TextBox index={index} field={field} onFieldSaved={onFieldSaved} onCancel={onCancel} />
@@ -62,6 +64,8 @@ const PreviewFieldChooser = (field) => {
     chosenInput = <PreviewCityField field={field} />;
   } else if (field.type === 'region') {
     chosenInput = <PreviewRegionField field={field} />;
+  } else if (field.type === 'price') {
+    chosenInput = <PreviewPriceField field={field} />;
   }
   return chosenInput;
 };
