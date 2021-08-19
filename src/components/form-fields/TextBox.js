@@ -128,13 +128,24 @@ const PreviewTextField = ({ field }) => {
 };
 
 const PreviewMultiLineTextField = ({ field }) => {
-  const { name, hint, label, is_required } = field;
+  const { hint, label, is_required } = field;
+  let finalLabel = label;
+  if (is_required) {
+    finalLabel = `* ${label}`;
+  }
   return (
     <>
-      <Typography>
+      {/* <Typography>
         {is_required && '*'} {label}
-      </Typography>
-      <TextField multiline fullWidth sx={{ my: 1 }} rows={3} value={name} placeholder={hint} />
+      </Typography> */}
+      <TextField
+        multiline
+        fullWidth
+        sx={{ my: 1 }}
+        rows={3}
+        label={finalLabel}
+        placeholder={hint}
+      />
     </>
   );
 };

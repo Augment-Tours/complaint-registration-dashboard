@@ -25,4 +25,9 @@ const createCategory = async (name, status, parent, form_id) => {
   return rf.postRequest(url, { name, status, parent, form_id }).then((res) => res.data);
 };
 
-export { getAllCategories, createCategory, getCategoryDetail };
+const updateCategory = async (category_id, name, status, parent, form) => {
+  const url = `${process.env.REACT_APP_BACKEND}/forms/category/update/${category_id}/`;
+  return rf.postRequest(url, { name, status, parent, form }).then((res) => res.data);
+};
+
+export { getAllCategories, createCategory, getCategoryDetail, updateCategory };

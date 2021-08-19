@@ -16,7 +16,7 @@ import closeFill from '@iconify/icons-eva/close-fill';
 import { Icon } from '@iconify/react';
 import { Link as RouterLink } from 'react-router-dom';
 
-import { createCategory, getAllCategories, getCategoryDetail } from '../../request/category';
+import { getAllCategories, getCategoryDetail, updateCategory } from '../../request/category';
 import { getAllForms } from '../../request/form';
 
 const EditCategoryDrawer = ({ isOpenFilter, toggleDrawer, categoryId }) => {
@@ -130,10 +130,10 @@ const EditCategoryDrawer = ({ isOpenFilter, toggleDrawer, categoryId }) => {
         style={{ marginTop: '20px', padding: '10px 0' }}
         onClick={() => {
           setIsCreating(true);
-          createCategory(name, status, parentCategory, form)
+          updateCategory(categoryId, name, status, parentCategory, form)
             .then(() => {
               setIsCreating(false);
-              toggleDrawer();
+              toggleDrawer(categoryId);
             })
             .catch((e) => {
               Object.entries(e.response.data).forEach((e) => setError(`* ${e[1]}`));

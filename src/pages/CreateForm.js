@@ -71,7 +71,12 @@ export default function CreateForm() {
 
   const onDrop = (dropResult) => {
     console.log(fieldList);
-    setFieldList(applyDrag([...fieldList], dropResult));
+    const newFieldList = applyDrag([...fieldList], dropResult);
+    // replace the position field in each newFieldList with the index of the field in the new fieldList
+    newFieldList.forEach((field, index) => {
+      field.position = index + 1;
+    });
+    setFieldList(newFieldList);
   };
 
   const handleFieldChange = (e) => {
@@ -95,6 +100,8 @@ export default function CreateForm() {
   const togglePreviewModal = () => {
     setIsPreviewOpen(!isPreviewOpen);
   };
+
+  console.log(fieldList);
 
   return (
     <Page title="Create Form | Shilengae">

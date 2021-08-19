@@ -28,7 +28,7 @@ import { UserListHead, UserListToolbar, UserMoreMenu } from '../components/_dash
 import { FormPreview } from '../components/form-fields/previewFormModal';
 //
 // import USERLIST from '../_mocks_/user';
-import { getAllForms } from '../request/form';
+import { getAllForms, deleteForm } from '../request/form';
 // ----------------------------------------------------------------------
 
 const TABLE_HEAD = [
@@ -85,6 +85,12 @@ export default function Museum() {
       if (Array.isArray(res)) {
         setFormsList(res);
       }
+    });
+  };
+
+  const deleteFormWithRefresh = (formId) => {
+    deleteForm(formId).then(() => {
+      fetchForms();
     });
   };
 
@@ -222,7 +228,11 @@ export default function Museum() {
                             </Button>
                           </TableCell>
                           <TableCell align="right">
-                            <UserMoreMenu />
+                            <UserMoreMenu
+                              deleteItem={() => {
+                                deleteFormWithRefresh(id);
+                              }}
+                            />
                           </TableCell>
                         </TableRow>
                       );

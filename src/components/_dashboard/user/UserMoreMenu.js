@@ -10,7 +10,7 @@ import { Menu, MenuItem, IconButton, ListItemIcon, ListItemText } from '@materia
 // ----------------------------------------------------------------------
 
 // eslint-disable-next-line react/prop-types
-export default function UserMoreMenu({ toggleEditDrawer }) {
+export default function UserMoreMenu({ toggleEditDrawer, deleteItem }) {
   const ref = useRef(null);
   const [isOpen, setIsOpen] = useState(false);
 
@@ -34,7 +34,13 @@ export default function UserMoreMenu({ toggleEditDrawer }) {
           <ListItemIcon>
             <Icon icon={trash2Outline} width={24} height={24} />
           </ListItemIcon>
-          <ListItemText primary="Delete" primaryTypographyProps={{ variant: 'body2' }} />
+          <ListItemText
+            primary="Delete"
+            primaryTypographyProps={{ variant: 'body2' }}
+            onClick={() => {
+              deleteItem();
+            }}
+          />
         </MenuItem>
 
         <MenuItem component={RouterLink} to="#" sx={{ color: 'text.secondary' }}>

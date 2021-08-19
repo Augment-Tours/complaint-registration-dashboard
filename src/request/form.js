@@ -15,4 +15,9 @@ const createForm = async (form) => {
   return rf.postRequest(url, form).then((res) => res.data);
 };
 
-export { getAllForms, createForm };
+const deleteForm = async (formId) => {
+  const url = `${process.env.REACT_APP_BACKEND}/forms/delete/${formId}/`;
+  return rf.postRequest(url, {}).then((res) => res.data);
+};
+
+export { getAllForms, createForm, deleteForm };
