@@ -1,7 +1,8 @@
 /* eslint-disable react/prop-types */
 import React, { useEffect, useState } from 'react';
-import { TextField, Stack, Button, Typography, Checkbox } from '@material-ui/core';
-import DragHandleIcon from '@material-ui/icons/DragHandle';
+import { TextField, Stack } from '@material-ui/core';
+
+import { FieldSave, PostSave } from './Utils';
 
 // import trash2Fill from '@iconify/icons-eva/trash-2-fill';
 
@@ -20,12 +21,12 @@ const FormTextField = ({ field, onFieldSaved, onCancel, index }) => {
   if (json.saved) {
     return <PostSave json={json} onCancel={onCancel} index={index} field={field} />;
   }
-  return <PreSave json={json} setJson={setJson} index={index} />;
+  return <PreSave json={json} onCancel={onCancel} setJson={setJson} index={index} />;
 };
 
 // eslint-disable-next-line react/prop-types
 // eslint-disable-next-line no-unused-vars
-export const PreSave = ({ json, setJson, index }) => {
+export const PreSave = ({ json, setJson, index, onCancel }) => {
   const handleChange = (value, field) => {
     const newJson = { ...json };
     newJson[field] = value;
@@ -64,55 +65,16 @@ export const PreSave = ({ json, setJson, index }) => {
         label="Hint / Placeholder"
         onChange={(e) => handleChange(e.target.value, 'hint')}
       />
-      <Stack direction="row" alignItems="center">
-        <Checkbox
-          checked={json.is_required}
-          onChange={() => {
-            handleChange(!json.is_required, 'is_required');
-          }}
-          inputProps={{ 'aria-label': 'primary checkbox' }}
-        />
-        <Typography>Is Required?</Typography>
-      </Stack>
-      <Button
-        variant="contained"
-        to=""
-        // disabled={isCreating}
-        // style={{ padding: '10px 20px' }}
-        sx={{ px: 0, py: 1, mt: 2 }}
-        width="50%"
-        onClick={() => {
-          // saveField(true);
-          handleChange(true, 'saved');
-        }}
-      >
-        Save
-      </Button>
+      <FieldSave
+        json={json}
+        onCancel={onCancel}
+        setJson={setJson}
+        index={index}
+        handleChange={handleChange}
+      />
     </Stack>
   );
 };
-
-const PostSave = ({ index, onCancel, field }) => (
-  <Stack direction="row" alignItems="center" sx={{ px: 0, mt: 2 }}>
-    <Typography variant="p" gutterBottom sx={{ mr: 3 }}>
-      {field.name}
-    </Typography>
-    <Typography variant="p" gutterBottom sx={{ mr: 3 }}>
-      {field.hint}
-    </Typography>
-    <Typography variant="p" gutterBottom sx={{ mr: 3 }}>
-      {field.label}
-    </Typography>
-    <Button
-      onClick={() => {
-        onCancel(index);
-      }}
-    >
-      Cancel
-    </Button>
-    <DragHandleIcon className="drag-handle" />
-  </Stack>
-);
 
 const PreviewTextField = ({ field }) => {
   const { hint, label, is_required } = field;

@@ -4,7 +4,8 @@ import { TextField, Stack, Button, Typography, Checkbox } from '@material-ui/cor
 import AdapterDateFns from '@material-ui/lab/AdapterDateFns';
 import LocalizationProvider from '@material-ui/lab/LocalizationProvider';
 import DateRangePicker from '@material-ui/lab/DateRangePicker';
-import DragHandleIcon from '@material-ui/icons/DragHandle';
+
+import { PostSave } from './Utils';
 
 const RangeField = ({ field, onFieldSaved, onCancel, index }) => {
   const [json, setJson] = useState(field);
@@ -114,27 +115,5 @@ export const PreSave = ({ json, setJson }) => {
     </Stack>
   );
 };
-
-const PostSave = ({ index, onCancel, field }) => (
-  <Stack direction="row" alignItems="center" sx={{ px: 0, mt: 2 }}>
-    <Typography variant="p" gutterBottom sx={{ mr: 3 }}>
-      {field.name}
-    </Typography>
-    <Typography variant="p" gutterBottom sx={{ mr: 3 }}>
-      {field.hint}
-    </Typography>
-    <Typography variant="p" gutterBottom sx={{ mr: 3 }}>
-      {field.label}
-    </Typography>
-    <Button
-      onClick={() => {
-        onCancel(index);
-      }}
-    >
-      Cancel
-    </Button>
-    <DragHandleIcon className="drag-handle" />
-  </Stack>
-);
 
 export default RangeField;

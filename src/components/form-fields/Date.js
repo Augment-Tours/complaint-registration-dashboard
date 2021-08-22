@@ -6,7 +6,8 @@ import { TextField, Stack, Button, Typography, Checkbox } from '@material-ui/cor
 //   KeyboardTimePicker,
 //   KeyboardDatePicker
 // } from '@material-ui/pickers';
-import DragHandleIcon from '@material-ui/icons/DragHandle';
+
+import { PostSave } from './Utils';
 
 // import trash2Fill from '@iconify/icons-eva/trash-2-fill';
 
@@ -128,28 +129,6 @@ export const PreSave = ({ json, setJson, index }) => {
     </Stack>
   );
 };
-
-const PostSave = ({ index, onCancel, field }) => (
-  <Stack direction="row" alignItems="center" sx={{ px: 0, mt: 2 }}>
-    <Typography variant="p" gutterBottom sx={{ mr: 3 }}>
-      {field.name}
-    </Typography>
-    <Typography variant="p" gutterBottom sx={{ mr: 3 }}>
-      {field.hint}
-    </Typography>
-    <Typography variant="p" gutterBottom sx={{ mr: 3 }}>
-      {field.label}
-    </Typography>
-    <Button
-      onClick={() => {
-        onCancel(index);
-      }}
-    >
-      Cancel
-    </Button>
-    <DragHandleIcon className="drag-handle" />
-  </Stack>
-);
 
 const PreviewDateField = ({ field }) => {
   const { label, is_required } = field;

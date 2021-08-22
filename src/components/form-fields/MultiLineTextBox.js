@@ -1,6 +1,7 @@
 /* eslint-disable react/prop-types */
 import React, { useState } from 'react';
 import { TextField, Stack, Button, Typography } from '@material-ui/core';
+import { PostSave } from './Utils';
 
 const FormTextField = ({ onFieldSaved }) => {
   const [saved, setSaved] = useState(false);
@@ -79,22 +80,5 @@ export const PreSave = ({ json, setJson, saveField }) => {
     </Stack>
   );
 };
-
-const PostSave = ({ json }) => (
-  <Stack direction="row" alignItems="center" sx={{ px: 0, mt: 2 }}>
-    <Typography variant="p" gutterBottom sx={{ mr: 3 }}>
-      {json.name}
-    </Typography>
-    <Typography variant="p" gutterBottom sx={{ mr: 3 }}>
-      {json.hint}
-    </Typography>
-    <Typography variant="p" gutterBottom sx={{ mr: 3 }}>
-      {json.label}
-    </Typography>
-    <Typography variant="p" gutterBottom sx={{ mr: 3 }}>
-      {json.position}
-    </Typography>
-  </Stack>
-);
 
 export default FormTextField;

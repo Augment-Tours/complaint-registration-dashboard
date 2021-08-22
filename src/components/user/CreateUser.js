@@ -177,7 +177,13 @@ const CreateUser = ({ isOpenFilter, toggleDrawer, fetchUsers }) => {
               toggleDrawer();
             })
             .catch((e) => {
-              setError(e.toString());
+              Object.entries(e.response.data).forEach((e) => {
+                if (e[1][0].includes('This field may not be blank')) {
+                  setError(`* ${e[1]} may not be blank`);
+                } else {
+                  setError(`* ${e[1]}`);
+                }
+              });
               setIsCreating(false);
             });
         }}

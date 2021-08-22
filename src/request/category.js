@@ -30,4 +30,9 @@ const updateCategory = async (category_id, name, status, parent, form) => {
   return rf.postRequest(url, { name, status, parent, form }).then((res) => res.data);
 };
 
-export { getAllCategories, createCategory, getCategoryDetail, updateCategory };
+const deleteCategory = async (category_id) => {
+  const url = `${process.env.REACT_APP_BACKEND}/forms/category/delete/${category_id}/`;
+  rf.postRequest(url, {}).then((res) => res.data);
+};
+
+export { getAllCategories, createCategory, getCategoryDetail, updateCategory, deleteCategory };

@@ -15,7 +15,6 @@ import {
 } from '@material-ui/core';
 // import { DragHandleOutlined } from '@material-ui/icons';
 // import arrayMove from 'array-move';
-import { Container as DraggableContainer, Draggable } from 'react-smooth-dnd';
 // components
 import Page from '../components/Page';
 // import Label from '../components/Label';
@@ -69,15 +68,15 @@ export default function CreateForm() {
   const [error, setError] = useState('');
   const navigate = useNavigate();
 
-  const onDrop = (dropResult) => {
-    console.log(fieldList);
-    const newFieldList = applyDrag([...fieldList], dropResult);
-    // replace the position field in each newFieldList with the index of the field in the new fieldList
-    newFieldList.forEach((field, index) => {
-      field.position = index + 1;
-    });
-    setFieldList(newFieldList);
-  };
+  // const onDrop = (dropResult) => {
+  //   console.log(fieldList);
+  //   const newFieldList = applyDrag([...fieldList], dropResult);
+  //   // replace the position field in each newFieldList with the index of the field in the new fieldList
+  //   newFieldList.forEach((field, index) => {
+  //     field.position = index + 1;
+  //   });
+  //   setFieldList(newFieldList);
+  // };
 
   const handleFieldChange = (e) => {
     setFieldType(e.target.value);
@@ -127,19 +126,17 @@ export default function CreateForm() {
             width="50%"
           />
 
-          <DraggableContainer dragClass=".drag-handle" lockAxis="y" onDrop={onDrop}>
-            {fieldList.map((field, index) => (
-              <Draggable key={index}>
-                <FieldChooser
-                  index={index}
-                  field={field}
-                  onFieldSaved={onFieldSaved}
-                  onCancel={onCancelClicked}
-                />
-                <p>{field.saved} </p>
-              </Draggable>
-            ))}
-          </DraggableContainer>
+          {/* <DraggableContainer dragClass=".drag-handle" lockAxis="y" onDrop={onDrop}> */}
+          {fieldList.map((field, index) => (
+            <FieldChooser
+              key={index}
+              index={index}
+              field={field}
+              onFieldSaved={onFieldSaved}
+              onCancel={onCancelClicked}
+            />
+          ))}
+          {/* </DraggableContainer> */}
 
           <Stack direction="row" justifyContent="space-between" my={2}>
             <FormControl variant="outlined" style={{ width: '60%' }}>
@@ -160,18 +157,20 @@ export default function CreateForm() {
               // disabled={isCreating}
               style={{ padding: '10px 20px' }}
               onClick={() => {
-                const newFieldList = fieldList;
-                newFieldList.push({
-                  name: `item ${fieldList.length + 1}`,
-                  type: fieldType,
-                  hint: 'Field Hint',
-                  label: 'Field Label',
-                  position: fieldList.length + 1,
-                  data: '{}',
-                  saved: false,
-                  is_required: false
-                });
-                setFieldList(newFieldList);
+                if (fieldType !== '') {
+                  const newFieldList = fieldList;
+                  newFieldList.push({
+                    name: `item ${fieldList.length + 1}`,
+                    type: fieldType,
+                    hint: 'Field Hint',
+                    label: 'Field Label',
+                    position: fieldList.length + 1,
+                    data: '{}',
+                    saved: false,
+                    is_required: false
+                  });
+                  setFieldList(newFieldList);
+                }
               }}
             >
               Add Field
@@ -196,7 +195,7 @@ export default function CreateForm() {
                 setIsLoading(false);
               })
               .catch((err) => {
-                console.log(err);
+                // setError(`* ${err.response.data}`);
                 Object.entries(err.response.data).forEach((e) => setError(`* ${e[1]}`));
                 setIsLoading(false);
               });

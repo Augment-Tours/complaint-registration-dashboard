@@ -19,7 +19,7 @@ import { Link as RouterLink } from 'react-router-dom';
 import { createCategory, getAllCategories } from '../../request/category';
 import { getAllForms } from '../../request/form';
 
-const CreateCategory = ({ isOpenFilter, toggleDrawer }) => {
+const CreateCategory = ({ isOpenFilter, toggleDrawer, fetchCategories }) => {
   const [name, setName] = useState('');
   const [status, setStatus] = useState('ACTIVE');
   const [isCreating, setIsCreating] = useState(false);
@@ -120,18 +120,23 @@ const CreateCategory = ({ isOpenFilter, toggleDrawer }) => {
           setIsCreating(true);
           createCategory(name, status, parentCategory, form)
             .then(() => {
+              fetchCategories();
               setIsCreating(false);
               toggleDrawer();
             })
             .catch((e) => {
-              Object.entries(e.response.data).forEach((e) => setError(`* ${e[1]}`));
-
-              setError(`* ${e.response.data.name[0]}`);
+              Object.entries(e.response.data).forEach((e) => {
+                if (e[1][0].includes('This field may not be blank')) {
+                  setError(`* ${e[1]} may not be blank`);
+                } else {
+                  setError(`* ${e[1]}`);
+                }
+              });
               setIsCreating(false);
             });
         }}
       >
-        {!isCreating ? 'Add' : 'Creating City...'}
+        {!isCreating ? 'Add' : 'Creating Category...'}
       </Button>
     </Drawer>
   );

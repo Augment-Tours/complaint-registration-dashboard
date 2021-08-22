@@ -146,7 +146,13 @@ const CreateCountry = ({ isOpenFilter, toggleDrawer, fetchCountries }) => {
               toggleDrawer();
             })
             .catch((e) => {
-              Object.entries(e.response.data).forEach((e) => setError(`* ${e[1]}`));
+              Object.entries(e.response.data).forEach((e) => {
+                if (e[1][0].includes('This field may not be blank')) {
+                  setError(`* ${e[1]} may not be blank`);
+                } else {
+                  setError(`* ${e[1]}`);
+                }
+              });
               setIsCreating(false);
             });
         }}

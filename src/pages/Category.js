@@ -29,7 +29,7 @@ import CategoryDrawer from '../components/category/CreateCategory';
 import EditCategoryDrawer from '../components/category/EditCategory';
 //
 // import USERLIST from '../_mocks_/user';
-import { getAllCategories } from '../request/category';
+import { getAllCategories, deleteCategory } from '../request/category';
 import { CategoryPreview } from '../components/form-fields/PreviewCategoryModal';
 // ----------------------------------------------------------------------
 
@@ -87,13 +87,22 @@ export default function Museum() {
   const [previewOpen, setPreviewOpen] = useState(false);
 
   useEffect(() => {
-    const categoriesList = getAllCategories().then((res) => {
+    fetchCategories();
+  }, []);
+
+  const fetchCategories = () => {
+    getAllCategories().then((res) => {
       if (Array.isArray(res)) {
         setCategoriesList(res);
       }
     });
-    console.log(categoriesList);
-  }, []);
+  };
+
+  const deleteCategoryWithRefresh = (categoryId) => {
+    deleteCategory(categoryId).then(() => {
+      fetchCategories();
+    });
+  };
 
   const handleRequestSort = (event, property) => {
     const isAsc = orderBy === property && order === 'asc';
@@ -244,6 +253,9 @@ export default function Museum() {
                               toggleEditDrawer={() => {
                                 toggleEditDrawer(id);
                               }}
+                              deleteItem={() => {
+                                deleteCategoryWithRefresh(id);
+                              }}
                             />
                           </TableCell>
                         </TableRow>
@@ -278,12 +290,17 @@ export default function Museum() {
             onRowsPerPageChange={handleChangeRowsPerPage}
           />
         </Card>
-        <CategoryDrawer isOpenFilter={isOpenFilter} toggleDrawer={toggleDrawer} />
+        <CategoryDrawer
+          isOpenFilter={isOpenFilter}
+          toggleDrawer={toggleDrawer}
+          fetchCategories={fetchCategories}
+        />
         {isEditModalOpen && (
           <EditCategoryDrawer
             categoryId={editId}
             isOpenFilter={isEditModalOpen}
             toggleDrawer={toggleEditDrawer}
+            refetchCategories={fetchCategories}
           />
         )}
         {previewOpen && (

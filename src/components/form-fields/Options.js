@@ -11,7 +11,8 @@ import {
   MenuItem,
   Select
 } from '@material-ui/core';
-import DragHandleIcon from '@material-ui/icons/DragHandle';
+
+import { PostSave } from './Utils';
 
 const OptionsField = ({ field, onFieldSaved, onCancel, index }) => {
   // eslint-disable-next-line no-unused-vars
@@ -135,28 +136,6 @@ export const PreSave = ({ json, setJson }) => {
     </Stack>
   );
 };
-
-const PostSave = ({ index, onCancel, field }) => (
-  <Stack direction="row" alignItems="center" sx={{ px: 0, mt: 2 }}>
-    <Typography variant="p" gutterBottom sx={{ mr: 3 }}>
-      {field.name}
-    </Typography>
-    <Typography variant="p" gutterBottom sx={{ mr: 3 }}>
-      {field.hint}
-    </Typography>
-    <Typography variant="p" gutterBottom sx={{ mr: 3 }}>
-      {field.label}
-    </Typography>
-    <Button
-      onClick={() => {
-        onCancel(index);
-      }}
-    >
-      Cancel
-    </Button>
-    <DragHandleIcon className="drag-handle" />
-  </Stack>
-);
 
 const PreviewDropDownField = ({ field }) => {
   const { label, is_required, data } = field;
