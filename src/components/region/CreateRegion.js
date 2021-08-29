@@ -42,6 +42,13 @@ const CreateRegion = ({ isOpenFilter, toggleDrawer, fetchRegions }) => {
     });
   }, []);
 
+  const clearFields = () => {
+    setName('');
+    setSymbol('');
+    setStatus('');
+    setCountry('');
+  };
+
   const createDrawer = (
     <Drawer
       anchor="right"
@@ -60,7 +67,12 @@ const CreateRegion = ({ isOpenFilter, toggleDrawer, fetchRegions }) => {
         <Typography variant="subtitle1" sx={{ ml: 1 }}>
           Add Region
         </Typography>
-        <IconButton onClick={toggleDrawer}>
+        <IconButton
+          onClick={() => {
+            clearFields();
+            toggleDrawer();
+          }}
+        >
           <Icon icon={closeFill} width={20} height={20} />
         </IconButton>
       </Stack>

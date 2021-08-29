@@ -63,7 +63,7 @@ const CreateUser = ({ isOpenFilter, toggleDrawer, fetchUsers }) => {
         sx={{ px: 1, py: 2 }}
       >
         <Typography variant="subtitle1" sx={{ ml: 1 }}>
-          Add Region
+          Add User
         </Typography>
         <IconButton onClick={toggleDrawer}>
           <Icon icon={closeFill} width={20} height={20} />

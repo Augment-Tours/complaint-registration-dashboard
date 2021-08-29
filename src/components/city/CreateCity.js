@@ -42,11 +42,21 @@ const CreateCountry = ({ isOpenFilter, toggleDrawer, fetchCities }) => {
     });
   }, []);
 
+  const clearFields = () => {
+    setName('');
+    setSymbol('');
+    setStatus('');
+    setRegion('');
+  };
+
   const createDrawer = (
     <Drawer
       anchor="right"
       open={isOpenFilter}
-      onClose={() => {}}
+      onClose={() => {
+        clearFields();
+        toggleDrawer();
+      }}
       PaperProps={{
         sx: { width: 400, border: 'none', overflow: 'hidden', padding: '20px 20px' }
       }}
@@ -60,7 +70,12 @@ const CreateCountry = ({ isOpenFilter, toggleDrawer, fetchCities }) => {
         <Typography variant="subtitle1" sx={{ ml: 1 }}>
           Add City
         </Typography>
-        <IconButton onClick={toggleDrawer}>
+        <IconButton
+          onClick={() => {
+            clearFields();
+            toggleDrawer();
+          }}
+        >
           <Icon icon={closeFill} width={20} height={20} />
         </IconButton>
       </Stack>
