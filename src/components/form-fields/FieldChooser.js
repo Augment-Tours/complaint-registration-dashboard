@@ -1,12 +1,16 @@
 import React from 'react';
 
 import TextBox, { PreviewTextField, PreviewMultiLineTextField } from './TextBox';
-import Options, { PreviewDropDownField } from './Options';
+import Options, {
+  PreviewDropDownField,
+  PreviewMultiSelectField,
+  PreviewRadioField
+} from './Options';
 import Range, { PreviewRangeField } from './Range';
 import DateRange from './DateRange';
 import ImageField, { PreviewImageField } from './Image';
 import DateField, { PreviewDateField } from './Date';
-import { PreviewCityField, PreviewRegionField } from './Location';
+import RegionField, { PreviewCityField, PreviewRegionField } from './Location';
 import { PreviewPriceField } from './Price';
 
 const FieldChooser = ({ index, field, onFieldSaved, onCancel }) => {
@@ -14,12 +18,15 @@ const FieldChooser = ({ index, field, onFieldSaved, onCancel }) => {
   if (
     field.type === 'textbox' ||
     field.type === 'multiline_textbox' ||
-    field.type === 'region' ||
     field.type === 'city' ||
     field.type === 'price'
   ) {
     chosenInput = (
       <TextBox index={index} field={field} onFieldSaved={onFieldSaved} onCancel={onCancel} />
+    );
+  } else if (field.type === 'region') {
+    chosenInput = (
+      <RegionField index={index} field={field} onFieldSaved={onFieldSaved} onCancel={onCancel} />
     );
   } else if (field.type === 'date') {
     chosenInput = (
@@ -54,6 +61,10 @@ const PreviewFieldChooser = (field) => {
     chosenInput = <PreviewMultiLineTextField field={field} />;
   } else if (field.type === 'dropdown') {
     chosenInput = <PreviewDropDownField field={field} />;
+  } else if (field.type === 'multi-select') {
+    chosenInput = <PreviewMultiSelectField field={field} />;
+  } else if (field.type === 'radio') {
+    chosenInput = <PreviewRadioField field={field} />;
   } else if (field.type === 'image') {
     chosenInput = <PreviewImageField field={field} />;
   } else if (field.type === 'range') {

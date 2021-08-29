@@ -7,10 +7,29 @@ import {
   FormControl,
   InputLabel,
   MenuItem,
-  Select
+  Select,
+  Chip,
+  Radio,
+  RadioGroup,
+  FormLabel,
+  FormControlLabel
 } from '@material-ui/core';
+import { makeStyles } from '@material-ui/styles';
 
 import { PostSave, FieldSave } from './Utils';
+
+const useStyles = makeStyles((theme) => ({
+  chips: {
+    display: 'flex',
+    flexWrap: 'wrap'
+  },
+  chip: {
+    margin: 2
+  },
+  noLabel: {
+    marginTop: theme.spacing(3)
+  }
+}));
 
 const OptionsField = ({ field, onFieldSaved, onCancel, index }) => {
   // eslint-disable-next-line no-unused-vars
@@ -138,6 +157,71 @@ const PreviewDropDownField = ({ field }) => {
   );
 };
 
-export { PreviewDropDownField };
+const PreviewMultiSelectField = ({ field }) => {
+  const { label, is_required, data } = field;
+  const [selected, setSelected] = React.useState([]);
+  const classes = useStyles();
+  // const theme = useTheme();
+
+  const options = Object.entries(JSON.parse(data)).map((option, index) => (
+    <MenuItem key={index} value={option[0]}>
+      {option[1]}
+    </MenuItem>
+  ));
+
+  const handleChange = (event) => {
+    setSelected(event.target.value);
+  };
+
+  return (
+    <FormControl sx={{ mt: 1 }} fullWidth>
+      <InputLabel>
+        {is_required && '*'} {`${label}`}
+      </InputLabel>
+      <Select
+        label={` -${label}`}
+        id="demo-multiple-chip"
+        multiple
+        value={selected}
+        onChange={handleChange}
+        // input={<Input id="select-multiple-chip" />}
+        renderValue={(selected) => (
+          <div className={classes.chips}>
+            {selected.map((value) => (
+              <Chip key={value} label={value} className={classes.chip} />
+            ))}
+          </div>
+        )}
+        // MenuProps={MenuProps}
+      >
+        {options}
+      </Select>
+    </FormControl>
+  );
+};
+
+const PreviewRadioField = ({ field }) => {
+  const { label, is_required, data } = field;
+  const [value, setValue] = useState('');
+  const options = Object.entries(JSON.parse(data)).map((option, index) => (
+    <FormControlLabel key={index} control={<Radio />} label={option[1]} value={option[0]} />
+  ));
+
+  const handleRadioChange = (event) => {
+    setValue(event.target.value);
+  };
+
+  return (
+    <FormControl component="fieldset" sx={{ mt: 2 }}>
+      <FormLabel component="legend">
+        {is_required && '*'} {`${label}`}
+      </FormLabel>
+      <RadioGroup value={value} onChange={handleRadioChange}>
+        {options}
+      </RadioGroup>
+    </FormControl>
+  );
+};
+export { PreviewDropDownField, PreviewMultiSelectField, PreviewRadioField };
 
 export default OptionsField;

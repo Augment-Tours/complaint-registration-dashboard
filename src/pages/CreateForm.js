@@ -35,7 +35,6 @@ const FIELD_TYPES_LIST = [
   { id: 'date', name: 'Date' },
   { id: 'range', name: 'Range' },
   { id: 'date-range', name: 'Date Range' },
-  { id: 'city', name: 'City' },
   { id: 'region', name: 'Region' },
   { id: 'price', name: 'Price' }
 ];

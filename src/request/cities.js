@@ -13,6 +13,11 @@ const getAllCities = async (status = '') => {
     });
 };
 
+const getCitiesByRegion = async (regionId) => {
+  const url = `${process.env.REACT_APP_BACKEND}/locations/city/by_region/${regionId}`;
+  return rf.getRequest(url).then((res) => res.data.results);
+};
+
 const createCity = async (name, symbol, region_id, status) => {
   const url = `${process.env.REACT_APP_BACKEND}/locations/city/create/`;
   return rf.postRequest(url, { name, symbol, region_id, status });
@@ -28,4 +33,4 @@ const editCity = async (city_id, name, symbol, region_id, status) => {
   return rf.postRequest(url, { city_id, name, symbol, region_id, status });
 };
 
-export { getAllCities, createCity, getCityDetail, editCity };
+export { getAllCities, getCitiesByRegion, createCity, getCityDetail, editCity };
