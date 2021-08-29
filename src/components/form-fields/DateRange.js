@@ -1,11 +1,11 @@
 /* eslint-disable react/prop-types */
 import React, { useEffect, useState } from 'react';
-import { TextField, Stack, Button, Typography, Checkbox } from '@material-ui/core';
+import { TextField, Stack } from '@material-ui/core';
 import AdapterDateFns from '@material-ui/lab/AdapterDateFns';
 import LocalizationProvider from '@material-ui/lab/LocalizationProvider';
 import DateRangePicker from '@material-ui/lab/DateRangePicker';
 
-import { PostSave } from './Utils';
+import { PostSave, FieldSave } from './Utils';
 
 const RangeField = ({ field, onFieldSaved, onCancel, index }) => {
   const [json, setJson] = useState(field);
@@ -20,11 +20,11 @@ const RangeField = ({ field, onFieldSaved, onCancel, index }) => {
   if (json.saved) {
     return <PostSave json={json} onCancel={onCancel} index={index} field={field} />;
   }
-  return <PreSave json={json} setJson={setJson} index={index} field={field} />;
+  return <PreSave json={json} setJson={setJson} onCancel={onCancel} index={index} field={field} />;
 };
 
 // eslint-disable-next-line react/prop-types
-export const PreSave = ({ json, setJson }) => {
+export const PreSave = ({ json, setJson, index, onCancel }) => {
   const [rangeData, setRangeData] = useState({ startDate: null, endDate: null });
   // const [value, setValue] = useState([null, null]);
 
@@ -89,29 +89,13 @@ export const PreSave = ({ json, setJson }) => {
           )}
         />
       </LocalizationProvider>
-      <Stack direction="row" alignItems="center">
-        <Checkbox
-          checked={json.is_required}
-          onChange={() => {
-            handleChange(!json.is_required, 'is_required');
-          }}
-          inputProps={{ 'aria-label': 'primary checkbox' }}
-        />
-        <Typography>Is Required?</Typography>
-      </Stack>
-      <Button
-        variant="contained"
-        to=""
-        // disabled={isCreating}
-        // style={{ padding: '10px 20px' }}
-        sx={{ px: 0, py: 1, mt: 2 }}
-        width="50%"
-        onClick={() => {
-          handleChange(true, 'saved');
-        }}
-      >
-        Save
-      </Button>
+      <FieldSave
+        json={json}
+        onCancel={onCancel}
+        setJson={setJson}
+        index={index}
+        handleChange={handleChange}
+      />
     </Stack>
   );
 };

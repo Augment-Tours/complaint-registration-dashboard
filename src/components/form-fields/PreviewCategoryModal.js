@@ -36,7 +36,7 @@ const PreviewFormModal = ({ categoryId, fieldList, isPreviewOpen, toggleDialog }
       aria-labelledby="alert-dialog-title"
       aria-describedby="alert-dialog-description"
     >
-      <DialogTitle id="alert-dialog-title">Form Preview</DialogTitle>
+      <DialogTitle id="alert-dialog-title">Category Preview</DialogTitle>
       <DialogContent style={{ width: '600px' }}>
         {fieldList.map((element, index) => {
           console.log(element);

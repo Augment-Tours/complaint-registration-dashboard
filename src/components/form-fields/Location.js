@@ -15,7 +15,7 @@ const PreviewCityField = ({ field }) => {
   ));
 
   useEffect(() => {
-    getAllCities().then((cities) => {
+    getAllCities('active').then((cities) => {
       setCities(cities);
     });
   }, []);
@@ -43,7 +43,7 @@ const PreviewRegionField = ({ field }) => {
   ));
 
   useEffect(() => {
-    getAllRegions().then((region) => {
+    getAllRegions('active').then((region) => {
       setRegions(region);
     });
   }, []);

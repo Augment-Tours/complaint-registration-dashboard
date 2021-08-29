@@ -4,15 +4,13 @@ import {
   TextField,
   Stack,
   Button,
-  Typography,
-  Checkbox,
   FormControl,
   InputLabel,
   MenuItem,
   Select
 } from '@material-ui/core';
 
-import { PostSave } from './Utils';
+import { PostSave, FieldSave } from './Utils';
 
 const OptionsField = ({ field, onFieldSaved, onCancel, index }) => {
   // eslint-disable-next-line no-unused-vars
@@ -29,11 +27,11 @@ const OptionsField = ({ field, onFieldSaved, onCancel, index }) => {
   if (json.saved) {
     return <PostSave json={json} onCancel={onCancel} index={index} field={field} />;
   }
-  return <PreSave json={json} setJson={setJson} index={index} />;
+  return <PreSave json={json} setJson={setJson} index={index} onCancel={onCancel} />;
 };
 
 // eslint-disable-next-line react/prop-types
-export const PreSave = ({ json, setJson }) => {
+export const PreSave = ({ index, json, setJson, onCancel }) => {
   const [options, setOptions] = useState([]);
 
   const handleChange = (value, field) => {
@@ -87,7 +85,7 @@ export const PreSave = ({ json, setJson }) => {
         />
       </Stack>
       <TextField
-        sx={{ mb: 2 }}
+        sx={{ mb: 1 }}
         value={json.hint}
         label="Hint / Placeholder"
         onChange={(e) => handleChange(e.target.value, 'hint')}
@@ -95,7 +93,7 @@ export const PreSave = ({ json, setJson }) => {
       {options.map((option, index) => (
         <TextField
           key={index}
-          sx={{ my: 2 }}
+          sx={{ my: 1 }}
           label={`Option ${index + 1}`}
           value={option.label}
           onChange={(e) => updateOption(index, e.target.value)}
@@ -104,35 +102,18 @@ export const PreSave = ({ json, setJson }) => {
 
       <Button
         color="primary"
-        sx={{ px: 0, py: 1, mt: 2 }}
+        sx={{ px: 0, py: 1, my: 2 }}
         onClick={() => addOption(`option-${options.length + 1}`)}
       >
         Add Option
       </Button>
-      <Stack direction="row" alignItems="center">
-        <Checkbox
-          checked={json.is_required}
-          onChange={() => {
-            handleChange(!json.is_required, 'is_required');
-          }}
-          inputProps={{ 'aria-label': 'primary checkbox' }}
-        />
-        <Typography>Is Required?</Typography>
-      </Stack>
-      <Button
-        variant="contained"
-        to=""
-        // disabled={isCreating}
-        // style={{ padding: '10px 20px' }}
-        sx={{ px: 0, py: 1, mt: 2 }}
-        width="50%"
-        onClick={() => {
-          // saveField(true);
-          handleChange(true, 'saved');
-        }}
-      >
-        Save
-      </Button>
+      <FieldSave
+        json={json}
+        onCancel={onCancel}
+        setJson={setJson}
+        index={index}
+        handleChange={handleChange}
+      />
     </Stack>
   );
 };

@@ -13,6 +13,9 @@ const PostSave = ({ index, onCancel, field }) => (
     <Typography variant="p" gutterBottom sx={{ mr: 3 }}>
       {field.label}
     </Typography>
+    <Typography variant="p" gutterBottom sx={{ mr: 3 }}>
+      {field.position}
+    </Typography>
     <Button
       onClick={() => {
         onCancel(index);

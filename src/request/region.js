@@ -1,7 +1,10 @@
 import rf from './requestFactory';
 
-const getAllRegions = async () => {
-  const url = `${process.env.REACT_APP_BACKEND}/locations/region/all/`;
+const getAllRegions = async (status = '') => {
+  let url = `${process.env.REACT_APP_BACKEND}/locations/region/all/`;
+  if (status === 'active') {
+    url = `${url}?status=active`;
+  }
   return rf
     .getRequest(url)
     .then((res) => res.data.results)

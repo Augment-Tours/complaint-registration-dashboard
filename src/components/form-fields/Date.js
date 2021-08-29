@@ -1,13 +1,13 @@
 /* eslint-disable react/prop-types */
 import React, { useEffect, useState } from 'react';
-import { TextField, Stack, Button, Typography, Checkbox } from '@material-ui/core';
+import { TextField, Stack, Typography, Checkbox } from '@material-ui/core';
 // import {
 //   MuiPickersUtilsProvider,
 //   KeyboardTimePicker,
 //   KeyboardDatePicker
 // } from '@material-ui/pickers';
 
-import { PostSave } from './Utils';
+import { PostSave, FieldSave } from './Utils';
 
 // import trash2Fill from '@iconify/icons-eva/trash-2-fill';
 
@@ -26,12 +26,12 @@ const DateField = ({ field, onFieldSaved, onCancel, index }) => {
   if (json.saved) {
     return <PostSave json={json} onCancel={onCancel} index={index} field={field} />;
   }
-  return <PreSave json={json} setJson={setJson} index={index} />;
+  return <PreSave json={json} setJson={setJson} index={index} onCancel={onCancel} />;
 };
 
 // eslint-disable-next-line react/prop-types
 // eslint-disable-next-line no-unused-vars
-export const PreSave = ({ json, setJson, index }) => {
+export const PreSave = ({ json, setJson, index, onCancel }) => {
   const [dateData, setDateData] = useState({
     hideDay: false,
     hideMonth: false
@@ -80,7 +80,7 @@ export const PreSave = ({ json, setJson, index }) => {
           onChange={(e) => handleChange(e.target.value, 'label')}
         />
       </Stack>
-      <Stack direction="row" alignItems="center">
+      <Stack direction="row" alignItems="center" sx={{ mb: 1 }}>
         <Stack direction="row" alignItems="center">
           <Checkbox
             checked={dateData.hideDay}
@@ -102,30 +102,13 @@ export const PreSave = ({ json, setJson, index }) => {
           <Typography>Hide Month</Typography>
         </Stack>
       </Stack>
-      <Stack direction="row" alignItems="center">
-        <Checkbox
-          checked={json.is_required}
-          onChange={() => {
-            handleChange(!json.is_required, 'is_required');
-          }}
-          inputProps={{ 'aria-label': 'primary checkbox' }}
-        />
-        <Typography>Is Required?</Typography>
-      </Stack>
-      <Button
-        variant="contained"
-        to=""
-        // disabled={isCreating}
-        // style={{ padding: '10px 20px' }}
-        sx={{ px: 0, py: 1, mt: 2 }}
-        width="50%"
-        onClick={() => {
-          // saveField(true);
-          handleChange(true, 'saved');
-        }}
-      >
-        Save
-      </Button>
+      <FieldSave
+        json={json}
+        onCancel={onCancel}
+        setJson={setJson}
+        index={index}
+        handleChange={handleChange}
+      />
     </Stack>
   );
 };
@@ -133,17 +116,19 @@ export const PreSave = ({ json, setJson, index }) => {
 const PreviewDateField = ({ field }) => {
   const { label, is_required } = field;
   // const jsonData = JSON.parse(data);
+  let finalLabel = label;
+  if (is_required) {
+    finalLabel = `* ${label}`;
+  }
 
   return (
     <>
-      <Typography gutterBottom>
-        {is_required && '*'} {label}
-      </Typography>
       <TextField
         id="date"
         fullWidth
-        label="Birthday"
+        label={finalLabel}
         type="date"
+        sx={{ mt: 1 }}
         // defaultValue="2017-05-24"
         // className={classes.textField}
         InputLabelProps={{
