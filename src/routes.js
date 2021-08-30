@@ -16,6 +16,7 @@ import Region from './pages/Region';
 import Form from './pages/Form';
 import CreateForm from './pages/CreateForm';
 import Category from './pages/Category';
+import EditForm from './pages/EditForm';
 
 // ----------------------------------------------------------------------
 
@@ -34,6 +35,7 @@ export default function Router() {
         { path: 'country', element: <PrivateRoute component={Country} /> },
         { path: 'forms', element: <PrivateRoute component={Form} /> },
         { path: 'forms/create', element: <PrivateRoute component={CreateForm} /> },
+        { path: 'forms/edit/:id', element: <PrivateRoute component={EditForm} /> },
         { path: 'category', element: <PrivateRoute component={Category} /> }
       ]
     },

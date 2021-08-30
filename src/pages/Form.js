@@ -3,7 +3,7 @@ import { Icon } from '@iconify/react';
 // import { sentenceCase } from 'change-case';
 import { useState, useEffect } from 'react';
 import plusFill from '@iconify/icons-eva/plus-fill';
-import { Link as RouterLink } from 'react-router-dom';
+import { Link as RouterLink, useNavigate, Navigate} from 'react-router-dom';
 // material
 import {
   Card,
@@ -79,6 +79,8 @@ export default function Museum() {
 
   const [previewId, setPreviewId] = useState(null);
   const [previewOpen, setPreviewOpen] = useState(false);
+
+  const navigate = useNavigate();
 
   const fetchForms = () => {
     getAllForms().then((res) => {
@@ -229,9 +231,16 @@ export default function Museum() {
                           </TableCell>
                           <TableCell align="right">
                             <UserMoreMenu
+                              toggleEditDrawer={() => {
+                                // console.log('here', navigate);
+                                // navigate('../', { replace: true });
+                                // console.log(`/dashboard/forms/edit/${id}/`);
+                                navigate(`/dashboard/forms/edit/${id}`);
+                              }}
                               deleteItem={() => {
                                 deleteFormWithRefresh(id);
                               }}
+                              editForm
                             />
                           </TableCell>
                         </TableRow>
