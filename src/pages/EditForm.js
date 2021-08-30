@@ -21,7 +21,7 @@ import Page from '../components/Page';
 import FieldChooser from '../components/form-fields/FieldChooser';
 //
 // import USERLIST from '../_mocks_/user';
-import { createForm, getFormDetail, updateForm } from '../request/form';
+import { getFormDetail, updateForm } from '../request/form';
 import PreviewFormModal from '../components/form-fields/previewFormModal';
 
 const FIELD_TYPES_LIST = [

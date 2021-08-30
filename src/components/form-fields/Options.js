@@ -52,7 +52,6 @@ const OptionsField = ({ field, onFieldSaved, onCancel, index }) => {
 // eslint-disable-next-line react/prop-types
 export const PreSave = ({ index, json, setJson, onCancel }) => {
   const [options, setOptions] = useState([]);
-  console.log("HERE");
   Object.entries(JSON.parse(json.data));
 
   const handleChange = (value, field) => {
