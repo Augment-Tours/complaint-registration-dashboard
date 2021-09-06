@@ -74,11 +74,10 @@ export default function EditForm() {
     setFieldType(e.target.value);
   };
 
-  const onFieldSaved = (fieldData) => {
+  const onFieldSaved = (fieldData, index) => {
     console.log(fieldData);
     const newFieldList = [...fieldList];
-    newFieldList.pop();
-    newFieldList.push(fieldData);
+    newFieldList[index] = fieldData;
     setFieldList(newFieldList);
   };
 
@@ -155,8 +154,8 @@ export default function EditForm() {
               // disabled={isCreating}
               style={{ padding: '10px 20px' }}
               onClick={() => {
+                const newFieldList = [...fieldList];
                 if (fieldType !== '') {
-                  const newFieldList = fieldList;
                   newFieldList.push({
                     name: `item ${fieldList.length + 1}`,
                     type: fieldType,

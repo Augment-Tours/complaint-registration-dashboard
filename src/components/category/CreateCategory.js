@@ -50,7 +50,7 @@ const CreateCategory = ({ isOpenFilter, toggleDrawer, fetchCategories }) => {
     getAllForms().then((forms) => {
       setForms(forms);
     });
-  }, []);
+  }, [isOpenFilter]);
   const createDrawer = (
     <Drawer
       anchor="right"

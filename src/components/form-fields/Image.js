@@ -13,7 +13,7 @@ const ImageField = ({ field, onFieldSaved, onCancel, index }) => {
 
   useEffect(() => {
     if (json.saved) {
-      onFieldSaved(json);
+      onFieldSaved(json, index);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [json]);
