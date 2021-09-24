@@ -52,9 +52,9 @@ export default function Register() {
       <MHidden width="mdDown">
         <SectionStyle>
           <Typography variant="h3" sx={{ px: 5, mt: 10, mb: 5 }}>
-            Manage the job more effectively with Minimal
+            Give feedback on <br /> Addis Ababa City
           </Typography>
-          <img alt="register" src="/static/illustrations/illustration_register.png" />
+          {/* <img alt="register" src="/static/illustrations/illustration_register.png" /> */}
         </SectionStyle>
       </MHidden>
 
@@ -74,7 +74,7 @@ export default function Register() {
           <RegisterForm />
 
           <Typography variant="body2" align="center" sx={{ color: 'text.secondary', mt: 3 }}>
-            By registering, I agree to Addis Ababa City
+            By registering, I agree to Addis Ababa City's{' '}
             <Link underline="always" sx={{ color: 'text.primary' }}>
               Terms of Service
             </Link>

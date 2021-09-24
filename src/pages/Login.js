@@ -3,7 +3,7 @@ import { Link as RouterLink } from 'react-router-dom';
 import { experimentalStyled as styled } from '@material-ui/core/styles';
 import { Card, Stack, Link, Container, Typography } from '@material-ui/core';
 // layouts
-// import AuthLayout from '../layouts/AuthLayout';
+import AuthLayout from '../layouts/AuthLayout';
 // components
 import Page from '../components/Page';
 import { MHidden } from '../components/@material-extend';
@@ -42,12 +42,12 @@ const ContentStyle = styled('div')(({ theme }) => ({
 export default function Login() {
   return (
     <RootStyle title="Login | Addis Ababa City">
-      {/* <AuthLayout>
+      <AuthLayout>
         Don’t have an account? &nbsp;
         <Link underline="none" variant="subtitle2" component={RouterLink} to="/register">
           Get started
         </Link>
-      </AuthLayout> */}
+      </AuthLayout>
 
       <MHidden width="mdDown">
         <SectionStyle>

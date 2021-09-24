@@ -15,4 +15,16 @@ const loggedInProfile = async () => {
   return rf.getRequest(url);
 };
 
-export { login, loggedInProfile };
+const signup = async ({ username, email, password1, password2, first_name, last_name }) => {
+  const url = `${process.env.REACT_APP_BACKEND}/api/rest-auth/registration/`;
+  return rf.postRequest(url, {
+    username,
+    email,
+    password1,
+    password2,
+    first_name,
+    last_name
+  });
+};
+
+export { login, loggedInProfile, signup };
