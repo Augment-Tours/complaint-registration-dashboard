@@ -1,4 +1,4 @@
-# Shilengae Dashboard Application
+# Security Project Dashboard Application
 
 1. Install node and npm
 2. npm install

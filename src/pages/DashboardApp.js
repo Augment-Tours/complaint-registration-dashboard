@@ -21,7 +21,7 @@ import Page from '../components/Page';
 
 export default function DashboardApp() {
   return (
-    <Page title="Dashboard | Shilengae">
+    <Page title="Dashboard | Addis Ababa City">
       <Container maxWidth="xl">
         <Box sx={{ pb: 5 }}>
           <Typography variant="h4">Hi, Welcome back</Typography>

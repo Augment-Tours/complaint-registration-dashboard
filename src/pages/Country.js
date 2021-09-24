@@ -158,7 +158,7 @@ export default function Museum() {
   };
 
   return (
-    <Page title="Country | Shilengae">
+    <Page title="Country | Addis Ababa City">
       <Container>
         <Stack direction="row" alignItems="center" justifyContent="space-between" mb={5}>
           <Typography variant="h4" gutterBottom>

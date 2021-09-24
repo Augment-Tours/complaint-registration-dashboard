@@ -47,7 +47,7 @@ export default function EcommerceShop() {
   };
 
   return (
-    <Page title="Dashboard: Products | Shilengae">
+    <Page title="Dashboard: Products | Addis Ababa City">
       <Container>
         <Typography variant="h4" sx={{ mb: 5 }}>
           Products

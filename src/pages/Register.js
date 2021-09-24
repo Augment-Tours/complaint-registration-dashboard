@@ -41,7 +41,7 @@ const ContentStyle = styled('div')(({ theme }) => ({
 
 export default function Register() {
   return (
-    <RootStyle title="Register | Shilengae">
+    <RootStyle title="Register | Addis Ababa City">
       <AuthLayout>
         Already have an account? &nbsp;
         <Link underline="none" variant="subtitle2" component={RouterLink} to="/login">
@@ -74,7 +74,7 @@ export default function Register() {
           <RegisterForm />
 
           <Typography variant="body2" align="center" sx={{ color: 'text.secondary', mt: 3 }}>
-            By registering, I agree to Shilengae
+            By registering, I agree to Addis Ababa City
             <Link underline="always" sx={{ color: 'text.primary' }}>
               Terms of Service
             </Link>

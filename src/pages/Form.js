@@ -158,7 +158,7 @@ export default function Museum() {
   const isUserNotFound = filteredUsers.length === 0;
 
   return (
-    <Page title="Form | Shilengae">
+    <Page title="Form | Addis Ababa City">
       <Container>
         <Stack direction="row" alignItems="center" justifyContent="space-between" mb={5}>
           <Typography variant="h4" gutterBottom>
