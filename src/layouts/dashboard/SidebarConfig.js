@@ -31,7 +31,7 @@ const sidebarConfig = [
     title: 'home',
     path: '/dashboard/app',
     icon: getIcon(homeFill)
-  },
+  }
   // {
   //   title: 'country',
   //   path: '/dashboard/country',
