@@ -11,7 +11,7 @@ const login = async (username, password) => {
 };
 
 const loggedInProfile = async () => {
-  const url = `${process.env.REACT_APP_BACKEND}/users/profile/`;
+  const url = `${process.env.REACT_APP_BACKEND}/api/profile/`;
   return rf.getRequest(url);
 };
 
