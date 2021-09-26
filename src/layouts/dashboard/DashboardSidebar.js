@@ -50,6 +50,8 @@ export default function DashboardSidebar({ isOpenSidebar, onCloseSidebar, accoun
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [pathname]);
 
+  const capitalize = ([first, ...rest]) => first.toUpperCase() + rest.join('').toLowerCase();
+
   const renderContent = (
     <Scrollbar
       sx={{
@@ -71,8 +73,11 @@ export default function DashboardSidebar({ isOpenSidebar, onCloseSidebar, accoun
               <Typography variant="subtitle2" sx={{ color: 'text.primary' }}>
                 {`${account.first_name} ${account.last_name}`}
               </Typography>
-              <Typography variant="body2" sx={{ color: 'text.secondary' }}>
-                {account.role}
+              <Typography
+                variant="body2"
+                sx={{ color: 'text.secondary', textTransform: 'capitalize' }}
+              >
+                {account.type ? capitalize(account.type) : ''}
               </Typography>
             </Box>
           </AccountStyle>
