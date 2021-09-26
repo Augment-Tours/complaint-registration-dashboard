@@ -17,6 +17,7 @@ import Page from '../components/Page';
 
 import { getOwnedFeedbacks, getAllFeedbacks } from '../request/feedback';
 import CreateFeedback from '../components/feedbacks/CreateFeedback';
+import { loggedInProfile } from '../request/auth';
 import { UserContext } from '../utils/context';
 
 export default function DashboardApp() {
@@ -29,14 +30,16 @@ export default function DashboardApp() {
   };
 
   const fetchFeedbacks = () => {
-    console.log('-->', user);
-    if (user.type === 'MODERATOR') {
-      return getAllFeedbacks().then((res) => {
-        setFeedbacks(res);
-      });
-    }
-    return getOwnedFeedbacks().then((res) => {
-      setFeedbacks(res);
+    loggedInProfile().then((res) => {
+      if (res.data.type === 'MODERATOR') {
+        getAllFeedbacks().then((res) => {
+          setFeedbacks(res);
+        });
+      } else {
+        getOwnedFeedbacks().then((res) => {
+          setFeedbacks(res);
+        });
+      }
     });
   };
 

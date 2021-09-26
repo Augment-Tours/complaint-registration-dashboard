@@ -1,7 +1,14 @@
 import * as Yup from 'yup';
 import React, { useState } from 'react';
 
-import { Stack, TextField, Dialog, DialogContent, DialogTitle } from '@material-ui/core';
+import {
+  Stack,
+  TextField,
+  Dialog,
+  DialogContent,
+  DialogTitle,
+  Typography
+} from '@material-ui/core';
 import { LoadingButton } from '@material-ui/lab';
 import { useFormik, FormikProvider } from 'formik';
 
@@ -48,7 +55,7 @@ const CreateFeedback = ({ isOpenFilter, toggleDrawer, fetchFeedbacks }) => {
         })
         .catch((err) => {
           // convert django errors to formik
-          if (err.response.status === 400) {
+          if (err.response && err.response.status === 400) {
             const errors = {};
             Object.entries(err.response.data).forEach(([key, value]) => {
               // eslint-disable-next-line prefer-destructuring
@@ -107,6 +114,7 @@ const CreateFeedback = ({ isOpenFilter, toggleDrawer, fetchFeedbacks }) => {
                 setFile(e.target.files[0]);
               }}
             />
+            <Typography sx={{ color: 'red' }}>{errors.detail}</Typography>
             <LoadingButton
               variant="contained"
               type="submit"
