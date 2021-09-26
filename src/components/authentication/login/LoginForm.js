@@ -1,5 +1,5 @@
 import * as Yup from 'yup';
-import { useState } from 'react';
+import { useState, useContext } from 'react';
 import { Link as RouterLink, useNavigate } from 'react-router-dom';
 import { useFormik, Form, FormikProvider } from 'formik';
 import { Icon } from '@iconify/react';
@@ -16,7 +16,8 @@ import {
   FormControlLabel
 } from '@material-ui/core';
 import { LoadingButton } from '@material-ui/lab';
-import { login } from '../../../request/auth';
+import { login, loggedInProfile } from '../../../request/auth';
+import { UserContext } from '../../../utils/context';
 
 // ----------------------------------------------------------------------
 
@@ -24,6 +25,7 @@ export default function LoginForm() {
   const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
+  const { setUser } = useContext(UserContext);
 
   const LoginSchema = Yup.object().shape({
     username: Yup.string().required('Username is required'),
@@ -41,6 +43,9 @@ export default function LoginForm() {
       login(values.username, values.password)
         .then((res) => {
           if (res.data && res.data.token) {
+            loggedInProfile().then((res) => {
+              setUser(res.data);
+            });
             navigate('/dashboard', { replace: true });
           } else {
             setErrorMessage('*Incorrect Username or password');

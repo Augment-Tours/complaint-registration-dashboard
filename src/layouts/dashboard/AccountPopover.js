@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
 import { Icon } from '@iconify/react';
-import { useRef, useState } from 'react';
+import { useRef, useState, useContext } from 'react';
 import homeFill from '@iconify/icons-eva/home-fill';
 import personFill from '@iconify/icons-eva/person-fill';
 import settings2Fill from '@iconify/icons-eva/settings-2-fill';
@@ -12,6 +12,7 @@ import { Button, Box, Divider, MenuItem, Typography, Avatar, IconButton } from '
 import MenuPopover from '../../components/MenuPopover';
 //
 import mockAccount from '../../_mocks_/account';
+import { UserContext } from '../../utils/context';
 
 // ----------------------------------------------------------------------
 
@@ -39,6 +40,8 @@ export default function AccountPopover({ account }) {
   const anchorRef = useRef(null);
   const [open, setOpen] = useState(false);
   const navigate = useNavigate();
+
+  const { setUser } = useContext(UserContext);
 
   const handleOpen = () => {
     setOpen(true);
@@ -118,6 +121,7 @@ export default function AccountPopover({ account }) {
             variant="outlined"
             onClick={() => {
               localStorage.removeItem('access-token');
+              setUser({});
               navigate('/login', { replace: true });
             }}
           >
