@@ -2,8 +2,6 @@
 import { Icon } from '@iconify/react';
 import { useRef, useState, useContext } from 'react';
 import homeFill from '@iconify/icons-eva/home-fill';
-import personFill from '@iconify/icons-eva/person-fill';
-import settings2Fill from '@iconify/icons-eva/settings-2-fill';
 import { Link as RouterLink, useNavigate } from 'react-router-dom';
 // material
 import { alpha } from '@material-ui/core/styles';

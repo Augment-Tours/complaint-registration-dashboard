@@ -1,25 +1,10 @@
 import * as Yup from 'yup';
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useState } from 'react';
 
-import {
-  Stack,
-  Button,
-  IconButton,
-  TextField,
-  Typography,
-  Drawer,
-  Dialog,
-  DialogContent,
-  DialogTitle,
-  Input
-} from '@material-ui/core';
+import { Stack, TextField, Dialog, DialogContent, DialogTitle } from '@material-ui/core';
 import { LoadingButton } from '@material-ui/lab';
-import closeFill from '@iconify/icons-eva/close-fill';
-import { Icon } from '@iconify/react';
-import { Link as RouterLink } from 'react-router-dom';
-import { useFormik, Form, FormikProvider } from 'formik';
+import { useFormik, FormikProvider } from 'formik';
 
-import { createCategory, getAllCategories } from '../../request/category';
 import { createFeedback } from '../../request/feedback';
 
 const CreateFeedback = ({ isOpenFilter, toggleDrawer, fetchFeedbacks }) => {
@@ -48,29 +33,7 @@ const CreateFeedback = ({ isOpenFilter, toggleDrawer, fetchFeedbacks }) => {
     },
     validationSchema: FeedbackSchema,
     onSubmit: (values) => {
-      // console.log({ ...values, file });
-      // console.log('under this');
-      // createFeedback({ ...values, file })
-      //   .then((res) => {
-      //     console.log(res);
-      //     fetchFeedbacks();
-      //     toggleDrawer();
-      //   })
-      //   .catch((err) => {
-      //     // convert django errors to formik
-      //     if (err.response.status === 400) {
-      //       const errors = {};
-      //       Object.entries(err.response.data).forEach(([key, value]) => {
-      //         // eslint-disable-next-line prefer-destructuring
-      //         errors[key] = value[0];
-      //       });
-      //       formik.setErrors(errors);
-      //     }
-      //   })
-      //   .finally(() => {
-      //     formik.setSubmitting(false);
-      //   });
-      // create an object of formdata
+      // create an object of form data
       const formData = new FormData();
       // append the values
       formData.append('subject', values.subject);
@@ -144,18 +107,6 @@ const CreateFeedback = ({ isOpenFilter, toggleDrawer, fetchFeedbacks }) => {
                 setFile(e.target.files[0]);
               }}
             />
-            {/* Upload File */}
-            {/* {formik.values.file?.name} */}
-            {/* <input
-              type="file"
-              {...getFieldProps('file')}
-              hidden
-              accept="application/pdf"
-              onChange={(e) => {
-                formik.setFieldValue('file', e.target.files[0]);
-              }}
-            /> */}
-            {/* </input> */}
             <LoadingButton
               variant="contained"
               type="submit"
@@ -163,7 +114,6 @@ const CreateFeedback = ({ isOpenFilter, toggleDrawer, fetchFeedbacks }) => {
               loading={isSubmitting}
               style={{ marginTop: '20px', padding: '10px 0' }}
             >
-              {/* {!isCreating ? 'Add' : 'Creating Feedback...'} */}
               Creating Feedback
             </LoadingButton>
           </Stack>

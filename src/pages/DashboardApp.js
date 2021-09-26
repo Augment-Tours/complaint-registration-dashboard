@@ -1,15 +1,12 @@
 import { useContext, useEffect, useState } from 'react';
 // material
 import {
-  Box,
   Grid,
   Container,
   Typography,
   Button,
   Card,
   CardContent,
-  CardMedia,
-  CardActions,
   Stack,
   CardActionArea,
   Chip
@@ -45,7 +42,8 @@ export default function DashboardApp() {
 
   useEffect(() => {
     fetchFeedbacks();
-  }, [user]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <Page title="Dashboard | Addis Ababa City">
