@@ -1,9 +1,6 @@
 import { filter } from 'lodash';
-import { Icon } from '@iconify/react';
 import { sentenceCase } from 'change-case';
 import { useState, useEffect } from 'react';
-import plusFill from '@iconify/icons-eva/plus-fill';
-import { Link as RouterLink } from 'react-router-dom';
 // material
 import {
   Card,
@@ -11,7 +8,6 @@ import {
   Stack,
   Avatar,
   Button,
-  Checkbox,
   TableRow,
   TableBody,
   TableCell,
@@ -25,10 +21,10 @@ import Page from '../components/Page';
 import Label from '../components/Label';
 import Scrollbar from '../components/Scrollbar';
 import SearchNotFound from '../components/SearchNotFound';
-import { UserListHead, UserListToolbar, UserMoreMenu } from '../components/_dashboard/user';
-import UserDrawer from '../components/user/CreateUser';
+import { UserListHead, UserListToolbar } from '../components/_dashboard/user';
+// import UserDrawer from '../components/user/CreateUser';
 
-import { getAllUsers } from '../request/user';
+import { getAllUsers, toggleUserStatus } from '../request/user';
 
 //
 // import USERLIST from '../_mocks_/user';
@@ -40,7 +36,6 @@ const TABLE_HEAD = [
   { id: 'full_name', label: 'Full Name', alignRight: false },
   { id: 'email', label: 'Email', alignRight: false },
   { id: 'type', label: 'User Type', alignRight: false },
-  { id: 'country', label: 'Country', alignRight: false },
   { id: 'status', label: 'Status', alignRight: false },
   { id: 'action', label: 'Action', alignRight: true }
 ];
@@ -87,7 +82,7 @@ export default function User() {
   const [filterName, setFilterName] = useState('');
   const [rowsPerPage, setRowsPerPage] = useState(5);
   const [userList, setUserList] = useState([]);
-  const [isOpenFilter, setIsOpenFilter] = useState(false);
+  // const [isOpenFilter, setIsOpenFilter] = useState(false);
 
   const fetchUsers = () => {
     getAllUsers().then((res) => {
@@ -117,23 +112,23 @@ export default function User() {
     setSelected([]);
   };
 
-  const handleClick = (event, name) => {
-    const selectedIndex = selected.indexOf(name);
-    let newSelected = [];
-    if (selectedIndex === -1) {
-      newSelected = newSelected.concat(selected, name);
-    } else if (selectedIndex === 0) {
-      newSelected = newSelected.concat(selected.slice(1));
-    } else if (selectedIndex === selected.length - 1) {
-      newSelected = newSelected.concat(selected.slice(0, -1));
-    } else if (selectedIndex > 0) {
-      newSelected = newSelected.concat(
-        selected.slice(0, selectedIndex),
-        selected.slice(selectedIndex + 1)
-      );
-    }
-    setSelected(newSelected);
-  };
+  // const handleClick = (event, name) => {
+  //   const selectedIndex = selected.indexOf(name);
+  //   let newSelected = [];
+  //   if (selectedIndex === -1) {
+  //     newSelected = newSelected.concat(selected, name);
+  //   } else if (selectedIndex === 0) {
+  //     newSelected = newSelected.concat(selected.slice(1));
+  //   } else if (selectedIndex === selected.length - 1) {
+  //     newSelected = newSelected.concat(selected.slice(0, -1));
+  //   } else if (selectedIndex > 0) {
+  //     newSelected = newSelected.concat(
+  //       selected.slice(0, selectedIndex),
+  //       selected.slice(selectedIndex + 1)
+  //     );
+  //   }
+  //   setSelected(newSelected);
+  // };
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -148,9 +143,9 @@ export default function User() {
     setFilterName(event.target.value);
   };
 
-  const toggleDrawer = () => {
-    setIsOpenFilter(!isOpenFilter);
-  };
+  // const toggleDrawer = () => {
+  //   setIsOpenFilter(!isOpenFilter);
+  // };
 
   const emptyRows = page > 0 ? Math.max(0, (1 + page) * rowsPerPage - userList.length) : 0;
 
@@ -165,15 +160,6 @@ export default function User() {
           <Typography variant="h4" gutterBottom>
             User
           </Typography>
-          <Button
-            variant="contained"
-            component={RouterLink}
-            onClick={toggleDrawer}
-            to="#"
-            startIcon={<Icon icon={plusFill} />}
-          >
-            New User
-          </Button>
         </Stack>
 
         <Card>
@@ -205,7 +191,6 @@ export default function User() {
                         first_name,
                         last_name,
                         status,
-                        country_name,
                         email,
                         avatarUrl,
                         type
@@ -222,10 +207,10 @@ export default function User() {
                           aria-checked={isItemSelected}
                         >
                           <TableCell padding="checkbox">
-                            <Checkbox
+                            {/* <Checkbox
                               checked={isItemSelected}
                               onChange={(event) => handleClick(event, username)}
-                            />
+                            /> */}
                           </TableCell>
                           <TableCell component="th" scope="row" padding="none">
                             <Stack direction="row" alignItems="center" spacing={2}>
@@ -239,9 +224,6 @@ export default function User() {
                           <TableCell align="left">{`${email}`}</TableCell>
                           <TableCell align="left">{`${type}`}</TableCell>
                           <TableCell align="left">
-                            {country_name == null ? 'NA' : country_name}
-                          </TableCell>
-                          <TableCell align="left">
                             <Label
                               variant="ghost"
                               color={(status === 'INACTIVE' && 'error') || 'success'}
@@ -251,7 +233,18 @@ export default function User() {
                           </TableCell>
 
                           <TableCell align="right">
-                            <UserMoreMenu />
+                            {/* <UserMoreMenu /> */}
+                            {/* disable button */}
+                            <Button
+                              color={(status === 'ACTIVE' && 'error') || 'primary'}
+                              onClick={() => {
+                                toggleUserStatus(id).then(() => {
+                                  fetchUsers();
+                                });
+                              }}
+                            >
+                              {status === 'INACTIVE' ? 'Enable' : 'Disable'}
+                            </Button>
                           </TableCell>
                         </TableRow>
                       );
@@ -285,11 +278,6 @@ export default function User() {
             onRowsPerPageChange={handleChangeRowsPerPage}
           />
         </Card>
-        <UserDrawer
-          isOpenFilter={isOpenFilter}
-          toggleDrawer={toggleDrawer}
-          fetchUsers={fetchUsers}
-        />
       </Container>
     </Page>
   );

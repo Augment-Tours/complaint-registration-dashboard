@@ -36,4 +36,9 @@ const createUser = async (
   });
 };
 
-export { getAllUsers, createUser };
+const toggleUserStatus = async (userId) => {
+  const url = `${process.env.REACT_APP_BACKEND}/users/toggle-status/${userId}/`;
+  return rf.postRequest(url);
+};
+
+export { getAllUsers, createUser, toggleUserStatus };

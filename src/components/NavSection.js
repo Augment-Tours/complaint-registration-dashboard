@@ -1,12 +1,15 @@
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import PropTypes from 'prop-types';
 import { Icon } from '@iconify/react';
 import { NavLink as RouterLink, matchPath, useLocation } from 'react-router-dom';
 import arrowIosForwardFill from '@iconify/icons-eva/arrow-ios-forward-fill';
 import arrowIosDownwardFill from '@iconify/icons-eva/arrow-ios-downward-fill';
+import peopleFill from '@iconify/icons-eva/people-fill';
 // material
 import { alpha, useTheme, experimentalStyled as styled } from '@material-ui/core/styles';
 import { Box, List, ListItem, Collapse, ListItemText, ListItemIcon } from '@material-ui/core';
+
+import { UserContext } from '../utils/context';
 
 // ----------------------------------------------------------------------
 
@@ -152,10 +155,17 @@ function NavItem({ item, active }) {
 NavSection.propTypes = {
   navConfig: PropTypes.array
 };
+const getIcon = (name) => <Icon icon={name} width={22} height={22} />;
 
 export default function NavSection({ navConfig, ...other }) {
   const { pathname } = useLocation();
   const match = (path) => (path ? !!matchPath({ path, end: false }, pathname) : false);
+  const { user } = useContext(UserContext);
+  const x = {
+    title: 'user',
+    path: '/dashboard/user',
+    icon: getIcon(peopleFill)
+  };
 
   return (
     <Box {...other}>
@@ -163,6 +173,7 @@ export default function NavSection({ navConfig, ...other }) {
         {navConfig.map((item) => (
           <NavItem key={item.title} item={item} active={match} />
         ))}
+        {user?.type === 'MODERATOR' && <NavItem key={x.title} item={x} active={match} />}
       </List>
     </Box>
   );
