@@ -13,6 +13,7 @@ import { LoadingButton } from '@material-ui/lab';
 import { useFormik, FormikProvider } from 'formik';
 
 import { createFeedback } from '../../request/feedback';
+import CSRFToken from '../CSRFToken';
 
 const CreateFeedback = ({ isOpenFilter, toggleDrawer, fetchFeedbacks }) => {
   const [file, setFile] = useState(null);
@@ -36,7 +37,8 @@ const CreateFeedback = ({ isOpenFilter, toggleDrawer, fetchFeedbacks }) => {
   const formik = useFormik({
     initialValues: {
       subject: '',
-      feedback: ''
+      feedback: '',
+      csrfmiddlewaretoken: ''
     },
     validationSchema: FeedbackSchema,
     onSubmit: (values) => {
@@ -114,6 +116,7 @@ const CreateFeedback = ({ isOpenFilter, toggleDrawer, fetchFeedbacks }) => {
                 setFile(e.target.files[0]);
               }}
             />
+            {/* <CSRFToken /> */}
             <Typography sx={{ color: 'red' }}>{errors.detail}</Typography>
             <LoadingButton
               variant="contained"

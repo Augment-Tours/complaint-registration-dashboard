@@ -6,7 +6,7 @@ import ThemeConfig from './theme';
 // components
 import ScrollToTop from './components/ScrollToTop';
 import { UserContext } from './utils/context';
-import { loggedInProfile } from './request/auth';
+import { loggedInProfile, fetchCSRF } from './request/auth';
 
 // ----------------------------------------------------------------------
 
@@ -14,6 +14,7 @@ export default function App() {
   const [user, setUser] = useState({});
 
   useEffect(() => {
+    // fetchCSRF();
     loggedInProfile()
       .then((res) => {
         setUser(res.data);

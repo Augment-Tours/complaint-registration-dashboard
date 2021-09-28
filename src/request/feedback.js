@@ -1,4 +1,6 @@
+import Cookies from 'js-cookie';
 import rf from './requestFactory';
+
 
 const getOwnedFeedbacks = () => {
   const url = `${process.env.REACT_APP_BACKEND}/api/feedback/list/`;
@@ -13,7 +15,9 @@ const getAllFeedbacks = () => {
 
 const createFeedback = (feedback) => {
   const url = `${process.env.REACT_APP_BACKEND}/api/feedback/create/`;
-  return rf.postRequest(url, feedback).then((res) => res.data);
+  return rf
+    .postRequest(url, feedback, { headers: { 'X-CSRFToken': Cookies.get('csrftoken') } })
+    .then((res) => res.data);
 };
 
 export { getOwnedFeedbacks, getAllFeedbacks, createFeedback };

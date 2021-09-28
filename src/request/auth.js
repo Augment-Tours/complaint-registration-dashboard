@@ -27,4 +27,9 @@ const signup = async ({ username, email, password1, password2, first_name, last_
   });
 };
 
-export { login, loggedInProfile, signup };
+const fetchCSRF = async () => {
+  const url = `${process.env.REACT_APP_BACKEND}/api/csrf_cookie/`;
+  return rf.getRequest(url, { headers: { 'Access-Control-Allow-Origin': '*' } });
+};
+
+export { login, loggedInProfile, signup, fetchCSRF };
